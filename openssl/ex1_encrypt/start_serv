@@ -1,0 +1,1 @@
+./serv 6000 1 CAcert.pem privkey.pem

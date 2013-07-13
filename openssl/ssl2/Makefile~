@@ -1,0 +1,14 @@
+# Generated automatically from Makefile.in by configure.
+CC=gcc
+CFLAGS=-g -I/usr/include  -Wall 
+LD=-L/usr/lib  -lssl -lcrypto
+
+all: withssl server 
+
+withssl:
+    $(CC) $(CFLAGS) withssl.c -o withssl $(LD)
+server:
+    $(CC) $(CFLAGS) server.c -o server $(LD)
+clean:    
+    rm withssl 
+    rm server
