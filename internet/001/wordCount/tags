@@ -1,0 +1,21 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+HYPHEN	wdcount.c	19;"	d	file:
+MAX_LEN_FILENAME	wdcount.c	17;"	d	file:
+MAX_LEN_FILETYPE	wdcount.c	18;"	d	file:
+MAX_LEN_WORD	wdcount.c	16;"	d	file:
+count	wdcount.c	/^	int count;					\/\/ The appearance time $/;"	m	struct:wNode	file:
+left	substring.h	/^char *left(char *dst,char *src,int n,int m)$/;"	f
+main	wdcount.c	/^int main(int argc, char*argv[]){$/;"	f
+mid	substring.h	/^char *mid(char *dst,char *src,int n,int m)$/;"	f
+next	wdcount.c	/^	struct wNode* next;$/;"	m	struct:wNode	typeref:struct:wNode::wNode	file:
+right	substring.h	/^char *right(char *dst,char *src,int n,int m)$/;"	f
+substring	substring.h	/^char *substring(char *dst,char *src,int len,int start)$/;"	f
+usage	wdcount.c	/^void usage(){$/;"	f
+wNode	wdcount.c	/^typedef struct wNode{$/;"	s	file:
+wNode	wdcount.c	/^}wNode;$/;"	t	typeref:struct:wNode	file:
+word	wdcount.c	/^	char word[MAX_LEN_WORD];	\/\/ Longest word length is 	$/;"	m	struct:wNode	file:

@@ -1,0 +1,189 @@
+// This is a simple chat example using multicasting.
+// You should pay attention to the following:
+//
+// 1) The receving socket should bind the multicast address.
+//    Otherwise, you cannot use 'recvfrom' system API to get 
+//    messages from multicast address.
+//
+// 2) If your Linux kernel doesn't support multicasting, you should
+//    recompile your kernel and let the multicasting be supported.
+//
+// 3) In default, FC5 actually supports multicasting.
+//    but how? The possible way to let the multicasting work is to
+//    add multicast route to your local machine's route table.
+//
+//    This is an examle which adds multicast route to device eth0's 
+//    route table:
+//
+//       #route add -net 224.0.0.0/4 dev eth0
+//
+// 4) If your local machine has firewall working, add ACCEPT rule to 
+//    your multicast address or disable your firewall rudely.
+// 
+// 5) If you run two programs which bind the same address and port
+//    at the same host, you should use setsockopt, and set 
+//    SO_REUSEADDR option.
+//
+//  Written by Li,Suke. 
+//  I hope this program will be useful to you!
+//
+//
+#include <iostream>
+#include <cstdlib>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <cerrno>
+#include <unistd.h>
+#include <cstring>
+
+
+#define TTL 1
+#define MAX_BUF_SIZE    1024
+
+using namespace std;
+
+
+int main (int argc, char *argv[])
+{
+        int sock_fd; 
+        int sock_recv_fd;
+        
+        struct sockaddr_in multiaddr;
+        struct ip_mreq mreq;
+   
+        struct sockaddr_in from;
+        int ttl,no;
+        
+        int n;
+        socklen_t len;
+
+        char recv_buf[MAX_BUF_SIZE],send_buf[MAX_BUF_SIZE];
+
+        char name[2 * MAX_BUF_SIZE];
+
+        const char* p = 0;
+        char ip_str[INET_ADDRSTRLEN];
+
+        pid_t pid;       
+        int ret_val = 0;
+
+        if (argc != 4){
+                cerr << "usage  <multiaddress> <port> <name>" << endl;
+                exit(1);
+        }   
+    
+        bzero(&multiaddr,sizeof(multiaddr));
+        multiaddr.sin_family = AF_INET;
+        multiaddr.sin_port = htons(atoi(argv[2]));
+       
+        ret_val = inet_pton(AF_INET,argv[1], &multiaddr.sin_addr);
+        if (ret_val <= 0) {
+                perror("inet_pton");
+                exit(1);
+        }
+
+        sock_fd = socket(AF_INET, SOCK_DGRAM, 0);
+        if (sock_fd < 0){
+                perror("socket");
+                exit(1);
+        }
+        ttl = TTL;
+
+        ret_val = setsockopt(sock_fd, IPPROTO_IP,IP_MULTICAST_TTL,
+                &ttl,sizeof(ttl));
+        if (ret_val  < 0)
+        {
+                perror("setsockopt ttl");
+                exit(1);
+        }
+
+        no = 1;
+        ret_val = setsockopt(sock_fd, IPPROTO_IP,IP_MULTICAST_LOOP,
+                &no,sizeof(no));
+
+        if (ret_val < 0)
+        {
+                perror("setsockopt");
+                exit(1);
+        }     
+        
+        sock_recv_fd = socket(AF_INET,SOCK_DGRAM,0);
+        if (sock_recv_fd < 0){
+                perror("socket sock_recv_fd");
+                exit(1);
+        }
+        int a = 1;
+        ret_val = setsockopt(sock_recv_fd, SOL_SOCKET,SO_REUSEADDR ,&a, sizeof(no));
+        if (ret_val < 0) {
+                perror("setsockopt");
+                exit(1);    
+        }
+
+        ret_val = bind(sock_recv_fd, (struct sockaddr*)&multiaddr, sizeof(multiaddr));
+        if (ret_val < 0)
+        {
+                perror("bind");
+                exit(1);
+        }
+
+        mreq.imr_multiaddr = multiaddr.sin_addr;
+        mreq.imr_interface.s_addr = htonl(INADDR_ANY);
+
+        ret_val = setsockopt(sock_recv_fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq,
+                sizeof(mreq));
+
+        if (ret_val < 0)
+        {
+                perror("setsockopt add member ");
+                exit (1);
+        }
+
+        pid = fork();
+        if (pid < 0) {
+                perror("fork");
+                exit(1);
+        }
+        if (pid == 0) {
+                for(;;) {
+
+                        len = sizeof(from);
+                        n = recvfrom(sock_recv_fd, recv_buf, MAX_BUF_SIZE, 0,
+                                (struct sockaddr*)&from, &len);
+                        if (n < 0) {
+                                perror("recvfrom");
+                                exit(1);
+                        } else {
+                                recv_buf[n] = 0;
+                                p = inet_ntop(AF_INET,&from.sin_addr,ip_str,
+                                                INET_ADDRSTRLEN);
+                                cout << p << "-- " << recv_buf << endl;
+
+                        }
+
+			
+                }
+        }
+        else {
+                while (cin.getline(send_buf, sizeof(send_buf)) != 0) {
+
+                        strcpy(name, argv[3]);
+                        strcat(name, ":");
+                        strcat(name, send_buf);
+
+                        n = sendto(sock_fd, name, strlen(name), 0,
+                                (struct sockaddr*)&multiaddr, sizeof(multiaddr));
+                        if (n < 0){
+                                perror("sendto");
+                                exit(1);
+                        }
+                        
+                       //  n = recvfrom(sock_fd, recv_buf, MAX_BUF_SIZE, 0,
+                                (struct sockaddr*)&from, &len);
+
+                }
+
+        }
+        return 0;
+}
