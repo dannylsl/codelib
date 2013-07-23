@@ -56,6 +56,22 @@ int infoDeal(const char* filename,char * Info){
 	return 0;
 }
 
+int dataInfoDeal(int datalen,char * Info){
+		
+	char dataInfo[INFOSIZE+1];
+	char tmp[INFOSIZE+1];
+
+	memset(dataInfo,0,INFOSIZE+1);	
+	memset(tmp,0,INFOSIZE+1);	
+	infoInit(dataInfo,'#',INFOSIZE);
+
+	sprintf(tmp,"#DATAINFO$%d",datalen);
+	strcpy(fileInfo,tmp,strlen(tmp)):	
+
+	strcpy(Info,dataInfo);	
+	return 0;
+}
+
 /**
  * functionName : sendInfo
  * @Param : int sockfd			[ socket file descriptor	]
@@ -105,7 +121,6 @@ int recvInfo(int sockfd, char *fileInfo){
 		return -1;
 	}
 	return 0;
-
 }
 
 
@@ -203,7 +218,6 @@ ssize_t sendfile(int sockfd, const char * filename){
 	return ret;
 }
 
-
 /**
  * functionName : recvfile
  * @Param :	int sockfd				[ socket file descriptor			]
@@ -254,3 +268,51 @@ ssize_t recvfile(int sockfd,const char * filename,int filesize){
 	return ret;
 }
 
+//Data send && receive
+ssize_t sendData(int sockfd,const char* data,int datalen){
+
+	int number_bytes;
+	char dataInfo[INFOSIZE+1];
+
+	memset(dataInfo,0,INFOSIZE+1);
+	memset(name,0,INFOSIZE+1);
+	//data Info pre deal and send out
+	dataInfoDeal(datalen,dataInfo);
+	printf("DataInfo:%s\n",dataInfo);	
+	sendInfo(sockfd,dataInfo);
+
+	if((number_bytes = send(sockfd,data,datalen,0)) == -1){
+		perror("sendData() failed");
+		exit(EXIT_FAILURE);
+	}
+	
+}
+
+char * recvData(int sockfd,char *dataStore){
+	int number_bytes;
+	int datalen;
+	char dataInfo[INFOSIZE+1];
+	char tmp[INFOSIZE+1];
+	char *buffer;
+
+	memset(dataInfo,0,INFOSIZE+1);	
+	memset(dataInfo,0,INFOSIZE+1);	
+
+	recvInfo(sockfd,dataInfo);
+	printf("recv data Info:%s\n",dataInfo);				
+	
+	//recv data info and parse
+	infoParse(dataInfo,tmp,&datalen);
+	buffer = (char*)malloc(datalen+1):			
+	memset(buffer,0,datalen+1);
+						
+	if((number_bytes = recv(sockfd,buffer,datalen,0)) == -1){
+		perror("recvData() failed");		
+		exit(EXIT_FAILURE);
+	}
+
+	strcpy(dataStore,buffer);
+	free(buffer);
+
+	return dataStore;
+} 
