@@ -59,6 +59,15 @@ RSA* read_RSA_Prikey(const char*filename, int fileCodeType ){
 }
 
 RSA* read_RSA_Prikey_PEM(const char*filename){
+	RSA *rsa;
+	BIO *in;
+
+	in = BIO_new_file(filename,"rb");
+	rsa = RSA_new();
+	rsa = PEM_read_bio_RSAPrivateKey(in,&rsa,NULL,NULL);
+	return rsa;
+	
+/*	
 	FILE*fp;
 	RSA *rsa;
 
@@ -75,6 +84,7 @@ RSA* read_RSA_Prikey_PEM(const char*filename){
 	}
 	fclose(fp);
 	return rsa;
+*/
 }
 
 X509* my_PKCS7_cert_from_signer_info(PKCS7 *p7, PKCS7_SIGNER_INFO *si)
@@ -87,6 +97,7 @@ X509* my_PKCS7_cert_from_signer_info(PKCS7 *p7, PKCS7_SIGNER_INFO *si)
 		return(NULL);
 }
 
+
 int write_pem_certification(X509 *x509_cert,const char*filename){
 	BIO *b;
 	printf("write %s PEM file\n",filename);
@@ -98,7 +109,6 @@ int write_pem_certification(X509 *x509_cert,const char*filename){
 	PEM_write_bio_X509(b,x509_cert);
 	BIO_free(b);
 	return 0;
-	
 }
 
 X509 *read_pem_certification(const char*filename){
@@ -185,153 +195,16 @@ int write_data_to_file(const unsigned char* data,int datalen,const unsigned char
 	}
 	fclose(fp);
 	return 0;
-
 }
-
-// READ recCertname PEM code ONLY
-// X509 * der	 签名数字信封DER编码存储,作为输出
-int ssl_PKCS7_signed_and_enveloped_from_data(EVP_PKEY *prikey,STACK_OF(X509)*ca, X509* x509_Cert,const char* recCertFileName,char *data,char*derOut){
-
-	int size,len;
-	int caCnt,i;	
-	X509 *x509_RecCert = NULL;
-	RSA *rsa = NULL;
-
-	x509_RecCert = read_pem_certification(recCertFileName);
-
-	//打印证书信息
-	//x509_cert_print(x509_RecCert,"接收者证书 x509_RecCert ");	
-	//x509_cert_print(x509_Cert,"发送者证书 x509_cert");	
-
-	//获取RSA私钥
-	rsa = EVP_PKEY_get1_RSA(prikey);
-	//打印私钥信息	
-	//printf("\t\t\t\t\t发送者私钥\n");
-	//RSA_print_fp(stdout,rsa,1);
-	
-	PKCS7 *p7 = PKCS7_new();
-	//设置类型为NID_pkcs7_signedAndEnveloped
-	PKCS7_set_type(p7, NID_pkcs7_signedAndEnveloped);
-
-	//DES 算法加密
-	EVP_CIPHER *evp_cipher = EVP_des_cbc();
-	PKCS7_set_cipher(p7,evp_cipher);
-	//设置接受者证书,获取公钥用于加密对称密钥
-	PKCS7_RECIP_INFO *p7recipinfo = PKCS7_add_recipient(p7,x509_RecCert);	
-	//打印 recipient 信息
-	//pkcs7_recip_print(p7recipinfo);		
-	
-	//添加签名,用发送者证书,发送者私钥,sha1()加密算法
-	PKCS7_SIGNER_INFO *info = PKCS7_add_signature(p7, x509_Cert, prikey,EVP_sha1());
-	//打印 signature 信息
-	signer_info_print(info);
-
-	//添加签名者证书
-	PKCS7_add_certificate(p7,x509_Cert);
-	//添加签名者证书链
-	caCnt = sk_X509_num(ca);
-	for(i = 0;i < caCnt; i++){
-		PKCS7_add_certificate(p7,sk_X509_value(ca,i));		
-		//打印证书链
-		//x509_cert_print(sk_X509_value(ca,i),"证书链");
-	}
-	BIO *p7bio = PKCS7_dataInit(p7,NULL);
-
-	//获取明文信息
-	size = strlen(data);		
-	printf("Data:%s\n",data);
-
-	BIO_write(p7bio,data,size);
-	BIO_flush(p7bio);
-	//完成签名数字信封
-	PKCS7_dataFinal(p7,p7bio);
-
-	//PKCS7编码转DER编码
-	X509 *derTmp,*der;
-	int derLen = i2d_PKCS7(p7,NULL);
-	der = (unsigned char*)malloc(derLen+1);
-	memset(der,0,derLen+1);
-	derTmp = der;
-	derLen = i2d_PKCS7(p7,&derOut);
-
-	strcpy(derOut,(char*)der);
-
-	return derLen;
-}
-
-//　从DER编码的数字信封中解析出明文数据
-//  利用私钥prikey 从DER编码的数字信封中解析数据
-int ssl_PKCS7_get_data_from_signed_and_enveloped_der(char *der,int len,EVP_PKEY *prikey,unsigned char *dataOut){
-
-	int i,num,size,srclen;
-	unsigned char srcData[4096];
-	unsigned char *tmp,*p;
-	PKCS7 *p7;
-
-	size = len;
-	memset(srcData,0,4097);
-//	tmp = (char*)malloc(size);
-//	tmp = OPENSSL_malloc(len);	
-//	strncpy(tmp,der,size);
-//	p = tmp;
-
-	//printf("tmp = %s\n",tmp);
-	//检查数据转换是否有问题
-	//p7 = PKCS7_new();
-	//p7 = d2i_PKCS7(NULL,(const unsigned char**)&tmp,size);
-	p7 = d2i_PKCS7(NULL,(const unsigned char**)&der,size);
-	BIO *out = BIO_new(BIO_s_file());
-	BIO_set_fp(out,stdout,BIO_NOCLOSE);
-	ERR_print_errors(out);
-	BIO_free(out);
-	//BIO *v_p7bio = PKCS7_dataDecode(p7,prikey,NULL,x509_cert);
-	BIO *v_p7bio = PKCS7_dataDecode(p7,prikey,NULL,NULL);
-
-	srclen = BIO_read(v_p7bio,srcData,4096);
-	if(srclen <= 0){
-		printf("无法解析出明文\n");
-		return -1;
-	}
-
-	printf("\t\t\t\t　密文解析内容 \n");
-	printf("%s\n",srcData);
-	//获得签名者信息stack
-	STACK_OF(PKCS7_SIGNER_INFO)*sk = PKCS7_get_signer_info(p7);
-	//获得签名者个数
-	int signCount = sk_PKCS7_SIGNER_INFO_num(sk);
-	for(i = 0;i < signCount; i++){
-		//获得签名者信息
-		PKCS7_SIGNER_INFO *signInfo = sk_PKCS7_SIGNER_INFO_value(sk,i);		
-		signer_info_print(signInfo);	
-		//获得签名者证书
-		//X509*cert = PKCS7_cert_from_signer_info(p7,signInfo);
-		X509*cert = my_PKCS7_cert_from_signer_info(p7,signInfo);
-		x509_cert_print(cert,"签名者(发送者)证书");
-		//验证签名
-		if(PKCS7_signatureVerify(v_p7bio,p7,signInfo,cert) != 1){
-			//	if(PKCS7_signatureVerify(v_p7bio,p7,signInfo,x509_cert) != 1){ //验证签名的证书是否有问题?
-			printf("Signature Verity Error\n");
-			return 0;
-		}else{
-			printf("Signature Verify successfully!\n");	
-			//由dataOut返回数据
-			strcpy(dataOut,srcData);  
-			//DataOut输出
-			printf("Data Out:%s\n",dataOut);
-			return 1;
-		}	
-	}
-}
-
 
 /**
  * @Param: filename		接受者证书   PEM 编码
  * @Param: x509_cert	发送者证书
  * @Param: datafilename 加密文本文件名
- * @Param: fileCodeType 文件编码方式　可选值　DER | PEM
  */
 char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*ca,	X509* x509_Cert , const char* filename, const int fileCodeType, const char* datafilename)
 {
+
 	unsigned char *buffer;
 	FILE *fp;	
 	int size,len;
@@ -345,8 +218,6 @@ char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*
 			break;
 		case PEM:
 			x509_RecCert = read_pem_certification(filename);
-			break;
-		defualt:	
 			break;
 	}
 	//打印证书信息
@@ -363,8 +234,8 @@ char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*
 	//设置类型为NID_pkcs7_signedAndEnveloped
 	PKCS7_set_type(p7, NID_pkcs7_signedAndEnveloped);
 	//BELOW ADD REFERS TO   http://ipedo.blog.sohu.com/114822405.html
-//	PKCS7_content_new(p7,NID_pkcs7_data);
-//	PKCS7_set_detached(p7,0);
+	//PKCS7_content_new(p7,NID_pkcs7_data);
+	//PKCS7_set_detached(p7,0);
 
 	//DES 算法加密
 	EVP_CIPHER *evp_cipher = EVP_des_cbc();
@@ -420,7 +291,7 @@ char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*
 	derTmp = der;
 	derLen = i2d_PKCS7(p7,&derTmp);
 	//将DER编码后的内容写入文件
-	write_data_to_file(der,derLen,"signedAndEnveloped.p7");
+	write_data_to_file(der,derLen,"out.p7");
 
 	return 0;
 }
@@ -434,7 +305,7 @@ char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_
 	FILE *fp;
 	int i,num,size,srclen;
 	unsigned char * buffer;
-	unsigned char srcData[4097];
+	unsigned char srcData[4096];
 	PKCS7 *p7;
 
 	memset(srcData,0,4097);
@@ -446,8 +317,8 @@ char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_
 	get_data_from_file(filename,buffer,size);
 
 	p7 = d2i_PKCS7(NULL,(const unsigned char**)&buffer,size);
-	//BIO *v_p7bio = PKCS7_dataDecode(p7,prikey,NULL,x509_cert);
-	BIO *v_p7bio = PKCS7_dataDecode(p7,prikey,NULL,NULL);
+	BIO *v_p7bio = PKCS7_dataDecode(p7,prikey,NULL,x509_cert);
+	//BIO *v_p7bio = PKCS7_dataDecode(p7,prikey,NULL,NULL);
 
 	srclen = BIO_read(v_p7bio,srcData,4096);
 	if(srclen <= 0){
@@ -477,8 +348,8 @@ char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_
 			printf("Signature Verify successfully!\n");	
 			return 1;
 		}	
+		}
+		return 1;
 	}
-	return 1;
-}
 
 #endif

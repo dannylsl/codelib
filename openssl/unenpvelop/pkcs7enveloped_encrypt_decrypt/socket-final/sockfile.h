@@ -1,6 +1,6 @@
 #include  <sys/stat.h>
-
-#define BUFSIZE		1024
+#include "timestamp.h"
+#define BUFSIZE		4096
 #define INFOSIZE	64
 
 /**
@@ -56,22 +56,6 @@ int infoDeal(const char* filename,char * Info){
 	return 0;
 }
 
-int dataInfoDeal(int datalen,char * Info){
-		
-	char dataInfo[INFOSIZE+1];
-	char tmp[INFOSIZE+1];
-
-	memset(dataInfo,0,INFOSIZE+1);	
-	memset(tmp,0,INFOSIZE+1);	
-	infoInit(dataInfo,'#',INFOSIZE);
-
-	sprintf(tmp,"#DATAINFO$%d",datalen);
-	strncpy(dataInfo,tmp,strlen(tmp));	
-
-	strcpy(Info,dataInfo);	
-	return 0;
-}
-
 /**
  * functionName : sendInfo
  * @Param : int sockfd			[ socket file descriptor	]
@@ -121,6 +105,7 @@ int recvInfo(int sockfd, char *fileInfo){
 		return -1;
 	}
 	return 0;
+
 }
 
 
@@ -176,7 +161,27 @@ int infoParse(char* fileInfo,char * filename,int * filesize){
 	return 0;
 
 }
+//Data send && receive
+ssize_t sendData(int sockfd,const char* data,int datalen){
 
+	int number_bytes;
+	char dataInfo[INFOSIZE+1];
+
+	memset(dataInfo,0,INFOSIZE+1);
+	//data Info pre deal and send out
+	dataInfoDeal(datalen,dataInfo);
+	printf("DataInfo:%s\n",dataInfo);	
+	sendInfo(sockfd,dataInfo);
+
+	if((number_bytes = send(sockfd,data,datalen,0)) == -1){
+		perror("sendData() failed");
+		exit(EXIT_FAILURE);
+	}
+
+	printf("send Data:%s\n",data);
+	return number_bytes;
+	
+}
 
 /**
  * functionName : sendfile
@@ -217,6 +222,7 @@ ssize_t sendfile(int sockfd, const char * filename){
 	fclose(fp);
 	return ret;
 }
+
 
 /**
  * functionName : recvfile
@@ -268,53 +274,93 @@ ssize_t recvfile(int sockfd,const char * filename,int filesize){
 	return ret;
 }
 
-//Data send && receive
-ssize_t sendData(int sockfd,const char* data,int datalen){
-
-	int number_bytes;
-	char dataInfo[INFOSIZE+1];
-
-	memset(dataInfo,0,INFOSIZE+1);
-	//data Info pre deal and send out
-	dataInfoDeal(datalen,dataInfo);
-	printf("DataInfo:%s\n",dataInfo);	
-	sendInfo(sockfd,dataInfo);
-
-	if((number_bytes = send(sockfd,data,datalen,0)) == -1){
-		perror("sendData() failed");
-		exit(EXIT_FAILURE);
-	}
-
-	printf("send Data:%s\n",data);
-	return number_bytes;
-	
-}
-
-int recvData(int sockfd,char *dataStore){
-	int number_bytes;
-	int datalen;
+int dataInfoDeal(int datalen,char * Info){
+		
 	char dataInfo[INFOSIZE+1];
 	char tmp[INFOSIZE+1];
-	char *buffer;
 
 	memset(dataInfo,0,INFOSIZE+1);	
 	memset(tmp,0,INFOSIZE+1);	
+	infoInit(dataInfo,'#',INFOSIZE);
 
-	recvInfo(sockfd,dataInfo);
-	printf("recv data Info:%s\n",dataInfo);				
-	
-	//recv data info and parse
-	infoParse(dataInfo,tmp,&datalen);
-	buffer = (char*)malloc(datalen+1);			
-	memset(buffer,0,datalen+1);
-						
-	if((number_bytes = recv(sockfd,buffer,datalen,0)) == -1){
-		perror("recvData() failed");		
+	sprintf(tmp,"#DATAINFO$%d",datalen);
+	strncpy(dataInfo,tmp,strlen(tmp));	
+
+	strcpy(Info,dataInfo);	
+	return 0;
+}
+
+//给文件名添加一个数字
+int addSocketfdToFileName(char *filename,int sockfd)
+{
+    char numstr[20][3]={"0\0","1\0","2\0","3\0","4\0","5\0","6\0","7\0","8\0","9\0"};
+    int i,bai,shi,ge;
+    int first=1,hastype=0;
+    //最大999
+    if(sockfd>999){printf("invalid number..\n"); return 0;}
+
+    char last[16];
+    memset(last,'\0',sizeof(last));
+    
+    //判断是否有后缀名
+    int len=strlen(filename);
+    for(i=len-1;i>0;i--)
+    {
+      if(filename[i]=='.')
+        {
+            hastype=1;
+            break;
+        }
+    }  
+    //有后缀名，先保存后缀名
+    if(hastype==1)
+    {
+      strcpy(last,filename+i);
+      memset(filename+i,'\0',strlen(filename)-i);
+    }
+
+    //百位
+    bai=sockfd/100;
+    if(bai>0) { strcat(filename,numstr[bai]); first=0;}
+    sockfd=sockfd%100;
+    //十位
+    shi=sockfd/10;
+    if(shi>0) { strcat(filename,numstr[shi]); first=0;}
+    else if(shi==0&&first==0){ strcat(filename,numstr[shi]); first=0;}
+    sockfd=sockfd%10;
+    //个位
+    ge=sockfd;
+    { strcat(filename,numstr[ge]); first=0;}
+ 
+    //如果原来有后缀名，将后缀名添上
+    if(hastype==1)
+    {
+      strcat(filename,last);
+    }
+    return 0;
+
+}
+
+void sendTimestamptoClient(int sockfd,char * timestamp)
+{
+	int number_bytes; 
+ if((number_bytes = send(sockfd,timestamp,12,0)) == -1){
+		perror("sendTimestamptoClient() failed");
 		exit(EXIT_FAILURE);
 	}
+  return ;
+}
 
-	strcpy(dataStore,buffer);
-	free(buffer);
+char * createTimeStamp()
+{
+   time_t curtime;
+   char *timestamp=(char *)malloc(12);
+   infoInit(timestamp,'\0',12);
+   time(&curtime);
+   char timestr[20];
+   memset(timestr,'\0',20);
+   sprintf(timestr,"#%ld",curtime);
+   strncpy(timestamp,timestr,strlen(timestr));
 
-	return number_bytes;
-} 
+   return timestamp;
+}

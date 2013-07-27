@@ -11,6 +11,7 @@
 #include "../sockfile.h"
 #include "../print.h"
 #include "../signAndEnvelop.h"
+#include "../timestamp.h"
 
 #define CLIENTCERT		"clientCert.pem"
 //#define CLIENTPRIKDER	"prikey.der"
@@ -26,16 +27,11 @@ int main(int argc, char *argv[]){
 	char filename[64];
 	char fileInfo[INFOSIZE+1];
 	int fsize;
-	char *data;
-	int datalen;
 	
 	RSA *rsa = NULL;
 	EVP_PKEY *pkey = NULL;
 	X509 *x509_cert = NULL;
-	char derOut[4096];
-	X509 *der = NULL;
 
-	memset(derOut,0,4096);
 	OpenSSL_add_all_algorithms();
 
 	if(argc != 2){
@@ -58,8 +54,12 @@ int main(int argc, char *argv[]){
 		perror("CONNECT ERROR");
 		exit(EXIT_FAILURE);
 	}
-
+        
 	printf("client starting...\n");
+        char timestamp[20];
+        memset(timestamp,'\0',20);
+        recv(sockfd,timestamp,12,0);
+        printf("\n\n%s\n\n",timestamp);
 	//接收服务端证书
 	printf("receiving cert from server\n");
 	recvInfo(sockfd,fileInfo);	
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]){
 	infoParse(fileInfo,filename,&fsize);	
 	printf("recv filename:%s\tfilesize:%d\n ",filename,fsize);
 	recvfile(sockfd,filename,fsize);
-
+     
 	//获取客户端密钥,用于签名
 	printf("reading client private key\n");
 	//rsa = read_RSA_Prikey(CLIENTPRIKDER,DER);		
@@ -79,21 +79,22 @@ int main(int argc, char *argv[]){
 	//生成签名数字信封
 	printf("Generating Signed And Enveloped data\n");
 
-//	ssl_PKCS7_signed_and_enveloped_from_file(pkey,NULL,x509_cert,filename,PEM,DATAFILE);
-	
-	datalen = get_file_size(DATAFILE);	
-	data = (char*)malloc(datalen+1);
-	memset(data,0,datalen+1);
-	get_data_from_file(DATAFILE,data,datalen);		
-	sendData(sockfd,data,datalen);
+	ssl_PKCS7_signed_and_enveloped_from_file(pkey,NULL,x509_cert,filename,PEM,DATAFILE);
 
-	datalen = ssl_PKCS7_signed_and_enveloped_from_data(pkey,NULL,x509_cert,filename,data,derOut);
-	printf("derOut len = %d\n",datalen);
-	sendData(sockfd,derOut,datalen);
-/*
 	printf("Send Signed And Enveloped data file from client to server\n");
 	infoDeal("signedAndEnveloped.p7",fileInfo);	
-	printf("fileInfo:%s\n",fileInfo);	
+	printf("fileInfo:%s\n",fileInfo);
+        	char * data = "12345678901234567890123456789012";
+	char derOut[4096];
+	int derlen;
+	data = add_timeStamp(data,timestamp);
+	derlen = ssl_PKCS7_signed_and_enveloped_from_data(pkey,NULL,x509_cert,filename,data,derOut);
+
+	printf("Send Signed And Enveloped data file from client to server\n");
+	infoDeal("signedAndEnveloped.p7",fileInfo);	
+	printf("fileInfo:%s\n",fileInfo);
+        sendData(sockfd,derOut,derlen);	
+/*	
 	sendInfo(sockfd,fileInfo);
 	sendfile(sockfd,"signedAndEnveloped.p7");
 */

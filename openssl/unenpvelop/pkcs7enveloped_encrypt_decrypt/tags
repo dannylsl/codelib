@@ -1,0 +1,127 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ACC	socket/server/Makefile	/^ACC=arm-none-linux-gnueabi-gcc$/;"	m
+ALD	socket/server/Makefile	/^ALD=-L\/usr\/local\/openssl\/lib\/ -lssl -lcrypto $/;"	m
+BUFSIZE	socket/sockfile.h	3;"	d
+BUF_LEN	socket/server/serv.c	15;"	d	file:
+CC	Makefile	/^CC=gcc$/;"	m
+CC	deSignAndEncrypt/Makefile	/^CC=gcc$/;"	m
+CC	socket/Makefile	/^CC=gcc$/;"	m
+CC	socket/client/Makefile	/^CC=gcc$/;"	m
+CC	socket/server/Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-g -Wall -o$/;"	m
+CFLAGS	deSignAndEncrypt/Makefile	/^CFLAGS=-g -Wall -o$/;"	m
+CFLAGS	socket/Makefile	/^CFLAGS=-g -Wall -o$/;"	m
+CFLAGS	socket/client/Makefile	/^CFLAGS=-g -Wall -o$/;"	m
+CFLAGS	socket/server/Makefile	/^CFLAGS= -I \/usr\/local\/openssl\/include\/ -g -Wall -o$/;"	m
+CLIENTCERT	socket/android/signedAndEnvelop.c	7;"	d	file:
+CLIENTCERT	socket/client/client.c	15;"	d	file:
+CLIENTPRIKEY	socket/android/signedAndEnvelop.c	6;"	d	file:
+CLIENTPRIKPEM	socket/client/client.c	17;"	d	file:
+DATAFILE	socket/client/client.c	18;"	d	file:
+DER	signAndEnvelop.h	7;"	d
+DER	signedAndEnveloped.c	6;"	d	file:
+DER	socket/signAndEnvelop.h	7;"	d
+INFOSIZE	socket/sockfile.h	4;"	d
+LD	Makefile	/^LD=-lssl -lcrypto$/;"	m
+LD	deSignAndEncrypt/Makefile	/^LD=-lssl -lcrypto$/;"	m
+LD	socket/Makefile	/^LD=-lssl -lcrypto$/;"	m
+LD	socket/client/Makefile	/^LD=-lssl -lcrypto$/;"	m
+LD	socket/server/Makefile	/^LD=-lssl -lcrypto$/;"	m
+MAX_LEN	deSignAndEncrypt/designedAndenveloped.c	6;"	d	file:
+MAX_LEN	main.c	5;"	d	file:
+MAX_LEN	signAndEnvelop.h	6;"	d
+MAX_LEN	signedAndEnveloped.c	5;"	d	file:
+MAX_LEN	socket/signAndEnvelop.h	6;"	d
+P7FILE	deSignAndEncrypt/designedAndenveloped.c	8;"	d	file:
+P7FILE	main.c	6;"	d	file:
+PEM	signAndEnvelop.h	8;"	d
+PEM	signedAndEnveloped.c	7;"	d	file:
+PEM	socket/signAndEnvelop.h	8;"	d
+PORT	socket/client/client.c	20;"	d	file:
+PORT	socket/server/serv.c	16;"	d	file:
+SERVERCERT	socket/android/signedAndEnvelop.c	8;"	d	file:
+SERVERCERT	socket/server/serv.c	18;"	d	file:
+SERVERPRIK	socket/server/serv.c	19;"	d	file:
+X509_ALGOR_print	print.h	/^int X509_ALGOR_print(BIO *bp,X509_ALGOR *signature)$/;"	f
+X509_ALGOR_print	socket/print.h	/^int X509_ALGOR_print(BIO *bp,X509_ALGOR *signature)$/;"	f
+__PRINT_H	print.h	2;"	d
+__PRINT_H	socket/print.h	2;"	d
+__SIGNANDENVELOP_H	signAndEnvelop.h	2;"	d
+__SIGNANDENVELOP_H	socket/signAndEnvelop.h	2;"	d
+asn1_integer_print	print.h	/^void asn1_integer_print(ASN1_INTEGER*asn1value,const char *title){$/;"	f
+asn1_integer_print	socket/print.h	/^void asn1_integer_print(ASN1_INTEGER*asn1value,const char *title){$/;"	f
+asn1_object_print	print.h	/^void asn1_object_print(ASN1_OBJECT *a, const char* title){$/;"	f
+asn1_object_print	socket/print.h	/^void asn1_object_print(ASN1_OBJECT *a, const char* title){$/;"	f
+asn1_octet_string_print	print.h	/^void asn1_octet_string_print(ASN1_OCTET_STRING *octet){$/;"	f
+asn1_octet_string_print	socket/print.h	/^void asn1_octet_string_print(ASN1_OCTET_STRING *octet){$/;"	f
+dataInfoDeal	socket/sockfile.h	/^int dataInfoDeal(int datalen,char * Info){$/;"	f
+get_data_from_file	signAndEnvelop.h	/^int get_data_from_file(const char* filename,unsigned char *data,int len){$/;"	f
+get_data_from_file	signedAndEnveloped.c	/^int get_data_from_file(const char* filename,unsigned char *data,int len){$/;"	f
+get_data_from_file	socket/signAndEnvelop.h	/^int get_data_from_file(const char* filename,unsigned char *data,int len){$/;"	f
+get_file_size	signAndEnvelop.h	/^int get_file_size(const char* filename){$/;"	f
+get_file_size	signedAndEnveloped.c	/^int get_file_size(const char* filename){$/;"	f
+get_file_size	socket/signAndEnvelop.h	/^int get_file_size(const char* filename){$/;"	f
+infoDeal	socket/sockfile.h	/^int infoDeal(const char* filename,char * Info){$/;"	f
+infoInit	socket/sockfile.h	/^void infoInit(char *info,const char ch,int len){$/;"	f
+infoParse	socket/sockfile.h	/^int infoParse(char* fileInfo,char * filename,int * filesize){$/;"	f
+infoRmEnd	socket/sockfile.h	/^void infoRmEnd(char *fileInfo,int len){$/;"	f
+main	cert_pk_test.c	/^int main(){$/;"	f
+main	deSignAndEncrypt/designedAndenveloped.c	/^int main(){$/;"	f
+main	main.c	/^int main(){$/;"	f
+main	signedAndEnveloped.c	/^	int main(){$/;"	f
+main	socket/android/signedAndEnvelop.c	/^int main(int argc,char ** argv){$/;"	f
+main	socket/client/client.c	/^int main(int argc, char *argv[]){$/;"	f
+main	socket/server/serv.c	/^int main(int argc,char *argv[]){$/;"	f
+my_PKCS7_cert_from_signer_info	signAndEnvelop.h	/^X509* my_PKCS7_cert_from_signer_info(PKCS7 *p7, PKCS7_SIGNER_INFO *si)$/;"	f
+my_PKCS7_cert_from_signer_info	signedAndEnveloped.c	/^X509* my_PKCS7_cert_from_signer_info(PKCS7 *p7, PKCS7_SIGNER_INFO *si)$/;"	f
+my_PKCS7_cert_from_signer_info	socket/signAndEnvelop.h	/^X509* my_PKCS7_cert_from_signer_info(PKCS7 *p7, PKCS7_SIGNER_INFO *si)$/;"	f
+pkcs7_envelop_print	print.h	/^void pkcs7_envelop_print(PKCS7_ENVELOPE* envelop){$/;"	f
+pkcs7_envelop_print	socket/print.h	/^void pkcs7_envelop_print(PKCS7_ENVELOPE* envelop){$/;"	f
+pkcs7_recip_print	print.h	/^void pkcs7_recip_print(PKCS7_RECIP_INFO *recip){$/;"	f
+pkcs7_recip_print	socket/print.h	/^void pkcs7_recip_print(PKCS7_RECIP_INFO *recip){$/;"	f
+pkcs7_signed_and_envelop_print	print.h	/^void pkcs7_signed_and_envelop_print(PKCS7_SIGN_ENVELOPE* envelop){$/;"	f
+pkcs7_signed_and_envelop_print	socket/print.h	/^void pkcs7_signed_and_envelop_print(PKCS7_SIGN_ENVELOPE* envelop){$/;"	f
+read_RSA_Prikey	signAndEnvelop.h	/^RSA* read_RSA_Prikey(const char*filename, int fileCodeType ){$/;"	f
+read_RSA_Prikey	socket/signAndEnvelop.h	/^RSA* read_RSA_Prikey(const char*filename, int fileCodeType ){$/;"	f
+read_RSA_Prikey_PEM	signAndEnvelop.h	/^RSA* read_RSA_Prikey_PEM(const char*filename){$/;"	f
+read_RSA_Prikey_PEM	socket/signAndEnvelop.h	/^RSA* read_RSA_Prikey_PEM(const char*filename){$/;"	f
+read_der_certification	signAndEnvelop.h	/^X509 *read_der_certification(const char*filename){$/;"	f
+read_der_certification	signedAndEnveloped.c	/^X509 *read_der_certification(const char*filename){$/;"	f
+read_der_certification	socket/signAndEnvelop.h	/^X509 *read_der_certification(const char*filename){$/;"	f
+read_pem_certification	signAndEnvelop.h	/^X509 *read_pem_certification(const char*filename){$/;"	f
+read_pem_certification	signedAndEnveloped.c	/^X509 *read_pem_certification(const char*filename){$/;"	f
+read_pem_certification	socket/signAndEnvelop.h	/^X509 *read_pem_certification(const char*filename){$/;"	f
+recvData	socket/sockfile.h	/^int recvData(int sockfd,char *dataStore){$/;"	f
+recvInfo	socket/sockfile.h	/^int recvInfo(int sockfd, char *fileInfo){$/;"	f
+recvfile	socket/sockfile.h	/^ssize_t recvfile(int sockfd,const char * filename,int filesize){$/;"	f
+saveprikey	signAndEnvelop.h	/^int saveprikey(RSA *rsa,const char *filename,int bits){$/;"	f
+saveprikey	socket/signAndEnvelop.h	/^int saveprikey(RSA *rsa,const char *filename,int bits){$/;"	f
+sendData	socket/sockfile.h	/^ssize_t sendData(int sockfd,const char* data,int datalen){$/;"	f
+sendInfo	socket/sockfile.h	/^int sendInfo(int sockfd,char * fileInfo){$/;"	f
+sendfile	socket/sockfile.h	/^ssize_t sendfile(int sockfd, const char * filename){$/;"	f
+signer_info_print	print.h	/^void signer_info_print(PKCS7_SIGNER_INFO*info){$/;"	f
+signer_info_print	socket/print.h	/^void signer_info_print(PKCS7_SIGNER_INFO*info){$/;"	f
+ssl_PKCS7_get_Enveloped_data	main.c	/^char* ssl_PKCS7_get_Enveloped_data (EVP_PKEY *priKey,X509 *x509_Cert)$/;"	f
+ssl_PKCS7_get_Enveloped_data_from_p7file	deSignAndEncrypt/designedAndenveloped.c	/^char* ssl_PKCS7_get_Enveloped_data_from_p7file(char* filename,EVP_PKEY *priKey,X509 *x509_Cert){$/;"	f
+ssl_PKCS7_get_Enveloped_data_from_p7file	main.c	/^char* ssl_PKCS7_get_Enveloped_data_from_p7file(char* filename,EVP_PKEY *priKey,X509 *x509_Cert){$/;"	f
+ssl_PKCS7_get_Signed_Enveloped_data_from_p7file	signAndEnvelop.h	/^char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_PKEY *prikey, X509 *x509_cert){$/;"	f
+ssl_PKCS7_get_Signed_Enveloped_data_from_p7file	signedAndEnveloped.c	/^char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_PKEY *prikey, X509 *x509_cert){$/;"	f
+ssl_PKCS7_get_Signed_Enveloped_data_from_p7file	socket/signAndEnvelop.h	/^char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_PKEY *prikey, X509 *x509_cert){$/;"	f
+ssl_PKCS7_get_data_from_signed_and_enveloped_der	socket/signAndEnvelop.h	/^int ssl_PKCS7_get_data_from_signed_and_enveloped_der(char *der,int len,EVP_PKEY *prikey,unsigned char *dataOut){$/;"	f
+ssl_PKCS7_signed_and_enveloped	main.c	/^char* ssl_PKCS7_signed_and_enveloped(EVP_PKEY*priKey)$/;"	f
+ssl_PKCS7_signed_and_enveloped_from_data	socket/signAndEnvelop.h	/^int ssl_PKCS7_signed_and_enveloped_from_data(EVP_PKEY *prikey,STACK_OF(X509)*ca, X509* x509_Cert,const char* recCertFileName,char *data,char*derOut){$/;"	f
+ssl_PKCS7_signed_and_enveloped_from_file	signAndEnvelop.h	/^char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*ca,	X509* x509_Cert , const char* filename, const int fileCodeType, const char* datafilename)$/;"	f
+ssl_PKCS7_signed_and_enveloped_from_file	signedAndEnveloped.c	/^char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*ca, X509* x509_Cert ,const char* filename,const int fileCodeType,const char* datafilename){$/;"	f
+ssl_PKCS7_signed_and_enveloped_from_file	socket/signAndEnvelop.h	/^char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*ca,	X509* x509_Cert , const char* filename, const int fileCodeType, const char* datafilename)$/;"	f
+write_data_to_file	signAndEnvelop.h	/^int write_data_to_file(const unsigned char* data,int datalen,const unsigned char* filename){$/;"	f
+write_data_to_file	signedAndEnveloped.c	/^int write_data_to_file(const unsigned char* data,int datalen,const unsigned char* filename){$/;"	f
+write_data_to_file	socket/signAndEnvelop.h	/^int write_data_to_file(const unsigned char* data,int datalen,const unsigned char* filename){$/;"	f
+write_pem_certification	signAndEnvelop.h	/^int write_pem_certification(X509 *x509_cert,const char*filename){$/;"	f
+write_pem_certification	socket/signAndEnvelop.h	/^int write_pem_certification(X509 *x509_cert,const char*filename){$/;"	f
+x509_cert_print	print.h	/^int x509_cert_print(X509* x509_cert,const char* title){$/;"	f
+x509_cert_print	socket/print.h	/^int x509_cert_print(X509* x509_cert,const char* title){$/;"	f
