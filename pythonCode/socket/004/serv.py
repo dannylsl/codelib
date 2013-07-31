@@ -84,24 +84,24 @@ def deal(certReqName):
 
 	print 'certification application name:'+certReqName
 
-	if os.path.isfile('./usercert.pem'):
+	if os.path.isfile('./clientCert.pem'):
 		print certReqName + " is exist, remove it"
-		os.remove('./usercert.pem')
+		os.remove('./clientCert.pem')
 
 	os.system('exit')
-	child = pexpect.spawn('openssl ca -in %s -out %s \n' % (certReqName,'./usercert.pem'))
+	child = pexpect.spawn('openssl ca -in %s -out %s \n' % (certReqName,'./clientCert.pem'))
 	child.logfile = sys.stdout
 	child.expect('Enter pass phrase for')
 	child.send('123456\n')
+	child.send('\n')
 	child.expect('y/n')
 	child.send('y\n')
 	child.expect('y/n')
 	child.send('y\n')
 	child.expect('Data Base Updated')
-	print 'usercert created'
+	print 'clientCert created'
 
-	os.system('openssl x509 -in usercert.pem -inform PEM -out usercert.der -outform DER')
-
+	os.system('openssl x509 -in clientCert.pem -inform PEM -out clientCert.der -outform DER')
 
 ########################################
 # main
@@ -114,7 +114,8 @@ if __name__ == '__main__':
 
 #	print host+":"+str(port)
 
-	ADDR = ('127.0.0.1',6000)
+	ADDR = ('192.168.1.102',6000)
+#	ADDR = ('127.0.0.1',6000)
 
 #	s.bind((host,port))
 	s.bind(ADDR)
@@ -137,8 +138,8 @@ if __name__ == '__main__':
 		deal('srecv_'+recvFileName)		
 
 		print 'start sending file b.txt' 
-		sendFileInfo(connect,'./','usercert.der')
-		sendFile(connect,'./','usercert.der')
+		sendFileInfo(connect,'./','clientCert.pem')
+		sendFile(connect,'./','clientCert.pem')
 	
 		child = pexpect.spawn("sudo openssl ocsp -index ./demoCA/index.txt -CA ./demoCA/cacert.pem \
 				-rsigner ./demoCA/cacert.pem -rkey ./demoCA/private/cakey.pem -port 9999")
