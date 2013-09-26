@@ -10,6 +10,7 @@ function Usage()
 	echo -e "\t$0 dir1 dir2"
 }
 
+
 #Function isFileExist() check the file exist or not
 #Usage: isFileExist filepath
 function isFileExist()
@@ -19,6 +20,7 @@ function isFileExist()
 	test -e $filepath || ret="notexist"
 	echo $ret
 }
+
 
 #Function fileType() returns the type of a file [directory of file]
 #Usage: fileType filename
@@ -35,33 +37,73 @@ function fileType()
 	echo $ret
 }
 
-#Function getMore() output more.log
-#Usage: getMore dir1 dir2
-function getMore()
+#Function add_all_filepath() add all filepath in a folder to log file
+#Usage: add_all_filepath folder more.log [base_dir_for_change]
+function add_all_filepath()
+{
+	dir=$1
+	log=$2
+	basedir=$3
+	echo "[START] add_all_filepath $dir $log" 
+	echo "$dir">>$log
+	for x in $(ls $dir)	
+	do 
+		filetype=$(fileType "$dir/$x")
+		echo "[file] $dir/$x is a $filetype"
+		if [ $filetype == "file" ]; then
+			echo "$dir/$x">>$log
+		elif [ $filetype == "dir" ]; then
+			#THERE IS A SHELL-SCRIPT BUG BELOW, AFTER Traversal,
+			#The dir value changed to a value equals to dir value in the Traversal
+			echo "$dir/$x/">>$log
+			#echo "[BEFORE CALL] $dir"
+			cur_dir=$dir
+			add_all_filepath "$dir/$x" $log 
+			#echo "[AFTER CALL] $dir"
+			dir=$cur_dir
+			#echo "[AFTER CALL] $dir"
+		fi
+	done
+	echo "[DONE] add_all_filepath $dir $log "
+}
+
+
+#Function compare() output log file
+#Usage: compare dir1 dir2 more.log
+#		compare dir2 dir1 less.log
+function compare()
 {
 	dir1=$1
 	dir2=$2
+	log=$3
+	echo "compare $dir1 $dir2 $log"
 	for x in $(ls $dir1)	
 	do
-		filetype=$(fileType $x)
+		filetype=$(fileType "$dir1/$x")
 		if [ $filetype == "file" ]; then
 			#check if [FILE]$x exist in [DIR]$dir2											
 			is_file_x_in_dir2=$(isFileExist "$dir2/$x")
-			if [ $is_file_x_in_dir2 == "notexist" ]			
-				echo "$dir1/$x">>more.log 	
+			if [ $is_file_x_in_dir2 == "notexist" ]; then			
+				echo "$dir1/$x">>$log 	
 			fi
 		elif [ $filetype == "dir" ]; then
 			#check if [DIR]$x exist in [DIR]$dir2	
 			is_dir_x_in_dir2=$(isFileExist "$dir2/$x")
-			if [ $is_dir_x_in_dir2 == "notexist" ]
-				#Traversal [DIR]$x and add all filepath to more.log			
-									
+			if [ $is_dir_x_in_dir2 == "notexist" ]; then
+				#Traversal [DIR]$x and add all filepath to log file		
+				echo "[DIR]$x notexist in [DIR]$dir2"
+				add_all_filepath $dir1/$x $log 
 			elif [ $is_dir_x_in_dir2 == "exist" ]; then
-				#Continue to Traversal [DIR]$x
-
+				#THE SAME BUG FOUNDED IN FUNCTION add_all_filepath
+				#echo "[BEFORE RECURSION]$dir1  $dir2"
+				cur_dir1=$dir1
+				cur_dir2=$dir2
+				compare "$dir1/$x" "$dir2/$x" $log				
+				dir1=$cur_dir1
+				dir2=$cur_dir2
+				#echo "[AFTER RECURSION]$dir1  $dir2"
+				
 			fi
-		elif [ $filetype == "notexist" ]; then
-			#Do nothing
 		fi
 	done
 }
@@ -75,12 +117,12 @@ fi
 benchmark_dir=$1 
 test_dir=$2
 
-#test
-fileType $benchmark_dir
-
-#Traversal [DIR]benchmark_dir and compare it with [DIR]test_dir at the same time
-
-
-
-
-
+#fileType $benchmark_dir
+#add_all_filepath $benchmark_dir "more2.log"
+rm more.log less.log
+compare $benchmark_dir $test_dir more.log
+compare $test_dir $benchmark_dir less.log
+echo "########## more.log ###########"
+cat more.log
+echo "########## less.log ###########"
+cat less.log
