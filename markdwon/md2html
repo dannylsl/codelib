@@ -1,0 +1,47 @@
+#!/bin/bash
+
+function markdown_check(){
+	if [ ! -f "/usr/bin/markdown" ]; then
+		echo "****************************************"
+		echo "You have not install the markdown"		
+		echo "Install markdown in ubuntu with cmd below "
+		echo -e "\t sudo apt-get install markdown"
+		echo "****************************************"
+		exit 1
+	else
+		echo "markdown is installed"
+	fi
+}
+
+function Usage(){
+	echo "Usage"	
+	echo "$0 file_in [file_out]"
+	echo -e "\tExample: markdown a.md a.html"
+	echo $#
+}
+
+
+function md2html(){
+	echo "markdown"
+	if [ $# -eq 2 ]; then
+		markdown --html4tags $1 > $2
+	else
+		file_out="$1.html"
+		echo $file_out
+		markdown --html4tags $1 > $file_out
+	fi	
+}
+
+
+#function param_check(){
+#echo "param_check"
+if [ $# -lt 1 ]; then	
+	Usage
+	exit 1
+elif [ $# -gt 2 ]; then
+	Usage
+	exit 1
+fi
+#}
+markdown_check
+md2html $@
