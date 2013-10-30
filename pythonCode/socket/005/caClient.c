@@ -288,7 +288,6 @@ int main(int argc, char* argv[]){
 	int fsize;
 	subjectInfo subject;
 
-
 	if(argc != 2){
 		printf("Usage: %s <address> \n",argv[0]);
 		return 0;
@@ -312,10 +311,10 @@ int main(int argc, char* argv[]){
 
 	printf("starting...\n");
 	
-	setCommonname(&subject,"Zengtianning");
-	setCountryName(&subject,"HL");
-	setEmailAddress(&subject,"sanpuyouyou@163.com");
-	setStateFullName(&subject,"Heilongjiang");
+	setCommonname(&subject,"SafeClient0");
+	setCountryName(&subject,"CN");
+	setEmailAddress(&subject,"SafeClient@sina.com");
+	setStateFullName(&subject,"Beijing");
 	setOrganizationName(&subject,"SSPKU");
 	setOrganizationalUnit(&subject,"Peking University");
 	setLocalityName(&subject,"24 JinYuan Road");
@@ -341,5 +340,4 @@ int main(int argc, char* argv[]){
 
 	return 0;
 }
-
 

@@ -41,28 +41,24 @@ int main(){
 		write_pem_certification(SendCert,"clientCert.pem");
 */
 
-		
-/*		
-*/
 		//获取客户端密钥,用于签名
 		printf("reading client private key\n");
-		//rsa = read_RSA_Prikey_PEM("clientPrikey.pem");
-		rsa = read_RSA_Prikey_PEM("client/prikey.pem");
+		rsa = read_RSA_Prikey_PEM("clientPrikey.pem");
+//		rsa = read_RSA_Prikey_PEM("client/prikey.pem");
 		pkey = EVP_PKEY_new();
 		EVP_PKEY_assign_RSA(pkey,rsa);
 		//获取客户端的证书
-		SendCert = read_der_certification("client/clientcert.der");
-		//SendCert = read_pem_certification("clientCert.pem");
+		//SendCert = read_der_certification("client/clientCert.der");
+		//SendCert = read_pem_certification("client/clientCert.pem");
+		SendCert = read_pem_certification("clientCert.pem");
 
 		//发送证书链者
-//		ssl_PKCS7_signed_and_enveloped_from_file(pkey,NULL,SendCert,"serverCert.pem",PEM,"verify.txt");
-		ssl_PKCS7_signed_and_enveloped_from_file(pkey,NULL,SendCert,"server/serv_cert.der",DER,"verify.txt");
+		ssl_PKCS7_signed_and_enveloped_from_file(pkey,NULL,SendCert,"serverCert.pem",PEM,"verify.txt");
+//		ssl_PKCS7_signed_and_enveloped_from_file(pkey,NULL,SendCert,"server/serv_cert.der",DER,"verify.txt");
 //		ssl_PKCS7_signed_and_enveloped_from_file(pkey,ca,SendCert,"../senderCer.der",DER,"verify.txt");
 
-		//接收者
-/*		
-*/
-	/*	
+//接收者
+/*	
 		printf("\n\t\t\t\t接收者解析部分\n\n");
 		memset(buf,0,10000);
 		fp = fopen("../server.p12","rb");	
@@ -80,10 +76,10 @@ int main(){
 //		saveprikey(rsa,"serverPrikey.pem",1024);	
 		//保存证书
 		write_pem_certification(RecCert,"serverCert.pem");
+*/
 
-	*/
-//		rsa = read_RSA_Prikey_PEM("serverPrikey.pem");
-		rsa = read_RSA_Prikey_PEM("server/prikey.pem");
+		rsa = read_RSA_Prikey_PEM("serverPrikey.pem");
+//		rsa = read_RSA_Prikey_PEM("server/prikey.pem");
 		EVP_PKEY_assign_RSA(pkey,rsa);
 		printf("\t\t\t\t\t接收者私钥 read from serverPrikey.pem\n");
 		RSA_print_fp(stdout,rsa,1);

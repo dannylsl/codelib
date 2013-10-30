@@ -1,0 +1,11 @@
+Please run the program in root privilege
+Example:
+	root@ubuntu-desktop: python serv.py
+	or
+	sudo python serv.py
+
+in order to run the program without errors
+	you should install the openssl before running it
+	execute below command if your system is ubuntu-like
+		sudo apt-get install openssl
+

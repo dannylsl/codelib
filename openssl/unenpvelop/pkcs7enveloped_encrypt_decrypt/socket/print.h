@@ -4,7 +4,15 @@
 #include <openssl/x509.h>
 #include <openssl/bio.h>
 
-
+/**
+ * functionName : x509_cert_print  
+ * @Param : X509 *x509_cert  [ X509 format certification									]
+ * @Param : const char* tile [ description of the certification, will be printed at the head]
+ * Brief  : 
+ *		print the x509 format certification	
+ * return : 
+ *		return 0 without error check
+ */
 int x509_cert_print(X509* x509_cert,const char* title){
 
 	BIO *bp = BIO_new(BIO_s_file());
@@ -13,9 +21,19 @@ int x509_cert_print(X509* x509_cert,const char* title){
 	X509_print(bp,x509_cert);
 	BIO_free(bp);
 	printf("\n");
+	return 0;
 }
 
 
+/**
+ * functionName : X509_NAME_print
+ * @Param : BIO *bp		[ abstract IO ]
+ * @Param : X509_ALGOR	[ X509 ALGORITHM]
+ * Brief  : 
+ *		print X509_ALGOR data
+ * return : 
+ *		return 0 without error check
+ */
 int X509_ALGOR_print(BIO *bp,X509_ALGOR *signature)
 {
 	int	nid;
@@ -62,12 +80,28 @@ int X509_ALGOR_print(BIO *bp,X509_ALGOR *signature)
 	return 0;
 }
 
+/**
+ * functionName :  asn1_integer_print 
+ * @Param : ASN1_INTEGER * asn1value[ ASN1_INTERGER pointer type value]
+ * @Param : const char * title		[ description of the ASN1_INTERGER, will be printed at the head]
+ * Brief  : 
+ *		print the ASN1_INTERGER  	
+ * return : null
+ */
 void asn1_integer_print(ASN1_INTEGER*asn1value,const char *title){
 	long value;
 	value = ASN1_INTEGER_get(asn1value);
 	printf("%s:\t%ld\n",title,value);
 }
 
+
+/**
+ * functionName : signer_info_print
+ * @Param : PKCS7_SIGNER_INFO *info [ signer information ]
+ * Brief  : 
+ *		print signer info with PKCS7_SIGNER_INFO type
+ * return :  null
+ */
 void signer_info_print(PKCS7_SIGNER_INFO*info){
 	long version,serail;
 
@@ -108,6 +142,13 @@ void signer_info_print(PKCS7_SIGNER_INFO*info){
 }
 
 
+/**
+ * functionName : asn1_octet_string_print
+ * @Param : ASN1_OCTET_STRING * octet
+ * Brief  : 
+ *		print data with ASN1_OCTET_STRING type
+ * return :  null
+ */
 void asn1_octet_string_print(ASN1_OCTET_STRING *octet){
 	BIO *out = BIO_new(BIO_s_file());
 	BIO_set_fp(out,stdout,BIO_NOCLOSE);	
@@ -116,6 +157,14 @@ void asn1_octet_string_print(ASN1_OCTET_STRING *octet){
 	printf("\n");
 }
 
+
+/**
+ * functionName : pkcs7_recip_print  
+ * @Param : PKCS7_RECIP_INFO *recip [ recipient information ]
+ * Brief  : 
+ *		print recipient information in detail
+ * return :  null
+ */
 void pkcs7_recip_print(PKCS7_RECIP_INFO *recip){
 	long version,serail;
 
@@ -147,6 +196,14 @@ void pkcs7_recip_print(PKCS7_RECIP_INFO *recip){
 				
 }
 
+/**
+ * functionName : asn1_object_print  
+ * @Param : ASN1_OBJECT *a		[ ASN1_OBJECT pointer  ] 
+ * @Param : const char* title	[ description of the ASN1_OBJECT, will be printed at the head] 
+ * Brief  : 
+ *		print data with ASN1_OBJECT type
+ * return : null
+ */
 void asn1_object_print(ASN1_OBJECT *a, const char* title){
 	char buf[1024];	
 	OBJ_obj2txt(buf,1024,a,0);
@@ -156,6 +213,13 @@ void asn1_object_print(ASN1_OBJECT *a, const char* title){
 }
 
 
+/**
+ * functionName : pkcs7_envelop_print
+ * @Param : PKCS7_ENVELOPE* envelop [ enveloped structure data] 
+ * Brief  : 
+ *		print data with PKCS7_ENVELOPE type
+ * return :  null
+ */
 void pkcs7_envelop_print(PKCS7_ENVELOPE* envelop){
 
 	BIO *out ;
@@ -186,6 +250,13 @@ void pkcs7_envelop_print(PKCS7_ENVELOPE* envelop){
 	printf("========================= PKCS7 ENVELOP ===========================\n");
 }
 
+/**
+ * functionName : pkcs7_signed_and_envelop_print 
+ * @Param : PKCS7_SIGN_ENVELOPE * envelop [ signed and enveloped ]
+ * Brief  : 
+ *		print signed and enveloped data
+ * return :  null
+ */
 void pkcs7_signed_and_envelop_print(PKCS7_SIGN_ENVELOPE* envelop){
 
 	BIO *out ;

@@ -4,11 +4,14 @@ CFLAGS=-g -Wall -o
 LD=-lssl -lcrypto
 #LDFLAGS=-ldl
 
-all:signed_data
+all:signed_data decrypt_sign
 
 signed_data:signed_data.c
+	$(CC) $(CFLAGS) $@ $^ $(LD) 
+decrypt_sign:decrypt_sign.c
 	$(CC) $(CFLAGS) $@ $^ $(LD) 
 
 .PHONY:clean
 clean:
 	rm signed_data
+	rm decrypt_sign

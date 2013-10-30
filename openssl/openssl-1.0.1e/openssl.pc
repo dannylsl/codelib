@@ -1,4 +1,4 @@
-prefix=/usr/local/ssl
+prefix=/usr/local/openssl
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

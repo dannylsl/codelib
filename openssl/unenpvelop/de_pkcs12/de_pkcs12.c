@@ -134,10 +134,13 @@ int main()
 	X509 *cert=NULL;
 	STACK_OF(X509) *ca=NULL;
 	EVP_PKEY *pkey=NULL;
+	RSA* rsa =NULL;
+
 	fp=fopen("new05092.p12","rb");
 	len=fread(buf,1,10000,fp);
 	fclose(fp);
 	OpenSSL_add_all_algorithms();
+
 	bp=BIO_new(BIO_s_file());
 	BIO_set_fp(bp,stdout,BIO_NOCLOSE);
 	p=buf;
@@ -145,6 +148,7 @@ int main()
 	printf("input password : \n");
 	scanf("%s",pass);
 	ret=PKCS12_parse(p12,pass,&pkey,&cert,&ca);
+	//解析PKCS12　获得私钥和证书等信息
 	if(ret!=1)
 	{
 		printf("err\n");
@@ -152,12 +156,18 @@ int main()
 	}
 	/* 私钥写入文件 */
 	p=buf;
-	len=i2d_PrivateKey(pkey,&p);
+	fp=fopen("prikey.pem","wb");
+	rsa = EVP_PKEY_get1_RSA(pkey);
+	PEM_write_RSAPrivateKey(fp,rsa,NULL,NULL,512,NULL,NULL);
+	fclose(fp);
+	
+	len=i2d_PrivateKey(pkey,&p); //获得私钥长度
 	fp=fopen("prikey.cer","wb");
 	fwrite(buf,1,len,fp);
 	fclose(fp);
 	/* 修改密码 */
-	ret=PKCS12_newpass(p12,pass,"test");
+	ret = PKCS12_newpass(p12,pass,"test");
+	//替换PKCS12的密码
 	fp=fopen("newpass.pfx","wb");
 	ret=i2d_PKCS12_fp(fp,p12);
 	fclose(fp);

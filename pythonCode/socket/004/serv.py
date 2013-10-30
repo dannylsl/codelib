@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
 #	print host+":"+str(port)
 
-	ADDR = ('192.168.1.102',6000)
+	ADDR = ('192.168.1.103',6000)
 #	ADDR = ('127.0.0.1',6000)
 
 #	s.bind((host,port))
@@ -128,6 +128,7 @@ if __name__ == '__main__':
 		connect, addr = s.accept()
 		INFOLEN = 64	
 		fileInfo = connect.recv(INFOLEN)
+		print 'recv info' + fileInfo
 		recvFileName = fileInfo.strip('#').split('$')[0]
 		recvFileSize = int(fileInfo.strip('#').split('$')[1])
 		print 'receive file:'+recvFileName +' filesize:'+str(recvFileSize)

@@ -7,7 +7,17 @@
 #define DER		1
 #define PEM		2
 
-//bits = 1024 or 512
+/**
+ * \fn functionName : saveprikey   
+ * \param @Param : RSA *rsa				[ the rsa type key ]
+ * \param @Param : const char * filename	[ the name of the file save the RSA private key]
+ * \param @Param : int bits				[ the bits of the private key, 512 or 1024  ]  
+ * \brief Brief  : 
+ *		save private key as file with name of @Param:filename		
+ * return : 
+ *		return 0 if failed to create file
+ *		return 1 if the function runs successfully
+ */
 int saveprikey(RSA *rsa,const char *filename,int bits){
 	FILE *file;
 	if(NULL == rsa){
@@ -26,6 +36,17 @@ int saveprikey(RSA *rsa,const char *filename,int bits){
 }
 
 
+/**
+ * \fn functionName :  read_RSA_Prikey 
+ * \param @Param : const char* filename [ the name of the file which store Private keys ]
+ * \param @Param : int fileCodeType	 [ the codeType of the file, DER or PEM  ]
+ * \brief Brief  : 
+ *		read DER or PEM codeType file and return the Private key in RSA type 
+ * return : 
+ *		return (RSA*) -1 fail to open file
+ *		return (RSA*) -2 fail to read private key from PEM file descriptor
+ *		return private key in RSA*
+ */
 RSA* read_RSA_Prikey(const char*filename, int fileCodeType ){
 	FILE*fp;		
 	RSA *rsa;
@@ -58,6 +79,17 @@ RSA* read_RSA_Prikey(const char*filename, int fileCodeType ){
 	return rsa;	
 }
 
+
+/**
+ * \fn functionName :  read_RSA_Prikey_PEM 
+ * \param @Param : const char* filename
+ * \brief Brief  : 
+ *		read private key from PEM file 	
+ * return :  
+ *		return (RSA*) -1 fail to open file
+ *		return (RSA*) -2 fail to read private key from PEM file descriptor
+ *		return private key in RSA*
+ */
 RSA* read_RSA_Prikey_PEM(const char*filename){
 	FILE*fp;
 	RSA *rsa;
@@ -77,6 +109,16 @@ RSA* read_RSA_Prikey_PEM(const char*filename){
 	return rsa;
 }
 
+/**
+ * \fn functionName : my_PKCS7_cert_from_signer_info   
+ * \param @Param : PKCS7 *p7
+ * \param @Param : PKCS7_SIGNER_INFO *si
+ * \brief Brief  : 
+ *		get certification from signer information			
+ * return : 
+ *		return X509* type certification
+ *		return NULL if failed
+ */
 X509* my_PKCS7_cert_from_signer_info(PKCS7 *p7, PKCS7_SIGNER_INFO *si)
 {
 	if (PKCS7_type_is_signedAndEnveloped(p7))
@@ -87,6 +129,16 @@ X509* my_PKCS7_cert_from_signer_info(PKCS7 *p7, PKCS7_SIGNER_INFO *si)
 		return(NULL);
 }
 
+/**
+ * \fn functionName :  write_pem_certification 
+ * \param @Param : X509 * x509_cert
+ * \param @Param : const char * filename
+ * \brief Brief  : 
+ *		write x509_cert to file named @Param:filename	
+ * return : 
+ *		return -1 if fail to create file
+ *		return 0
+ */
 int write_pem_certification(X509 *x509_cert,const char*filename){
 	BIO *b;
 	printf("write %s PEM file\n",filename);
@@ -98,9 +150,18 @@ int write_pem_certification(X509 *x509_cert,const char*filename){
 	PEM_write_bio_X509(b,x509_cert);
 	BIO_free(b);
 	return 0;
-	
+
 }
 
+/**
+ * \fn functionName : read_pem_certification   
+ * \param @Param : const char *filename  
+ * \brief Brief  : 
+ *		read certification from PEM codetype filename
+ * return : 
+ *		return certification in X509* type if run successfully	
+ *		return -1 if fail to open file
+ */
 X509 *read_pem_certification(const char*filename){
 	BIO *b;	
 	X509 *x;
@@ -115,6 +176,15 @@ X509 *read_pem_certification(const char*filename){
 	return x;
 }
 
+/**
+ * \fn functionName : read_der_certification
+ * \param @Param : const char* filename
+ * \brief Brief  : 
+ *		read certification from DER codetype file name @Param:filename	
+ * return : 
+ *		return certification in X509* type if run successfully
+ *		return -1 if fail to open file
+ */
 X509 *read_der_certification(const char*filename){
 	FILE *fp;
 	int size,len;
@@ -139,6 +209,15 @@ X509 *read_der_certification(const char*filename){
 	return x509_cert;
 }
 
+/**
+ * \fn functionName :  get_file_size 
+ * \param @Param : const char* filename
+ * \param Brief  : 
+ *		get size of the file named @Param:filename			
+ * return : 
+ *		return -1 fail to open file
+ *		return filesize if run successfully
+ */
 int get_file_size(const char* filename){
 	FILE *fp;	
 	int size;
@@ -152,6 +231,18 @@ int get_file_size(const char* filename){
 	return size;
 }
 
+/**
+ * \fn functionName :  get_data_from_file 
+ * \param @Param : const char* filename
+ * \param @Param : unsigned char* data
+ * \param @Param : int len
+ * \brief Brief  : 
+ *		get data from file
+ *		read @Param:len bytes data from file named @Param:filename and store it into @Param:data
+ * return : 
+ *		return -1 if fail to open and read file
+ *		return 0 if run successfully
+ */
 int get_data_from_file(const char* filename,unsigned char *data,int len){
 	FILE *fp;	
 	int num;
@@ -171,6 +262,17 @@ int get_data_from_file(const char* filename,unsigned char *data,int len){
 	return 0;
 }
 
+/**
+ * \fn functionName : write_data_to_file   
+ * \param @Param : const unsigned char* data
+ * \param @Param : int datalen
+ * \param @Param : const unsigned char* filename
+ * \brief Brief  : 
+ *		write @Param:datalen bytes of @Param:data into file named @Param:filename
+ * return : 
+ *		return -1 if fail to open and write file
+ *		return 0  if run successfully
+ */
 int write_data_to_file(const unsigned char* data,int datalen,const unsigned char* filename){
 	FILE *fp;			
 	int len;
@@ -188,8 +290,21 @@ int write_data_to_file(const unsigned char* data,int datalen,const unsigned char
 
 }
 
-// READ recCertname PEM code ONLY
-// X509 * der	 签名数字信封DER编码存储,作为输出
+/**
+ * \fn functionName : ssl_PKCS7_signed_and_enveloped_from_data
+ * \param @Param :	EVP_PKEY *prikey			[ private key			]
+ * \param @Param : STACK_OF(X509*) ca			[ certification chain   ] 
+ * \param @Param : X509 * x509_cert			[ certification			]
+ * \param @Param : const char* recCertFileName [ receiver's Certification filename, codeType is PEM only]
+ * \param @Param : char *data					[ data to signed and enveloped ]
+ * \param @Param : char *derOut				[ signed and enveloped data in DER codeType]
+ * \brief Brief  : 
+ *		Use @Param:prikey @Param:ca @Param:x509_cert and @Param:recCertFileName 
+ *		to sign and envelop @Param:data, and the signed and Envelop data output in DER codeType 	
+ *		and store in @Param:derOut
+ * return : 
+ *		return the length derOut
+ */
 int ssl_PKCS7_signed_and_enveloped_from_data(EVP_PKEY *prikey,STACK_OF(X509)*ca, X509* x509_Cert,const char* recCertFileName,char *data,char*derOut){
 
 	int size,len;
@@ -208,7 +323,7 @@ int ssl_PKCS7_signed_and_enveloped_from_data(EVP_PKEY *prikey,STACK_OF(X509)*ca,
 	//打印私钥信息	
 	//printf("\t\t\t\t\t发送者私钥\n");
 	//RSA_print_fp(stdout,rsa,1);
-	
+
 	PKCS7 *p7 = PKCS7_new();
 	//设置类型为NID_pkcs7_signedAndEnveloped
 	PKCS7_set_type(p7, NID_pkcs7_signedAndEnveloped);
@@ -220,7 +335,7 @@ int ssl_PKCS7_signed_and_enveloped_from_data(EVP_PKEY *prikey,STACK_OF(X509)*ca,
 	PKCS7_RECIP_INFO *p7recipinfo = PKCS7_add_recipient(p7,x509_RecCert);	
 	//打印 recipient 信息
 	//pkcs7_recip_print(p7recipinfo);		
-	
+
 	//添加签名,用发送者证书,发送者私钥,sha1()加密算法
 	PKCS7_SIGNER_INFO *info = PKCS7_add_signature(p7, x509_Cert, prikey,EVP_sha1());
 	//打印 signature 信息
@@ -259,8 +374,20 @@ int ssl_PKCS7_signed_and_enveloped_from_data(EVP_PKEY *prikey,STACK_OF(X509)*ca,
 	return derLen;
 }
 
-//　从DER编码的数字信封中解析出明文数据
-//  利用私钥prikey 从DER编码的数字信封中解析数据
+/**
+ * \fn functionName : ssl_PKCS7_get_data_from_signed_and_enveloped_der    
+ * \fn @Param : char * der
+ * \fn @Param : int len
+ * \fn @Param : EVP_PKEY *prikey
+ * \fn @Param : unsigned char * dataOut
+ * \brief Brief  : 
+ *		This function will get source data from signed and enveloped data	
+ *		Using @Param:prikey to decrypt the signed and enveloped data @Param:der 
+ *		whose length is @Param:len, and store the decrypt data in @Parm:dataOut
+ * return : 
+ *		return 0 if the signature verify failed
+ *		return 1 if the signature verify successfully
+ */
 int ssl_PKCS7_get_data_from_signed_and_enveloped_der(char *der,int len,EVP_PKEY *prikey,unsigned char *dataOut){
 
 	int i,num,size,srclen;
@@ -270,10 +397,10 @@ int ssl_PKCS7_get_data_from_signed_and_enveloped_der(char *der,int len,EVP_PKEY 
 
 	size = len;
 	memset(srcData,0,4097);
-//	tmp = (char*)malloc(size);
-//	tmp = OPENSSL_malloc(len);	
-//	strncpy(tmp,der,size);
-//	p = tmp;
+	//	tmp = (char*)malloc(size);
+	//	tmp = OPENSSL_malloc(len);	
+	//	strncpy(tmp,der,size);
+	//	p = tmp;
 
 	//printf("tmp = %s\n",tmp);
 	//检查数据转换是否有问题
@@ -299,7 +426,8 @@ int ssl_PKCS7_get_data_from_signed_and_enveloped_der(char *der,int len,EVP_PKEY 
 	STACK_OF(PKCS7_SIGNER_INFO)*sk = PKCS7_get_signer_info(p7);
 	//获得签名者个数
 	int signCount = sk_PKCS7_SIGNER_INFO_num(sk);
-	for(i = 0;i < signCount; i++){
+	for(i = 0;i < signCount; i++)
+	{
 		//获得签名者信息
 		PKCS7_SIGNER_INFO *signInfo = sk_PKCS7_SIGNER_INFO_value(sk,i);		
 		signer_info_print(signInfo);	
@@ -309,7 +437,7 @@ int ssl_PKCS7_get_data_from_signed_and_enveloped_der(char *der,int len,EVP_PKEY 
 		x509_cert_print(cert,"签名者(发送者)证书");
 		//验证签名
 		if(PKCS7_signatureVerify(v_p7bio,p7,signInfo,cert) != 1){
-			//	if(PKCS7_signatureVerify(v_p7bio,p7,signInfo,x509_cert) != 1){ //验证签名的证书是否有问题?
+			//	if(PKCS7_signatureVerify(v_p7bio,p7,signInfo,x509_cert) != 1) //验证签名的证书是否有问题?
 			printf("Signature Verity Error\n");
 			return 0;
 		}else{
@@ -325,10 +453,19 @@ int ssl_PKCS7_get_data_from_signed_and_enveloped_der(char *der,int len,EVP_PKEY 
 
 
 /**
- * @Param: filename		接受者证书   PEM 编码
- * @Param: x509_cert	发送者证书
- * @Param: datafilename 加密文本文件名
- * @Param: fileCodeType 文件编码方式　可选值　DER | PEM
+ * \fn functionName :   ssl_PKCS7_signed_and_enveloped_from_file
+ * \param @Param :	EVP_PKEY *prikey			[ sender's private key			]
+ * \param @Param : STACK_OF(X509*) ca			[ sender's certification chain  ] 
+ * \param @Param : X509 * x509_cert			[ sender's certification		]
+ * \param @Param : const char* filename        [ receiver's Certification filename]
+ * \param @Param : const char* fileCodeType	[ the reciver's certification codeType, DER and PEM ]
+ * \param @Param : char *datafile				[ name fo the file which stores data to signed and enveloped]
+ * \brief Brief  : 
+ *		sign and envelop data from @Param:datafile
+ *		Using the @Param:prikey @Param: ca @Param:x509_Cert and receiver's certification
+ * return : 
+ *		return -1 if failed to open file
+ *		return 0 if the function run successfully
  */
 char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*ca,	X509* x509_Cert , const char* filename, const int fileCodeType, const char* datafilename)
 {
@@ -346,7 +483,7 @@ char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*
 		case PEM:
 			x509_RecCert = read_pem_certification(filename);
 			break;
-		defualt:	
+defualt:	
 			break;
 	}
 	//打印证书信息
@@ -363,8 +500,8 @@ char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*
 	//设置类型为NID_pkcs7_signedAndEnveloped
 	PKCS7_set_type(p7, NID_pkcs7_signedAndEnveloped);
 	//BELOW ADD REFERS TO   http://ipedo.blog.sohu.com/114822405.html
-//	PKCS7_content_new(p7,NID_pkcs7_data);
-//	PKCS7_set_detached(p7,0);
+	//	PKCS7_content_new(p7,NID_pkcs7_data);
+	//	PKCS7_set_detached(p7,0);
 
 	//DES 算法加密
 	EVP_CIPHER *evp_cipher = EVP_des_cbc();
@@ -425,10 +562,19 @@ char *ssl_PKCS7_signed_and_enveloped_from_file(EVP_PKEY *prikey, STACK_OF(X509)*
 	return 0;
 }
 
+
 /**
- * @Param: filename		签名数字信封
- * @Param: prikey		接收者的私钥，用于解密对称密钥
- * @Param:
+ * \fn functionName : ssl_PKCS7_get_Signed_Enveloped_data_from_p7file    
+ * \param @Param : const char* filename [ name of the file which stores signed and enveloped data]
+ * \param @Param : EVP_PKEY *prikey	 [ receiver's privatekey ]
+ * \param @Param : X509 *x509_cert		 [ receiver's certification]
+ * \brief Brief  : 
+ *		get source data from a file which stores signed and enveloped data
+ *		Using receiver's private key @Param:prikey and receiver's certification @Param:x509_cert 
+ *		to decrypt the signed and enveloped data
+ * return : 
+ *		return 0 failed to signed and enveloped data
+ *		return 1 if the function runs successfully
  */
 char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_PKEY *prikey, X509 *x509_cert){
 	FILE *fp;
@@ -470,7 +616,7 @@ char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_
 		x509_cert_print(cert,"签名者(发送者)证书");
 		//验证签名
 		if(PKCS7_signatureVerify(v_p7bio,p7,signInfo,cert) != 1){
-			//	if(PKCS7_signatureVerify(v_p7bio,p7,signInfo,x509_cert) != 1){ //验证签名的证书是否有问题?
+			//	if(PKCS7_signatureVerify(v_p7bio,p7,signInfo,x509_cert) != 1) //验证签名的证书是否有问题?
 			printf("Signature Verity Error\n");
 			return 0;
 		}else{
@@ -481,4 +627,54 @@ char* ssl_PKCS7_get_Signed_Enveloped_data_from_p7file(const char * filename,EVP_
 	return 1;
 }
 
+/**
+ * \fn functionName : ssl_PKCS7_get_Signed_Enveloped_data_from_charArr    
+ * \param @Param : const char* filename [ name of the file which stores signed and enveloped data]
+ * \param @Param : EVP_PKEY *prikey	 [ receiver's privatekey ]
+ * \param @Param : X509 *x509_cert		 [ receiver's certification]
+ * \param @Param : int sizett
+ * \brief Brief  : 
+ *		get source data from signed and enveloped data
+ *		Using receiver's private key @Param:prikey and receiver's certification @Param:x509_cert 
+ *		to decrypt the signed and enveloped data
+ * return : 
+ *		if run successfully return the decrypted source data 
+ *		no error check
+ */
+
+char* ssl_PKCS7_get_Signed_Enveloped_data_from_charArr(unsigned char *buffer,EVP_PKEY *prikey, X509 *x509_cert,int sizett){
+	FILE *fp;
+	int i,num,size,srclen;
+	//unsigned char * buffer;
+	unsigned char srcData[4096];
+	char *retData=(char *)malloc(4096);
+	memset(retData,'\0',4096);
+	PKCS7 *p7;
+	printf("------------------\n");
+	printf("buffer in ssl_PKCS7_get_Signed_Enveloped_data_from_charArr.....%s\n",buffer);
+	memset(srcData,0,4097);
+	size=sizett;
+	//size = get_file_size(filename);
+	//buffer = (unsigned char*)malloc(size+1);
+	//memset(buffer,0,size+1);
+
+	//get_data_from_file(filename,buffer,size);
+
+	p7 = d2i_PKCS7(NULL,(const unsigned char**)&buffer,size);
+
+	//BIO *v_p7bio = PKCS7_dataDecode(p7,prikey,NULL,x509_cert);
+
+	BIO *v_p7bio = PKCS7_dataDecode(p7,prikey,NULL,NULL);
+
+	srclen = BIO_read(v_p7bio,srcData,4096);
+	if(srclen <= 0){
+		printf("无法解析出明文\n");
+		//return;
+	}
+	printf("\t\t\t\t　密文解析内容 \n");
+	printf("%s \n",srcData);
+	strcpy(retData,srcData);
+	return  retData;
+
+}
 #endif

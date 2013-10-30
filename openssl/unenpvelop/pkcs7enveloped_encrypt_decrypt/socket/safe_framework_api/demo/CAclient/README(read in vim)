@@ -1,0 +1,11 @@
+filename			description
+=================================================================================================
+caClient.c			This program is a client apply for certification from CA
+					filenamecreate certification request file and apply certification from CA
+
+certreq.h			data structure and functions used in creating certification application file
+
+sockfile.h			socket file transformation operation
+
+reqtest.c			certification application file generate test program
+

@@ -13,8 +13,8 @@ SHLIB_MAJOR=1
 SHLIB_MINOR=0.0
 SHLIB_EXT=.so.$(SHLIB_MAJOR).$(SHLIB_MINOR)
 PLATFORM=linux-elf
-OPTIONS=-march=pentium -Wa,--noexecstack no-ec_nistp_64_gcc_128 no-gmp no-jpake no-krb5 no-md2 no-rc5 no-rfc3779 no-sctp no-shared no-store no-zlib no-zlib-dynamic static-engine
-CONFIGURE_ARGS=linux-elf -march=pentium -Wa,--noexecstack
+OPTIONS=enable-shared --prefix=/usr/local/openssl -march=pentium no-asm no-ec_nistp_64_gcc_128 no-gmp no-jpake no-krb5 no-md2 no-rc5 no-rfc3779 no-sctp no-store no-zlib no-zlib-dynamic no-static-engine
+CONFIGURE_ARGS=linux-elf no-asm shared --prefix=/usr/local/openssl -march=pentium
 SHLIB_TARGET=linux-shared
 
 # HERE indicates where this Makefile lives.  This can be used to indicate
@@ -26,10 +26,10 @@ HERE=.
 # for, say, /usr/ and yet have everything installed to /tmp/somedir/usr/.
 # Normally it is left empty.
 INSTALL_PREFIX=
-INSTALLTOP=/usr/local/ssl
+INSTALLTOP=/usr/local/openssl
 
 # Do not edit this manually. Use Configure --openssldir=DIR do change this!
-OPENSSLDIR=/usr/local/ssl
+OPENSSLDIR=/usr/local/openssl/ssl
 
 # NO_IDEA - Define to build without the IDEA algorithm
 # NO_RC4  - Define to build without the RC4 algorithm
@@ -59,15 +59,20 @@ OPENSSLDIR=/usr/local/ssl
 # equal 4.
 # PKCS1_CHECK - pkcs1 tests.
 
-CC= gcc
-CFLAG= -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -march=pentium -Wa,--noexecstack -DL_ENDIAN -DTERMIO -O3 -fomit-frame-pointer -Wall -DOPENSSL_BN_ASM_PART_WORDS -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DRMD160_ASM -DAES_ASM -DVPAES_ASM -DWHIRLPOOL_ASM -DGHASH_ASM
-DEPFLAG= -DOPENSSL_NO_EC_NISTP_64_GCC_128 -DOPENSSL_NO_GMP -DOPENSSL_NO_JPAKE -DOPENSSL_NO_MD2 -DOPENSSL_NO_RC5 -DOPENSSL_NO_RFC3779 -DOPENSSL_NO_SCTP -DOPENSSL_NO_STORE
+#CC= gcc
+CC= arm-none-linux-gnueabi-gcc
+#CFLAG= -fPIC -DOPENSSL_PIC -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -march=pentium -DL_ENDIAN -DTERMIO -O3 -fomit-frame-pointer -Wall
+CFLAG= -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -DOPENSSL_NO_KRB5 -DL_ENDIAN -DTERMIO -O3 -fomit-frame-pointer -Wall
+#DEPFLAG= -DOPENSSL_NO_EC_NISTP_64_GCC_128 -DOPENSSL_NO_GMP -DOPENSSL_NO_JPAKE -DOPENSSL_NO_MD2 -DOPENSSL_NO_RC5 -DOPENSSL_NO_RFC3779 -DOPENSSL_NO_SCTP -DOPENSSL_NO_STORE
+DEPFLAG=
 PEX_LIBS= 
 EX_LIBS= -ldl
 EXE_EXT= 
 ARFLAGS= 
-AR= ar $(ARFLAGS) r
-RANLIB= /usr/bin/ranlib
+#AR= ar $(ARFLAGS) r
+AR= arm-none-linux-gnueabi-ar $(ARFLAGS) r
+#RANLIB= /usr/bin/ranlib
+RANLIB= arm-none-linux-gnueabi-ranlib
 NM= nm
 PERL= /usr/bin/perl
 TAR= tar
@@ -88,20 +93,20 @@ ASFLAG=$(CFLAG)
 PROCESSOR= 
 
 # CPUID module collects small commonly used assembler snippets
-CPUID_OBJ= x86cpuid.o
-BN_ASM= bn-586.o co-586.o x86-mont.o x86-gf2m.o
-DES_ENC= des-586.o crypt586.o
-AES_ENC= aes-586.o vpaes-x86.o aesni-x86.o
-BF_ENC= bf-586.o
-CAST_ENC= cast-586.o
-RC4_ENC= rc4-586.o
-RC5_ENC= rc5-586.o
-MD5_ASM_OBJ= md5-586.o
-SHA1_ASM_OBJ= sha1-586.o sha256-586.o sha512-586.o
-RMD160_ASM_OBJ= rmd-586.o
-WP_ASM_OBJ= wp_block.o wp-mmx.o
-CMLL_ENC= cmll-x86.o
-MODES_ASM_OBJ= ghash-x86.o
+CPUID_OBJ= mem_clr.o
+BN_ASM= bn_asm.o
+DES_ENC= des_enc.o fcrypt_b.o
+AES_ENC= aes_core.o aes_cbc.o
+BF_ENC= bf_enc.o
+CAST_ENC= c_enc.o
+RC4_ENC= rc4_enc.o rc4_skey.o
+RC5_ENC= rc5_enc.o
+MD5_ASM_OBJ= 
+SHA1_ASM_OBJ= 
+RMD160_ASM_OBJ= 
+WP_ASM_OBJ= wp_block.o
+CMLL_ENC= camellia.o cmll_misc.o cmll_cbc.o
+MODES_ASM_OBJ= 
 ENGINES_ASM_OBJ= 
 PERLASM_SCHEME= elf
 
@@ -174,7 +179,7 @@ WDIRS=  windows
 LIBS=   libcrypto.a libssl.a
 SHARED_CRYPTO=libcrypto$(SHLIB_EXT)
 SHARED_SSL=libssl$(SHLIB_EXT)
-SHARED_LIBS=
+SHARED_LIBS=$(SHARED_CRYPTO) $(SHARED_SSL)
 SHARED_LIBS_LINK_EXTS=.so.$(SHLIB_MAJOR) .so
 SHARED_LDFLAGS=
 
