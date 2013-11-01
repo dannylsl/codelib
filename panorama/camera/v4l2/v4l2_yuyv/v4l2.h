@@ -23,6 +23,7 @@ struct buffer{
 	void *	start;
 	size_t	length;
 };
+
 typedef struct _v4l2_struct
 {
 	int fd;
