@@ -2,8 +2,11 @@ import csv
 import sys
 
 class csvReader() :
-	reader = None
-	csv_list = list()
+	reader		= None
+	csv_list	= list()
+	cstate		= list()
+	wakeups		= 0.0
+	pstate		= list()
 
 	def __init__(self, filename):
 		self.reader = csv.reader(open(filename, 'rb'))
@@ -52,23 +55,36 @@ class csvReader() :
 		core_num = len(self.csv_list[cstate_index + 1])
 		core_list= self.csv_list[cstate_index + 1]
 		offset = 2
-		detail = list()
-		while offset == True :
+		while True :
 			if len(self.csv_list[cstate_index + offset]) == (core_num + 1) :
-				detail.append(self.csv_list[cstate_index + offset])
+				self.cstate.append(self.csv_list[cstate_index + offset])
 				offset = offset + 1
 			else : 
 				break
-		
-				
-		
-			
+		print self.cstate
 		print "Detect %d cores on this device"%core_num
 		print "get cstate index = %d"%cstate_index
+
+
+	def get_wakeup_sec_core(self) :	
+		for item in self.csv_list :
+			if len(item) == 1 :
+				if item[0].find('Wakeups/sec/core') != -1:
+					print item
+					self.wakeups = float(item[0].split('=')[1])
+					print self.wakeups
+					break
+
+	def get_pstate(self) :
+		pstate_index = self.csv_list.index(['P State Residency'])
+		
+				
+
 
 csvr = csvReader('stream_chrome.csv')
 csvr.init_csv_list()
 #csvr.csv_list_print()
 csvr.get_cstate()
+csvr.get_wakeup_sec_core()
 #csvr.allprint()
 #csvr.get_value('CC0')
