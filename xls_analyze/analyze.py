@@ -29,7 +29,7 @@ config.read("analyze.conf")
 cases_order = config.get("cases_order", "MRFLD")
 #print cases_order
 cases =  cases_order.split('-')
-print cases
+print "cases : %s" %cases
 
 # GET csv-file
 csvfilelist = config.options('%s-csvfile'%platform)
@@ -37,7 +37,7 @@ file_list = list()
 for csvfilename in csvfilelist :
 	csvfile = config.get('%s-csvfile'%platform, csvfilename)
 	file_list.append(csvfile)
-print file_list
+print "file_list : %s"%file_list
 # GET csv-file done
 
 for csv_filename in file_list :
@@ -96,9 +96,10 @@ for csv_filename in file_list :
 		value = csvr.get_ncstate_value('D0i3', ncs_item)
 #		print 'ncs_item=%s value=%s row=%s' %(ncs_item, value, row)
 		table.put_cell(row, case_offset, 1, str(value), 0)
+	
+	del csvr
 
 ### save the file
-
 wb = copy(data)
 ws = wb.get_sheet(0)
 
