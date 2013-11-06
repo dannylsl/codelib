@@ -2,6 +2,7 @@ import csv
 import sys
 
 class csvReader() :
+	fp			= None
 	reader		= None
 	csv_list	= list()
 	core_num	= 0
@@ -12,15 +13,26 @@ class csvReader() :
 
 
 	def __init__(self, filename) :
-#		print "__init___ called"
-		self.reader = csv.reader(open(filename, 'rb'))
+		print "__init___ called  filename = %s"%filename
+		self.fp = open(filename, 'rb')
+		self.reader = csv.reader(self.fp)
 		self.init_csv_list()
 		self.get_core_num()
 		self.get_cstate()
 		self.get_wakeup_sec_core()
 		self.get_pstate()
 		self.get_ncstate()
+		self.csv_list_print()
 #		print "__init__ call end"
+
+
+	def __del__(self) :
+		self.fp.close()		
+		del self.csv_list[:]
+		del self.cstate[:]
+		del self.pstate[:]
+		del self.ncstate[:]
+		print  "__del__ called"
 
 
 	def allprint(self) :
@@ -32,8 +44,9 @@ class csvReader() :
 
 
 	def csv_list_print(self) :
-		for line in self.csv_list :
-			print line
+#		for line in self.csv_list :
+#			print line
+		print "csv_list length=%d"%len(self.csv_list)
 
 
 	def get_value(self, itemname) :
@@ -43,7 +56,7 @@ class csvReader() :
 #items = line.split(',')
 			if itemname in line :
 				print "find the result"
-				print line
+#				print line
 
 
 	def init_csv_list(self) :
@@ -82,8 +95,8 @@ class csvReader() :
 			else : 
 				break
 #		print self.cstate
-		print "Detect %d cores on this device"%self.core_num
-		print "get cstate index = %d"%cstate_index
+#		print "Detect %d cores on this device"%self.core_num
+#		print "get cstate index = %d"%cstate_index
 
 
 	def get_wakeup_sec_core(self) :
@@ -92,7 +105,7 @@ class csvReader() :
 				if item[0].find('Wakeups/sec/core') != -1 :
 #			print item
 					self.wakeups = float(item[0].split('=')[1])
-					print self.wakeups
+					print "wakeups/sec/core = %s"%self.wakeups
 					break
 
 
@@ -131,6 +144,7 @@ class csvReader() :
 #	Display Island B | Display Island C
 #   VSP | ISP | MIO | HDMIO | GFXSLCLDO
 
+# NEED TO BE MODIFIED WITH BAYTRAIL
 	def get_ncstate_value(self, D0state, feature) :
 		state = ['D0i0', 'D0i1', 'D0i2', 'D0i3']
 		feat  = ['GFXSLC', 'GSDKCK', 'GRSCD', 'Video Decoder', 'Video Encoder', 'Display Island A', 'Display Island B', 'Display Island C', 'VSP', 'ISP', 'MIO', 'HDMIO', 'GFXSLCLDO']
