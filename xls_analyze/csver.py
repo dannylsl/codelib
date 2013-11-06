@@ -12,7 +12,7 @@ class csvReader() :
 
 
 	def __init__(self, filename) :
-		print "__init___ called"
+#		print "__init___ called"
 		self.reader = csv.reader(open(filename, 'rb'))
 		self.init_csv_list()
 		self.get_core_num()
@@ -20,7 +20,7 @@ class csvReader() :
 		self.get_wakeup_sec_core()
 		self.get_pstate()
 		self.get_ncstate()
-		print "__init__ call end"
+#		print "__init__ call end"
 
 
 	def allprint(self) :
@@ -64,11 +64,15 @@ class csvReader() :
 
 	def get_core_num(self) :
 		cstate_index = self.csv_list.index(['Core C State Residency'])
+		if cstate_index == -1:
+			cstate_index = self.csv_list.index(['C State Residency'])
 		self.core_num = len(self.csv_list[cstate_index + 1])
 
 
 	def get_cstate(self) :
 		cstate_index = self.csv_list.index(['Core C State Residency'])
+		if cstate_index == -1:
+			cstate_index = self.csv_list.index(['C State Residency'])
 		core_list= self.csv_list[cstate_index + 1]
 		offset = 2
 		while True :
@@ -77,7 +81,7 @@ class csvReader() :
 				offset = offset + 1
 			else : 
 				break
-		print self.cstate
+#		print self.cstate
 		print "Detect %d cores on this device"%self.core_num
 		print "get cstate index = %d"%cstate_index
 
@@ -86,7 +90,7 @@ class csvReader() :
 		for item in self.csv_list :
 			if len(item) == 1 :
 				if item[0].find('Wakeups/sec/core') != -1 :
-					print item
+#			print item
 					self.wakeups = float(item[0].split('=')[1])
 					print self.wakeups
 					break
@@ -102,7 +106,7 @@ class csvReader() :
 			else :
 				core_num = core_num - 1
 			offset = offset + 1
-		print self.pstate
+#		print self.pstate
 
 
 	def get_ncstate(self) :
@@ -115,7 +119,7 @@ class csvReader() :
 				offset = offset + 1
 			else :
 				break
-		print self.ncstate
+#		print self.ncstate
 
 # D0state : 
 #	0 -> D0i0 
@@ -134,7 +138,7 @@ class csvReader() :
 		if (D0state in state) and (feature in feat) :
 			for items in self.ncstate :
 				if feature in items :
-					print '%s - %s -%s'% (D0state, feature, items[state_index + 1])
+#					print '%s - %s -%s'% (D0state, feature, items[state_index + 1])
 					return items[state_index + 1]
 		else:
 			print 'NOT FOUND'
@@ -142,13 +146,13 @@ class csvReader() :
 
 
 #csvr = csvReader('stream_chrome.csv')
-csvr = csvReader('play1.csv')
+#csvr = csvReader('play1.csv')
 #csvr.init_csv_list()
 #csvr.csv_list_print()
 #csvr.get_cstate()
 #csvr.get_wakeup_sec_core()
 #csvr.get_pstate()
 #csvr.get_ncstate()
-csvr.get_ncstate_value('D0i3','Video Decoder')
+#csvr.get_ncstate_value('D0i3','Video Decoder')
 #csvr.allprint()
 #csvr.get_value('CC0')
