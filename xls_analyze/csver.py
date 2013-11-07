@@ -80,6 +80,7 @@ class csvReader() :
 		if cstate_index == -1:
 			cstate_index = self.csv_list.index(['C State Residency'])
 		self.core_num = len(self.csv_list[cstate_index + 1])
+		print "core num = %d"%self.core_num
 
 
 	def get_cstate(self) :
@@ -139,15 +140,23 @@ class csvReader() :
 #	1 -> D0i1
 #	2 -> D0i2
 #	3 -> D0i3
-# feature :
+# feature : MRFLD
 #	GFXSLC | GSDKCK | GRSCD | Video Decoder | Video Encoder | Display Island A
 #	Display Island B | Display Island C
 #   VSP | ISP | MIO | HDMIO | GFXSLCLDO
+#
+# feature : BYT
+#	RENder | Media | Display DPIO | CMNLM | TX0 | TX1 | TX2 | TX3 | RX0 | RX1 |
+#	Video Decoder | ISP
 
-# NEED TO BE MODIFIED WITH BAYTRAIL
-	def get_ncstate_value(self, D0state, feature) :
+	def get_ncstate_value(self, D0state, feature, platform) :
+		
 		state = ['D0i0', 'D0i1', 'D0i2', 'D0i3']
-		feat  = ['GFXSLC', 'GSDKCK', 'GRSCD', 'Video Decoder', 'Video Encoder', 'Display Island A', 'Display Island B', 'Display Island C', 'VSP', 'ISP', 'MIO', 'HDMIO', 'GFXSLCLDO']
+		if platform == 'MRFLD' :
+			feat  = ['GFXSLC', 'GSDKCK', 'GRSCD', 'Video Decoder', 'Video Encoder', 'Display Island A', 'Display Island B', 'Display Island C', 'VSP', 'ISP', 'MIO', 'HDMIO', 'GFXSLCLDO']
+		elif platform == 'BYT' :
+			feat = ['RENder', 'Media', 'Display DPIO', 'CMNLM', 'TX0', 'TX1', 'TX2','TX3', 'RX0', 'RX1', 'Video Decoder', 'ISP']
+
 		state_index = state.index(D0state)
 		if (D0state in state) and (feature in feat) :
 			for items in self.ncstate :
