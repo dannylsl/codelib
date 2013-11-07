@@ -11,22 +11,37 @@ class myConfigParser(ConfigParser) :
 	def optionxform(self, optionstr):
 		return optionstr
 
+if len(sys.argv) != 3 :
+	print "Usage: %s [platform = MRFLD | BYT] [csv_folder]"%sys.argv[0]
+	print "Example - 1: %s MRFLD csv"%sys.argv[0]
+	print "Example - 2: python analyze.py BYT ww44"
+	sys.exit(0)
 
-platform = "MRFLD"
-csv_file_base_dir = "ww44/"
-xls_tmp  = "MRFLD_SOCWATCH_ANALYSIS_PR2_TEMPLATE.xls"
-xls_out  = "MRFLD_SOCWATCH_ANALYSIS_PR2_TEMPLATE_OUT.xls"
-
-
-data = xlrd.open_workbook(xls_tmp, formatting_info = True)
-table = data.sheets()[0]
+platform = sys.argv[1]
+csv_file_base_dir = '%s/'%sys.argv[2]
 
 config = myConfigParser()
 config.read("analyze.conf")
 
+xls_template_dir = config.get("directory", 'xls_template_dir')
+
+#platform = "MRFLD"
+#xls_tmp  = "MRFLD_SOCWATCH_ANALYSIS_PR2_TEMPLATE.xls"
+#xls_out  = "MRFLD_SOCWATCH_ANALYSIS_PR2_TEMPLATE_OUT.xls"
+
+if platform == 'MRFLD':
+	xls_tmp  = "MRFLD_SOCWATCH_ANALYSIS_PR2_TEMPLATE.xls"
+elif platform == 'BYT' :
+	xls_tmp = "BYT_SOCWATCH_ANALYSIS_TEMPLATE.xls"
+
+xls_out = xls_tmp.replace('.xls', '_out.xls')
+
+data = xlrd.open_workbook('%s/%s'%(xls_template_dir, xls_tmp), formatting_info = True)
+table = data.sheets()[0]
+
 #sections = config.sections()
 #print sections
-cases_order = config.get("cases_order", "MRFLD")
+cases_order = config.get("cases_order", platform)
 #print cases_order
 cases =  cases_order.split('-')
 print "cases : %s" %cases
@@ -54,9 +69,9 @@ for csv_filename in file_list :
 	for cs_item in csvr.cstate :
 		cs_row = int(config.get('%s-cstate'%platform, cs_item[0])) - 1
 #		print cs_row
-		cell_value = table.cell(cs_row, case_offset).value
+#		cell_value = table.cell(cs_row, case_offset).value
 #		print "row = %s col= %s => %s"%(cs_row + 1, case_offset, cell_value)
-		for core_offset in range(0, 2) :
+		for core_offset in range(0, corenum) :
 #			print "core_offset = %d value= %s"%(core_offset, cs_item[1 + core_offset])
 			table.put_cell(cs_row, case_offset + core_offset, 1, cs_item[1 + core_offset] , 0)
 
@@ -93,7 +108,7 @@ for csv_filename in file_list :
 			ncs_item = "Video Encoder"
 		if ncs_item == 'Decode':
 			ncs_item = "Video Decoder"
-		value = csvr.get_ncstate_value('D0i3', ncs_item)
+		value = csvr.get_ncstate_value('D0i3', ncs_item, platform)
 #		print 'ncs_item=%s value=%s row=%s' %(ncs_item, value, row)
 		table.put_cell(row, case_offset, 1, str(value), 0)
 	
@@ -104,3 +119,5 @@ wb = copy(data)
 ws = wb.get_sheet(0)
 
 wb.save(xls_out)
+print "analysis work finished!"
+print "%s saved"%xls_out
