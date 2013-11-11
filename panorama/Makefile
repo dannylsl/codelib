@@ -11,6 +11,6 @@ matrixCatOnArm: matrixCat.cpp matrix.o
 matrix.o: matrix.cpp matrix.h
 	$(CC) $(CFLAGS) -c $^ 
 
-.PHONY:clean
+tPHONY:clean
 clean:
 	rm $(TARGETS)
