@@ -1,4 +1,5 @@
 import datetime
+import sys
 
 def image_similarity(filepath1, filepath2):
     from PIL import Image
@@ -61,7 +62,7 @@ print "numpy_image_similarity"
 print "============================================"
 dt = datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S')
 print dt
-img_s = numpy_image_similarity('a1.jpg', 'a2.jpg')
+img_s = numpy_image_similarity('%s'%sys.argv[1], '%s'%sys.argv[2])
 print "image1 and image2 similarity = %f"%img_s
 dt = datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S')
 print dt
