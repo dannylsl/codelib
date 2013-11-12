@@ -2,7 +2,6 @@ import csv
 import sys
 
 class csvReader() :
-	fp			= None
 	reader		= None
 	csv_list	= list()
 	core_num	= 0
@@ -14,20 +13,21 @@ class csvReader() :
 
 	def __init__(self, filename) :
 		print "__init___ called  filename = %s"%filename
-		self.fp = open(filename, 'rb')
-		self.reader = csv.reader(self.fp)
-		self.init_csv_list()
-		self.get_core_num()
-		self.get_cstate()
-		self.get_wakeup_sec_core()
-		self.get_pstate()
-		self.get_ncstate()
-		self.csv_list_print()
+		try :
+			self.reader = csv.reader(open(filename, 'rb'))
+			self.init_csv_list()
+			self.get_core_num()
+			self.get_cstate()
+			self.get_wakeup_sec_core()
+			self.get_pstate()
+			self.get_ncstate()
+			self.csv_list_print()
+		except :
+			print "Fail to init the csvReader Object"
 #		print "__init__ call end"
 
 
 	def __del__(self) :
-		self.fp.close()		
 		del self.csv_list[:]
 		del self.cstate[:]
 		del self.pstate[:]

@@ -6,6 +6,7 @@ import xlwt
 from xlutils.copy import copy
 from ConfigParser import ConfigParser
 import sys
+import os
 
 class myConfigParser(ConfigParser) :
 	def optionxform(self, optionstr):
@@ -59,6 +60,10 @@ for csv_filename in file_list :
 #csv_filename = "stream_chrome"
 	csv_file = "%s%s.csv"%(csv_file_base_dir, csv_filename)
 	print csv_file
+	is_file_exist = os.path.exists(csv_file)
+	if is_file_exist == False :
+		print "file not exist"
+		continue
 	csvr = csver.csvReader(csv_file)
 
 	corenum = int(csvr.core_num)
