@@ -4,7 +4,15 @@ using namespace std;
 typedef const int* IteratorType;
 
 //prototype of the algorithm
-IteratorType find(IteratorType begin, IteratorType end, const int& value) ;
+//IteratorType find(IteratorType begin, IteratorType end, const int& value) ;
+
+template<class IteratorType, class T>
+IteratorType find(IteratorType begin, IteratorType end, const T& value){
+	cout << "IteratorType template called" <<endl;
+	while(begin != end && *begin != value)
+		++begin;
+	return begin;
+}
 
 int main() {
 	const int Count = 100;
@@ -31,8 +39,9 @@ int main() {
 	}
 }
 
-IteratorType find(IteratorType begin, IteratorType end, const int& value) {
-	while(begin != end && *begin != value)
-		++begin;
-	return begin;
-}
+//IteratorType find(IteratorType begin, IteratorType end, const int& value) {
+//	while(begin != end && *begin != value)
+//		++begin;
+//	return begin;
+//}
+
