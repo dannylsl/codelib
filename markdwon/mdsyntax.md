@@ -26,4 +26,8 @@ ATX similar use '#' show the level of title
 
 '######' means H6
 
+*emphasis*
+_hello world_
 
+### image
+![screen capture](a.png)
