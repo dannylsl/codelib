@@ -1,0 +1,10 @@
+[AUTO VPNP TOOL]
+	> It is hard to add a new case. You should 
+		add socwatch running shell-script to post_flash/sh
+		push the socwatch running shell-script to device
+		add shell script calling socwatch running shell-script to socwatch/
+		add case_setup | case_start | case _stop to test_case/
+
+	Improvement : try to passing arguments to archieve the goal
+
+
