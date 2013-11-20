@@ -1,0 +1,253 @@
+----------------------------------------------------------
+Intel Corporation Socwatch Tool Version 1.2.1 Release  (INTERNAL)
+Copyright (c) 2009-2013, Intel Corp. All Rights Reserved.
+For use with Intel(R) processors, chipsets and platforms.
+Strictly For Intel Internal Use Only.
+email: SoCWatchDevelopers@intel.com 
+----------------------------------------------------------
+
+,Captured for,    100.0 seconds,
+,----------,----------,----------
+,   Core C State Residency        
+,----------,----------,----------
+,         ,      Core0,      Core1
+,----------,----------,----------
+
+,       CC0,     47.4%,     50.6%,
+,       CC1,     14.0%,     14.7%,
+,       CC6,     38.6%,     34.8%,
+,----------,----------
+,   Module C State Residency        
+,----------,----------
+,         ,    Module0
+,----------,----------
+
+,       MC0,     85.2%,
+,       MC2,      0.0%,
+,       MC4,      0.0%,
+,       MC6,     14.8%,
+,----------,----------
+,   Package C State Residency        
+,----------,----------
+,         ,   Package0
+,----------,----------
+
+,       PC0,     85.9%,
+,       PC2,      0.0%,
+,       PC4,      0.0%,
+,       PC6,     14.1%,
+
+,----------,Wakeup Information,----------,----------,
+WU Type = Wakeup Type ,
+          => TIM(Timer), IRQ(Interrupt), SCHED(sched switch), IPI (LOC, RES, CALL, TLB), WRQ (WorkQueue)
+             BDRY (begin), ABRT (abort), UNK (Unknown), EOF (End of File),
+WU Count = Number of times the timer/irq/other have woken up the system from specified c-state ,
+WU Data = Proc PID if WU Type == TIM, IRQ# if WU Type == IRQ, Undefined otherwise,
+WU Name = Proc Name if WU Type = TIM, device driver string if WU_TYPE == IRQ, Undefined otherwise,
+,-----------,-----------,-----------,-----------,-----------,
+
+Wakeups/sec/core = 419.4
+
+
+----------,----------,----------,----------,----------------,
+      Core0 C1 Wakeup Info,
+----------,----------,----------,----------,----------------,
+       SNO,   WU Type,  WU Count,   WU Data,         WU Name,
+----------,----------,----------,----------,----------------,
+         0,       TIM,      4067,        67,         mmcqd/0,
+         1,     SCHED,      3238,         0,             ---,
+         2,       TIM,      2182,       173,     mediaserver,
+         3,       TIM,      1437,         0,         swapper,
+         4,       IRQ,       968,        71,        pvrsrvkm,
+         5,       IRQ,       178,        24,intel_sst_driver,
+         6,       TIM,       132,      1911,        socwatch,
+         7,       IRQ,       102,         0,            mmc0,
+         8,       TIM,        59,       571, ndroid.systemui,
+         9,       IPI,        59,         0,             ---,
+        10,       TIM,        22,       135,     kworker/0:3,
+        11,       TIM,        13,        12,      watchdog/1,
+        12,       TIM,        12,       187,          logcat,
+        13,       UNK,         9,         0,             ---,
+        14,       TIM,         7,      1850, droid.gallery3d,
+        15,       IRQ,         5,         7,   SCHED_SOFTIRQ,
+        16,       IRQ,         4,        48,   intel_scu_ipc,
+        17,       TIM,         4,      1772,     com.dispmgr,
+        18,       TIM,         4,        11,      watchdog/0,
+
+----------,----------,----------,----------,----------------,
+      Core1 C1 Wakeup Info,
+----------,----------,----------,----------,----------------,
+       SNO,   WU Type,  WU Count,   WU Data,         WU Name,
+----------,----------,----------,----------,----------------,
+         0,       TIM,      3885,        67,         mmcqd/0,
+         1,     SCHED,      3620,         0,             ---,
+         2,       TIM,      1493,       173,     mediaserver,
+         3,       TIM,      1293,         0,         swapper,
+         4,       IRQ,      1118,        71,        pvrsrvkm,
+         5,       IRQ,       198,        24,intel_sst_driver,
+         6,       IRQ,        93,         0,            mmc0,
+         7,       TIM,        92,      1911,        socwatch,
+         8,       IPI,        60,         0,             ---,
+         9,       TIM,        25,        15,     kworker/1:0,
+        10,       UNK,        20,         0,             ---,
+        11,       TIM,        16,        12,      watchdog/1,
+        12,       TIM,        12,      1850, droid.gallery3d,
+        13,       TIM,        11,       187,          logcat,
+        14,       TIM,         9,      1772,     com.dispmgr,
+        15,       IRQ,         8,         7,   SCHED_SOFTIRQ,
+        16,       IRQ,         3,        48,   intel_scu_ipc,
+        17,       TIM,         2,       449,   system_server,
+        18,       WRQ,         1,         0,             ---,
+
+----------,----------,----------,----------,----------------,
+      Core0 C6 Wakeup Info,
+----------,----------,----------,----------,----------------,
+       SNO,   WU Type,  WU Count,   WU Data,         WU Name,
+----------,----------,----------,----------,----------------,
+         0,     SCHED,     22218,         0,             ---,
+         1,       IRQ,      3881,        71,        pvrsrvkm,
+         2,       TIM,      1760,       173,     mediaserver,
+         3,       TIM,       944,        67,         mmcqd/0,
+         4,       TIM,       913,         0,         swapper,
+         5,       IRQ,       835,        24,intel_sst_driver,
+         6,       IRQ,       366,         0,            mmc0,
+         7,       UNK,        87,         0,             ---,
+         8,       TIM,        76,      1911,        socwatch,
+         9,       TIM,        37,       571, ndroid.systemui,
+        10,       TIM,        10,      1850, droid.gallery3d,
+        11,       TIM,         9,        12,      watchdog/1,
+        12,       IRQ,         4,         7,   SCHED_SOFTIRQ,
+        13,       TIM,         3,        11,      watchdog/0,
+        14,       IPI,         3,         0,             ---,
+        15,       TIM,         2,       187,          logcat,
+        16,       IRQ,         2,        48,   intel_scu_ipc,
+        17,       IRQ,         1,        27,   i2c_pmic_adap,
+
+----------,----------,----------,----------,----------------,
+      Core1 C6 Wakeup Info,
+----------,----------,----------,----------,----------------,
+       SNO,   WU Type,  WU Count,   WU Data,         WU Name,
+----------,----------,----------,----------,----------------,
+         0,     SCHED,     20616,         0,             ---,
+         1,       IRQ,      3586,        71,        pvrsrvkm,
+         2,       TIM,      1150,       173,     mediaserver,
+         3,       TIM,       823,        67,         mmcqd/0,
+         4,       TIM,       748,         0,         swapper,
+         5,       IRQ,       733,        24,intel_sst_driver,
+         6,       IRQ,       332,         0,            mmc0,
+         7,       UNK,        73,         0,             ---,
+         8,       TIM,        36,      1911,        socwatch,
+         9,       TIM,        11,      1850, droid.gallery3d,
+        10,       IPI,         5,         0,             ---,
+        11,       IRQ,         5,        48,   intel_scu_ipc,
+        12,       TIM,         4,      1772,     com.dispmgr,
+        13,       TIM,         4,        12,      watchdog/1,
+        14,       IRQ,         3,         7,   SCHED_SOFTIRQ,
+        15,       TIM,         2,       187,          logcat,
+        16,       TIM,         1,       449,   system_server,
+        17,       TIM,         1,       645,             ---,
+        18,       IRQ,         1,        50,             adc,
+
+
+
+
+
+
+
+
+
+,----------,-----------,----------,
+,       P State Residency         ,
+,----------,-----------,----------,
+,----------,  Core 0   ,----------,
+,      P[0],            2001-2133,      0.0%,
+,      P[0],            1867-2000,      0.0%,
+,      P[0],            1734-1866,      0.1%,
+,      P[0],            1601-1733,      0.0%,
+,      P[0],            1467-1600,      0.0%,
+,      P[0],            1334-1466,      0.0%,
+,      P[1],            1333,      0.1%,
+,      P[2],            1200,      0.0%,
+,      P[3],            1066,      0.0%,
+,      P[4],             933,      0.0%,
+,      P[5],             800,      0.0%,
+,      P[6],             666,      0.3%,
+,      P[7],             533,     99.5%,
+,----------,  Core 1   ,----------,
+,      P[0],            2001-2133,      0.0%,
+,      P[0],            1867-2000,      0.0%,
+,      P[0],            1734-1866,      0.0%,
+,      P[0],            1601-1733,      0.0%,
+,      P[0],            1467-1600,      0.1%,
+,      P[0],            1334-1466,      0.1%,
+,      P[1],            1333,      0.1%,
+,      P[2],            1200,      0.1%,
+,      P[3],            1066,      0.0%,
+,      P[4],             933,      0.0%,
+,      P[5],             800,      0.1%,
+,      P[6],             666,      0.1%,
+,      P[7],             533,     99.4%,
+,----------,----------,----------,----------,----------,----------------------------------------------
+,          ,    North Complex   ,Residency ,          ,
+,----------,----------,----------,----------,----------,----------------------------------------------
+,          ,   D0i0   ,   D0i1   ,    D0i2  ,    D0i3  ,
+,----------,----------,----------,----------,----------,----------------------------------------------
+,   NC-00  ,     55.0%,      0.0%,      0.0%,     45.0%," GFXSLC ",
+,   NC-01  ,     54.6%,      0.0%,      0.0%,     45.4%," GSDKCK ",
+,   NC-02  ,      1.1%,      0.0%,      0.0%,     98.9%," GRSCD  ",
+,   NC-03  ,     53.5%,      0.0%,      0.0%,     46.5%,"Video Decoder",
+,   NC-04  ,      0.0%,      0.0%,      0.0%,    100.0%,"Video Encoder",
+,   NC-05  ,    100.0%,      0.0%,      0.0%,      0.0%,"Display Island A",
+,   NC-06  ,      0.0%,      0.0%,      0.0%,    100.0%,"Display Island B",
+,   NC-07  ,    100.0%,      0.0%,      0.0%,      0.0%,"Display Island C",
+,   NC-08  ,      0.0%,      0.0%,      0.0%,    100.0%,"VSP",
+,   NC-09  ,      0.0%,      0.0%,      0.0%,    100.0%,"ISP",
+,   NC-10  ,    100.0%,      0.0%,      0.0%,      0.0%,"MIO",
+,   NC-11  ,      0.0%,      0.0%,      0.0%,    100.0%,"HDMIO ",
+,   NC-12  ,     56.1%,      0.0%,      0.0%,     43.9%,"GFXSLCLDO",
+,----------,----------,----------,----------,----------,-----------------------------------------------
+,South Complex Device residencies of some Subsystem goes in D0i2 only(not D0i3), which are reported as D0i3 by SCU,
+,----------,----------,----------,-----------------------------------------------,
+,          ,   Device ,Residency ,                                               ,
+,----------,----------,----------,-----------------------------------------------,
+,   LSS    ,   D0i0   ,   D0i3   ,           Physical Devices                    ,
+,----------,----------,----------,-----------------------------------------------,
+,  LSS-00  ,      0.0%,    100.0%,PSH, I2C8, I2C9    ,
+,  LSS-01  ,      0.0%,    100.0%,SDIO0        ,
+,  LSS-02  ,     72.6%,     27.4%,EMMC0        ,
+,  LSS-04  ,      0.0%,    100.0%,SDIO2        ,
+,  LSS-05  ,      0.0%,    100.0%,MIPIHSI      ,
+,  LSS-06  ,      0.0%,    100.0%,SECURITY     ,
+,  LSS-07  ,      0.0%,    100.0%,SECTAP       ,
+,  LSS-08  ,      0.0%,    100.0%,USBHSICRF    ,
+,  LSS-09  ,      0.0%,    100.0%,USB3XHCI     ,
+,  LSS-10  ,    100.0%,      0.0%,AUDIO, AUDIOFABRIC, SSP2, AUDDMA1, SSP1, SLIMBUSCTL  ,
+,  LSS-17  ,      0.0%,    100.0%,SSP3         ,
+,  LSS-18  ,      0.0%,    100.0%,SSP5         ,
+,  LSS-19  ,      0.0%,    100.0%,SSP6         ,
+,  LSS-20  ,      0.0%,    100.0%,I2C1         ,
+,  LSS-21  ,      0.0%,    100.0%,I2C2         ,
+,  LSS-22  ,      0.0%,    100.0%,I2C3         ,
+,  LSS-23  ,      0.0%,    100.0%,I2C4         ,
+,  LSS-24  ,      0.0%,    100.0%,I2C5         ,
+,  LSS-25  ,      0.0%,    100.0%,GPDMA        ,
+,  LSS-26  ,      0.0%,    100.0%,I2C6         ,
+,  LSS-27  ,      0.0%,    100.0%,I2C7         ,
+,  LSS-30  ,      0.0%,    100.0%,KPD          ,
+,  LSS-35  ,    100.0%,      0.0%,SSP4         ,
+,  LSS-36  ,      0.0%,    100.0%,PWM          ,
+,----------,----------,----------,-----------------------------------------------,
+KERNEL Wakelock AudioOutLock was locked 1 time(s) for a total of 99923.5 ms
+KERNEL Wakelock KeyEvents was locked 3 time(s) for a total of 0.5 ms
+KERNEL Wakelock PowerManagerService.Display was locked 1 time(s) for a total of 99923.5 ms
+KERNEL Wakelock PowerManagerService.WakeLocks was locked 1 time(s) for a total of 99923.5 ms
+KERNEL Wakelock Sensorhubd was locked 1 time(s) for a total of 99923.5 ms
+KERNEL Wakelock alarm was locked 3 time(s) for a total of 6.0 ms
+KERNEL Wakelock intel_scu_ipc was locked 91 time(s) for a total of 19.5 ms
+KERNEL Wakelock ospm_wake_lock was locked 1 time(s) for a total of 99923.5 ms
+KERNEL Wakelock pmic_i2c_wake_lock was locked 3 time(s) for a total of 4.3 ms
+KERNEL Wakelock pmic_wakelock was locked 1 time(s) for a total of 2622.3 ms
+USER Wakelock AlarmManager was locked 3 time(s) for a total of 124.2 ms
+USER Wakelock AudioOut_2 was locked 1 time(s) for a total of 99877.8 ms
+USER Wakelock WindowManager was locked 1 time(s) for a total of 99877.8 ms
+
