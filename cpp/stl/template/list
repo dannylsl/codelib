@@ -1,7 +1,9 @@
 C++ template Step by Step
 FILENAME 	DATE		DESCRIPTION
 =================================================
-001 		2013-11-13	basic example
+001 		2013-11-13	basic example --> Get Maximun from two numbers
+						http://www.cnblogs.com/stephen-liu74/archive/2012/07/16/2593492.html
+002			2013-11-22  basic example --> Get Maximun from class object without < operator
 						http://www.cnblogs.com/stephen-liu74/archive/2012/07/16/2593492.html
 
 
