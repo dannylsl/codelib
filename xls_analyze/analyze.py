@@ -35,7 +35,7 @@ if platform == 'MRFLD':
 elif platform == 'BYT' :
 	xls_tmp = "BYT_SOCWATCH_ANALYSIS_TEMPLATE.xls"
 
-xls_out = xls_tmp.replace('.xls', '_out.xls')
+xls_out = xls_tmp.replace('.xls', '_%s.xls'%sys.argv[2])
 
 data = xlrd.open_workbook('%s/%s'%(xls_template_dir, xls_tmp), formatting_info = True)
 table = data.sheets()[0]
