@@ -7,4 +7,9 @@
 
 	Improvement : try to passing arguments to archieve the goal
 
+	> Output a report shows 
+		What cases runs on the device
+		how many times each case run
+		case running result [ SUCCESSFULL | FAILURE ]
+
 
