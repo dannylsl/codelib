@@ -68,12 +68,12 @@ dt = datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S')
 print dt
 
 
-print "============================================"
-print "pil_image_similarity"
-print "============================================"
-dt = datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S')
-print dt
-img_s = pil_image_similarity('a1.jpg', 'a2.jpg')
-print "image1 and image2 similarity = %f"%img_s
-dt = datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S')
-print dt
+#print "============================================"
+#print "pil_image_similarity"
+#print "============================================"
+#dt = datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S')
+#print dt
+#img_s = pil_image_similarity('black320_240.bmp', 'screeh320_240.bmp')
+#print "image1 and image2 similarity = %f"%img_s
+#dt = datetime.datetime.now().strftime('%b-%d-%y %H:%M:%S')
+#print dt
