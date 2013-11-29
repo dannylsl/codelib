@@ -10,7 +10,7 @@ window = pygame.display.set_mode((640,480),0)
 cam = pygame.camera.Camera("/dev/video0", (640,480))
 cam.start()
 image = cam.get_image()
-pygame.image.save(image,'%s.jpg'%sys.argv[1])
+pygame.image.save(image,'%s.png'%sys.argv[1])
 cam.stop()
 
 #while True:
