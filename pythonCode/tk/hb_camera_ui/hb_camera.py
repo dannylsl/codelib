@@ -9,12 +9,13 @@ from pygame.locals import *
 
 import thread
 import time
+import os
 from PIL import Image, ImageTk
 
 cam_flag = False
 
 def get_image_cam() :
-	global cam_flag, cam_image, cam_imageTk, canvas_img
+	global cam,cam_flag,cam_image, cam_imageTk, canvas_img
 	print '[THREAD CREATE]get image camera'
 	print cam_flag
 	while cam_flag :
@@ -22,13 +23,16 @@ def get_image_cam() :
 		pygame.image.save(image,'capture.bmp')
 		cam_image = Image.open('capture.bmp') 
 		cam_imageTk = ImageTk.PhotoImage(cam_image)
-		canvas_img.create_image(320, 240, image = cam_imageTk)
+		canvas_img.create_image(0, 0, anchor = NW ,image = cam_imageTk)
+		## It seem the statement as below could solve the Blink problem
+		## As for the reason, not catch now
+		obr = cam_imageTk 
 		
 	print '[THREAD EXIT] get image camera'
 	thread.exit_thread()
 
 def cam_start() :
-	global cam_flag
+	global cam,cam_flag
 	print 'camera start '
 	cam.start()
 	cam_flag = True
@@ -36,7 +40,7 @@ def cam_start() :
 	return
 
 def cam_stop() :
-	global cam_flag
+	global cam,cam_flag
 	print 'camera stop '
 	cam.stop()
 	cam_flag = False
@@ -71,11 +75,15 @@ frame.grid(column = 0, row = 0)
 
 #image_png = PhotoImage(file = 'png_test.png')
 #label_img = ttk.Label(frame, borderwidth=10).grid(column = 1, row = 1, columnspan = 4)
-canvas_img = Canvas(frame, bg='black', width = 640, height = 480)
+canvas_img = Canvas(frame,bg='black', width = 640, height = 480)
 canvas_img.pack(side = TOP,expand = YES, fill = BOTH)
-#cam_image = Image.open('capture.bmp') 
-#cam_imageTk = ImageTk.PhotoImage(cam_image)
-#canvas_img.create_image(320, 240, image = cam_imageTk)
+if os.path.exists('capture.bmp') == True :
+	cam_image = Image.open('capture.bmp') 
+	cam_imageTk = ImageTk.PhotoImage(cam_image)
+	canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
+else :
+	pass
+
 canvas_img.grid(column = 0, row = 1, columnspan = 4)
 
 var_btn_camera = StringVar()
