@@ -31,7 +31,7 @@
 		[TASK-2] Design the basic GUI with python Tkinter module
 		_[STATE-ON GOING]_ 
 			1. basic GUI has been designed and implemented. GUI as below
-			![Camera Heartbeat GUI](hbcamera.png)
+			![Camera Heartbeat GUI](https://github.com/dannylsl/codelib/blob/66c291c2ffe67dc4298c05fd3383c2e1b1ff2f56/markdwon/weeklyreport/ww47/hbcamera.png)
 			2. The functions is implementing, a problem about canvas blink was solve.
 				More information: <http://stackoverflow.com/questions/20307718/python-tkinter-display-images-on-canvas-it-always-blink>
 			
