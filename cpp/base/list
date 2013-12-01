@@ -3,11 +3,14 @@ FILENAME 	DATE		DESCRIPTION
 =================================================
 001 		2013-11-23	Reference of Class Object
 						Argument -> Parameter | COPY_CONSTRUCTION | new & delete
+
 002			2013-11-24  Input EOF via Keyboard
 						WINDOW: Ctrl+Z		Unix | Mac OS: Ctrl+d
 						TIP:
 						* when using cin. use cin.eof() to check whether input is EOF
 						* when using getchar(). The ch TYPE must using [signed char or int] 	
+
+003			2013-12-01  Type size check
 
 
 
