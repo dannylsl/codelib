@@ -17,18 +17,17 @@ def Usage() :
 	print "Example - 1: %s MRFLD idle1.csv idle2.csv "%sys.argv[0]
 	print "Example - 2: python analyze.py BYT idle1.csv idle2.csv idle3.csv"
 
-platform = sys.argv[1]
-if (platform != 'MRFLD' and platform != 'BYT') :
+if (sys.argv[1] != 'MRFLD' and sys.argv[1] != 'BYT') :
 	print "Error : Please set the platform"
 	Usage()
 	sys.exit(0)
 
-if len(sys.argv) != 3 :
+if len(sys.argv) < 4 :
+	print "Error : Your parameter is too less"
 	Usage()
 	sys.exit(0)
 
 platform = sys.argv[1]
-csv_file_base_dir = '%s/'%sys.argv[2]
 
 config = myConfigParser()
 config.read("analyze.conf")
@@ -44,39 +43,52 @@ if platform == 'MRFLD':
 elif platform == 'BYT' :
 	xls_tmp = "BYT_SOCWATCH_ANALYSIS_TEMPLATE.xls"
 
-xls_out = xls_tmp.replace('.xls', '_%s.xls'%sys.argv[2])
+xls_out = xls_tmp.replace('.xls', '_COMPARE.xls')
 
 data = xlrd.open_workbook('%s/%s'%(xls_template_dir, xls_tmp), formatting_info = True)
 table = data.sheets()[0]
 
-#sections = config.sections()
-#print sections
-cases_order = config.get("cases_order", platform)
-#print cases_order
-cases =  cases_order.split('-')
-print "cases : %s" %cases
+csv_files_num = len(sys.argv) - 2
+print "csv_files_num = %s" %csv_files_num
+
+#cases_order = config.get("cases_order", platform)
+#cases =  cases_order.split('-')
+#print "cases : %s" %cases
 
 # GET csv-file
-csvfilelist = config.options('%s-csvfile'%platform)
 file_list = list()
-for csvfilename in csvfilelist :
-	csvfile = config.get('%s-csvfile'%platform, csvfilename)
-	file_list.append(csvfile)
-print "file_list : %s"%file_list
-# GET csv-file done
+for file_id in range(2,csv_files_num + 2) :
+	print "file_id=%s   filename=%s"%(file_id, sys.argv[file_id])
+	file_list.append(sys.argv[file_id])
+#sys.exit(0)
 
+##csvfilelist = config.options('%s-csvfile'%platform)
+##file_list = list()
+##for csvfilename in csvfilelist :
+##	csvfile = config.get('%s-csvfile'%platform, csvfilename)
+##	file_list.append(csvfile)
+##print "file_list : %s"%file_list
+
+# GET csv-file done
+csv_filename_id = -1
 for csv_filename in file_list :
+	csv_filename_id = csv_filename_id + 1
+		
 #csv_filename = "stream_chrome"
-	csv_file = "%s%s.csv"%(csv_file_base_dir, csv_filename)
+	csv_file = csv_filename
 	print csv_file
 	is_file_exist = os.path.exists(csv_file)
 	if is_file_exist == False :
-		print "file not exist"
+		print "!!!  FILE NOT EXSIT  !!!"
 		continue
 	csvr = csver.csvReader(csv_file)
 
 	corenum = int(csvr.core_num)
-	case_offset = int(cases.index(csv_filename) * corenum + 1)
+	#case_offset = int(cases.index(csv_filename) * corenum + 1)
+	case_offset = int(csv_filename_id * corenum + 1)
+
+	## SET THE CASE TITLE
+	table.put_cell(1, case_offset , 1, csv_filename , 0)
 
 ### cstate
 #	print csvr.cstate
