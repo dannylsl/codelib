@@ -6,11 +6,18 @@ def btn_click() :
 	string = resultsContents.get()
 	print string
 
-def change_b2_state() :
+## b2['state'] == 'disabled'  # REGARD AS FALSE
+def toggle_b2_state() :
+	global b2
+	print "b2['state']={%s}"%b2['state']
+	print 'Compara: disabled'
+	print b2['state'] == 'disabled'
 	if b2['state'] == 'disabled' :
-		print 'DISABLED'
-	else :
+		print 'disabled'
+
+	elif b2['state'] == 'enabled' :
 		print 'ENABLED'
+#		b2['state'] = 'disabled'
 
 
 root = Tk()
@@ -38,8 +45,11 @@ l3 = ttk.Label(frame, image=image, anchor='e').grid(column = 1, row = 4, columns
 
 l4 = ttk.Label(root, text="python-logo", justify='left').grid(column = 0, row = 1, sticky='W')
 
-button = ttk.Button(frame, text='Okay', command=btn_click).grid(column = 1, row = 2)
-b1 = ttk.Button(frame, text='active', state='!disabeld', command=change_b2_state).grid(column = 2, row = 2)
-b2 = ttk.Button(frame, text='disabled', state='disabled').grid(column = 3, row = 2)
+button = ttk.Button(frame, text='Okay', command=btn_click)
+button.grid(column = 1, row = 2)
+b1 = ttk.Button(frame, text='active', state='!disabeld', command=toggle_b2_state)
+b1.grid(column = 2, row = 2)
+b2 = ttk.Button(frame, text='stated', state='disabled')
+b2.grid(column = 3, row = 2)
 
 root.mainloop()
