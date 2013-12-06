@@ -1,0 +1,126 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+" '''''''''''''''''''''''''''''
+" Add by Danny Lee
+" '''''''''''''''''''''''''''''
+" set font 
+"set guifont = Consolas:h12
+"set guifont=Ubuntu_Mono:h12:b
+set guifont=Consola_Mono:h12:b
+" set column number
+set nu!
+" set colorscheme 
+colorscheme ir_black
+"colorscheme GRB256 
+
+"set GUI OPTION
+set go=
+
+" set syntax on
+syntax on
+
+" set c\cpp functions syntax on
+syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>[^()]*)("me=e-2
+syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
+hi cFunction gui=NONE guifg=#B5A1FF
+
+" set ctags.exe
+" Usage
+" 	Ctrl+] goto definition
+" 	Ctrl+T goto check point	
+set tags=tags;
+set autochdir
+
+
+" set TagList
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+" set Winmanager
+let g:winManagerWindowLayout='FileExplorer|TagList'
+nmap wm :WMToggle<cr>
+
+" set a.vim
+" Usage		F12 or :a
+nnoremap <silent> <F12> :A<CR>
+
+" Set SuperTab
+let g:SuperTabDefaultCompletionType="<C-X><C-P>"
+" 设置按下<Tab>后默认的补全方式, 默认是<C-P>, 
+" 现在改为<C-X><C-O>. 关于<C-P>的补全方式, 
+" 还有其他的补全方式, 你可以看看下面的一些帮助:
+" :help ins-completion
+" :help compl-omni
+let g:SuperTabRetainCompletionType=2
+" 0 - 不记录上次的补全方式
+" 1 - 记住上次的补全方式,直到用其他的补全命令改变它
+" 2 - 记住上次的补全方式,直到按ESC退出插入模式为止
+
+" Set PopMenuBar
+"highlight Pmenu guibg=gray gui=bold guifg=blue
+"highlight PmenuSel guibg=blue 
+
+
+"tab width
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+" 不使用空格代替制表符
+set noexpandtab
+
+" 不生成临时文件
+set nobackup
+set noswapfile
+
+" 搜索忽略大小写
+set ignorecase
+
+" 状态行显示的内容（包括文件类型和解码）
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
+
+" 总是显示状态行
+set laststatus=2
+
+" 在编辑过程中，在右下角显示光标位置的状态行
+set ruler           
+
+" 当前行显示下划线
+set cursorline
+
+" GVimWindow.exe  full screen
+:map <F11> :!start C:\Program Files (x86)\Vim\vim73\GVimWindow.exe<CR>
+
+" set the window top
+:map <C-F11> :!start C:\Program Files (x86)\Vim\vim73\GVimWindow.exe "ontop" <CR>
+
+:map <F12> :!start C:\Program Files (x86)\Vim\vim73\GVimWindow.exe
+
