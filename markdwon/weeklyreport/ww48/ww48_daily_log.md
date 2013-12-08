@@ -19,8 +19,6 @@ More information: http://android.intel.com:8080/#/c/146681/
 		2. add analyze4cmp.py for two or more summary csv files comparison
 		3. add README.md as introduction
 
-
-
 ### MISC
 	1. Help Haiyang check the bug #155626
 		It seem the time delay is in relationship with the Dalvikvm java virtual Machine. Not surely
