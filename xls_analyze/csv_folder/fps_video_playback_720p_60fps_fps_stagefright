@@ -1,0 +1,94 @@
+--------- beginning of /dev/log/main
+01-01 00:01:46.439 D/AndroidRuntime( 1835): 
+01-01 00:01:46.439 D/AndroidRuntime( 1835): >>>>>> AndroidRuntime START com.android.internal.os.RuntimeInit <<<<<<
+01-01 00:01:46.439 D/AndroidRuntime( 1835): CheckJNI is OFF
+01-01 00:01:46.439 I/AndroidRuntime( 1835): SCU BS Version: 00B0.0003
+01-01 00:01:46.439 I/AndroidRuntime( 1835): SCU RT Version: 00B0.003B
+01-01 00:01:46.439 I/AndroidRuntime( 1835): IA32FW Version: 0001.0002
+01-01 00:01:46.439 I/AndroidRuntime( 1835): ValHooks Version: 0002.0001
+01-01 00:01:46.439 I/AndroidRuntime( 1835): IFWI Version: 0003.0082
+01-01 00:01:46.439 I/AndroidRuntime( 1835): CHAABI Version: 0000.0039
+01-01 00:01:46.439 I/AndroidRuntime( 1835): mIA Version: B018.1E1F
+01-01 00:01:46.439 I/AndroidRuntime( 1835): Kernel Release Version: 3.10.20-261885-g4ed55bd
+01-01 00:01:46.449 D/dalvikvm( 1835): Trying to load lib libjavacore.so 0x0
+01-01 00:01:46.449 D/dalvikvm( 1835): Added shared lib libjavacore.so 0x0
+01-01 00:01:46.449 D/dalvikvm( 1835): Trying to load lib libnativehelper.so 0x0
+01-01 00:01:46.449 D/dalvikvm( 1835): Added shared lib libnativehelper.so 0x0
+01-01 00:01:46.449 D/dalvikvm( 1835): No JNI_OnLoad found in libnativehelper.so 0x0, skipping init
+01-01 00:01:46.459 D/dalvikvm( 1835): Extra Options: not specified
+01-01 00:01:46.469 D/dalvikvm( 1835): Note: class Landroid/app/ActivityManagerNative; has 179 unimplemented (abstract) methods
+01-01 00:01:46.469 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0018 not a loop: unsupported opcode in loop : new-instance
+01-01 00:01:46.519 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0076 not a loop: unsupported opcode in loop : new-array
+01-01 00:01:46.529 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.529 E/memtrack( 1835): Couldn't load memtrack module (No such file or directory)
+01-01 00:01:46.529 E/android.os.Debug( 1835): failed to load memtrack module: -2
+01-01 00:01:46.529 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.529 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 000e not a loop: only one predecessor
+01-01 00:01:46.529 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.529 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.539 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0006 not a loop: only one predecessor
+01-01 00:01:46.539 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.539 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.539 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0004 not a loop: only one predecessor
+01-01 00:01:46.549 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.549 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 000d not a loop: unsupported opcode in loop : new-array
+01-01 00:01:46.549 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.549 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 0024 more than one loop exit
+01-01 00:01:46.559 D/dalvikvm( 1835): JIT_INFO: Loop trace @ offset 001e fallthrough to more than one loop exit
+01-01 00:01:46.559 D/AndroidRuntime( 1835): Calling main entry com.android.commands.am.Am
+01-01 00:01:46.559 I/dalvikvm( 1835): Total arena pages for JIT: 11
+01-01 00:01:46.569 I/dalvikvm( 1835): Total arena pages for JIT: 12
+01-01 00:01:46.569 I/dalvikvm( 1835): Total arena pages for JIT: 13
+01-01 00:01:46.569 I/dalvikvm( 1835): Total arena pages for JIT: 14
+01-01 00:01:46.569 I/dalvikvm( 1835): Total arena pages for JIT: 15
+01-01 00:01:46.569 I/dalvikvm( 1835): Total arena pages for JIT: 16
+01-01 00:01:46.569 I/dalvikvm( 1835): Total arena pages for JIT: 17
+01-01 00:01:46.569 I/dalvikvm( 1835): Total arena pages for JIT: 18
+01-01 00:01:46.569 D/dalvikvm(  546): JIT_INFO: Loop trace @ offset 000b not a loop: only one predecessor
+01-01 00:01:46.569 I/dalvikvm( 1835): Total arena pages for JIT: 19
+--------- beginning of /dev/log/system
+01-01 00:01:46.569 I/ActivityManager(  546): START u0 {act=android.intent.action.VIEW dat=file:///sdcard/big_buck_bunny_720p_audio_60fps_3min.mp4 typ=video/* flg=0x10000000 cmp=com.android.gallery3d/.app.MovieActivity} from pid 1835
+01-01 00:01:46.579 D/AndroidRuntime( 1835): Shutting down VM
+01-01 00:01:46.579 I/WAKELOCK_ACQUIRE(  546): TIMESTAMP=100262248560, TAG=ActivityManager-Launch, TYPE=PARTIAL_WAKE_LOCK             , COUNT=0, PID=546, UID=1000, FLAGS=
+01-01 00:01:46.579 I/ActivityManager(  546): Start proc com.android.gallery3d for activity com.android.gallery3d/.app.MovieActivity: pid=1845 uid=10064 gids={50064, 3003, 1028, 1015}
+01-01 00:01:46.589 D/dalvikvm(  801): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.589 D/dalvikvm(  801): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:46.589 D/dalvikvm( 1835): GC_CONCURRENT freed 99K, 25% free 992K/1320K, paused 0ms+0ms, total 1ms
+01-01 00:01:46.589 D/dalvikvm(  801): JIT_INFO: Loop trace @ offset 0017 not a loop: only one predecessor
+01-01 00:01:46.589 D/dalvikvm(  801): JIT_INFO: Loop trace @ offset 0029 not a loop: only one predecessor
+01-01 00:01:46.589 D/dalvikvm( 1845): Try to disable coredump for pid 1845
+01-01 00:01:46.589 D/dalvikvm( 1845): Process 1845 nice name: com.android.gallery3d
+01-01 00:01:46.589 D/dalvikvm( 1845): Extra Options: not specified
+01-01 00:04:50.829 I/dispmgr ( 1247): message from kernel received.
+01-01 00:04:50.829 D/DispMgrService( 1247): dpst callback 4 1561021200
+01-01 00:04:50.829 I/dispmgr ( 1247): ARDADPST JNI dpst execute
+01-01 00:04:50.829 I/dispmgr ( 1247): ARDADPST JNI dpst DpstHistDpcWorkItemCallback_mrfl
+01-01 00:04:50.829 I/dispmgr ( 1247): ARDADPST DpstAlgorithm_DPST4_5 
+01-01 00:04:50.829 I/dispmgr ( 1247): ARDADPST DpstAlgorithm_DPST4_5 level is 5
+01-01 00:04:50.839 W/View    ( 1845): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cef1f0 I.ED.... ......I. 0,618-1196,720} during layout: running second layout pass
+01-01 00:04:50.849 W/View    ( 1845): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cef1f0 I.ED.... ......I. 0,618-1196,720} during second layout pass: posting in next frame
+01-01 00:04:50.869 W/View    ( 1845): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cef1f0 I.ED.... ......I. 0,618-1196,720} during layout: running second layout pass
+01-01 00:04:50.869 W/View    ( 1845): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cef1f0 I.ED.... ......I. 0,618-1196,720} during second layout pass: posting in next frame
+01-01 00:04:50.889 D/dalvikvm( 1845): JIT_INFO: Loop trace @ offset 0019 not a loop: only one predecessor
+01-01 00:04:50.889 I/AwesomePlayer(  176):   ************ AwesomePlayer decoding performance ****************
+01-01 00:04:50.889 I/AwesomePlayer(  176):  Video source URI= 
+01-01 00:04:50.889 I/AwesomePlayer(  176): decodeFrameCount = 10801, renderFrameCount=10801, dropFrameCount=0, emptyFrameCount=0
+01-01 00:04:50.889 I/AwesomePlayer(  176): playbackDuration=181.878006, render_FPS=59.380463 
+01-01 00:04:50.889 I/AwesomePlayer(  176):   ***************      End       ********************
+01-01 00:04:50.889 W/View    ( 1845): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cef1f0 I.ED.... ......I. 0,618-1196,720} during layout: running second layout pass
+01-01 00:04:50.889 I/dispmgr ( 1247): waiting for message from kernel.
+01-01 00:04:50.889 I/dispmgr ( 1247): message from kernel received.
+01-01 00:04:50.889 D/DispMgrService( 1247): dpst callback 4 1561021200
+01-01 00:04:50.889 I/dispmgr ( 1247): ARDADPST JNI dpst execute
+01-01 00:04:50.889 I/WAKELOCK_RELEASE(  546): TIMESTAMP=284570959314, TAG=TimedEventQueue, TYPE=PARTIAL_WAKE_LOCK             , COUNT=0, PID=176, UID=1013, FLAGS=
+01-01 00:04:50.899 I/dispmgr ( 1247): ARDADPST JNI dpst DpstHistDpcWorkItemCallback_mrfl
+01-01 00:04:50.899 I/dispmgr ( 1247): ARDADPST DpstAlgorithm_DPST4_5 
+01-01 00:04:50.899 I/dispmgr ( 1247): ARDADPST DpstAlgorithm_DPST4_5 level is 5
+01-01 00:04:50.899 W/View    ( 1845): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cef1f0 I.ED.... ......I. 0,618-1196,720} during second layout pass: posting in next frame
+01-01 00:04:51.129 I/WindowManager(  546): Screenshot Window{24ba92e0 u0 com.android.gallery3d/com.android.gallery3d.app.MovieActivity} was monochrome(ff000000)! mSurfaceLayer=21015 minLayer=21015 maxLayer=21015
+01-01 00:04:51.139 I/WAKELOCK_ACQUIRE(  546): TIMESTAMP=284820676184, TAG=ActivityManager-Launch, TYPE=PARTIAL_WAKE_LOCK             , COUNT=0, PID=546, UID=1000, FLAGS=
+01-01 00:04:51.199 W/View    ( 1845): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cef1f0 V.ED.... ......ID 0,618-1196,720} during layout: running second layout pass
+01-01 00:04:51.199 D/dalvikvm( 1845): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:04:51.219 D/dalvikvm(  546): JIT_INFO: Loop trace @ offset 006e not a loop: only one predecessor
+01-01 00:04:51.249 D/dalvikvm(  546): JIT_INFO: Loop trace @ offset 0009 not a loop: only one predecessor
+01-01 00:04:51.269 D/dalvikvm(  546): JIT_INFO: Loop trace @ offset 0026 not a loop: first BB hidden

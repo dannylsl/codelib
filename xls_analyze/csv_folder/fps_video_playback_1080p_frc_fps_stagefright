@@ -1,0 +1,77 @@
+--------- beginning of /dev/log/main
+01-01 00:01:26.969 D/dalvikvm(  541): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+--------- beginning of /dev/log/system
+01-01 00:01:26.969 I/WAKELOCK_RELEASE(  541): TIMESTAMP=80624522575, TAG=usb_lock, TYPE=SCREEN_BRIGHT_WAKE_LOCK       , COUNT=0, PID=541, UID=1000, FLAGS= ACQUIRE_CAUSES_WAKEUP
+01-01 00:01:28.039 D/AndroidRuntime( 2049): 
+01-01 00:01:28.039 D/AndroidRuntime( 2049): >>>>>> AndroidRuntime START com.android.internal.os.RuntimeInit <<<<<<
+01-01 00:01:28.039 D/AndroidRuntime( 2049): CheckJNI is OFF
+01-01 00:01:28.039 I/AndroidRuntime( 2049): SCU BS Version: 00B0.0003
+01-01 00:01:28.039 I/AndroidRuntime( 2049): SCU RT Version: 0000.0000
+01-01 00:01:28.039 I/AndroidRuntime( 2049): IA32FW Version: 0000.0000
+01-01 00:01:28.039 I/AndroidRuntime( 2049): ValHooks Version: 0000.0000
+01-01 00:01:28.039 I/AndroidRuntime( 2049): IFWI Version: 0000.0000
+01-01 00:01:28.039 I/AndroidRuntime( 2049): CHAABI Version: 0000.0000
+01-01 00:01:28.039 I/AndroidRuntime( 2049): mIA Version: 0000.0000
+01-01 00:01:28.039 I/AndroidRuntime( 2049): Kernel Release Version: 3.10.20-261885-g4ed55bd
+01-01 00:01:28.049 D/dalvikvm( 2049): Trying to load lib libjavacore.so 0x0
+01-01 00:01:28.049 D/dalvikvm( 2049): Added shared lib libjavacore.so 0x0
+01-01 00:01:28.049 D/dalvikvm( 2049): Trying to load lib libnativehelper.so 0x0
+01-01 00:01:28.049 D/dalvikvm( 2049): Added shared lib libnativehelper.so 0x0
+01-01 00:01:28.049 D/dalvikvm( 2049): No JNI_OnLoad found in libnativehelper.so 0x0, skipping init
+01-01 00:01:28.109 D/dalvikvm( 2049): Extra Options: not specified
+01-01 00:01:28.119 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.119 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0010 not a loop: unsupported opcode in loop : new-instance
+01-01 00:01:28.119 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0005 more than one loop exit
+01-01 00:01:28.129 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0003 more than one loop exit
+01-01 00:01:28.139 D/dalvikvm( 2049): Note: class Landroid/app/ActivityManagerNative; has 179 unimplemented (abstract) methods
+01-01 00:01:28.139 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0018 not a loop: unsupported opcode in loop : new-instance
+01-01 00:01:28.149 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.189 E/memtrack( 2049): Couldn't load memtrack module (No such file or directory)
+01-01 00:01:28.189 E/android.os.Debug( 2049): failed to load memtrack module: -2
+01-01 00:01:28.209 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.209 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0076 not a loop: unsupported opcode in loop : new-array
+01-01 00:01:28.209 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.219 D/AndroidRuntime( 2049): Calling main entry com.android.commands.am.Am
+01-01 00:01:28.219 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.219 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0006 not a loop: only one predecessor
+01-01 00:01:28.229 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.229 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0013 not a loop: only one predecessor
+01-01 00:01:28.229 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.229 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0006 not a loop: only one predecessor
+01-01 00:01:28.229 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.239 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0012 not a loop: only one predecessor
+01-01 00:01:28.239 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.239 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 000b not a loop: unsupported opcode in loop : new-array
+01-01 00:01:28.239 D/PermissionCache(  171): checking android.permission.READ_FRAME_BUFFER for uid=1000 => granted (129 us)
+01-01 00:01:28.239 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:01:28.239 I/ActivityManager(  541): START u0 {act=android.intent.action.VIEW dat=file:///sdcard/BBB_1080p_12Mbps_audio_44100_30fps_HP.mp4 typ=video/* flg=0x10000000 cmp=com.android.gallery3d/.app.MovieActivity} from pid 2049
+01-01 00:01:28.249 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0024 more than one loop exit
+01-01 00:01:28.249 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 001e fallthrough to more than one loop exit
+01-01 00:01:28.249 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0007 not a loop: only one predecessor
+01-01 00:01:28.259 D/dalvikvm( 2049): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:05:32.489 W/hwcomposer(  171): virtual bool android::intel::HwcLayerList::update(hwc_display_contents_1_t*): failed to update layer 0, count 2, type 0
+01-01 00:05:32.669 W/hwcomposer(  171): virtual bool android::intel::OverlayPlaneBase::setDataBuffer(android::intel::BufferMapper&): rotated buffer is not ready
+01-01 00:05:32.669 W/hwcomposer(  171): bool android::intel::HwcLayer::update(hwc_layer_1_t*): failed to set data buffer, handle = 0x42cc8450
+01-01 00:05:32.669 W/hwcomposer(  171): virtual bool android::intel::HwcLayerList::update(hwc_display_contents_1_t*): failed to update layer 0, count 2, type 0
+01-01 00:05:32.729 I/AwesomePlayer(  176):  Video source URI= 
+01-01 00:05:32.729 I/AwesomePlayer(  176): decodeFrameCount = 0, renderFrameCount=14378, dropFrameCount=23, emptyFrameCount=0
+01-01 00:05:32.729 I/AwesomePlayer(  176): playbackDuration=241.511002, render_FPS=59.529381 
+01-01 00:05:32.729 I/AwesomePlayer(  176):   ***************      End       ********************
+01-01 00:05:32.729 W/View    ( 2059): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cfdb60 I.ED.... ......I. 0,618-1196,720} during second layout pass: posting in next frame
+01-01 00:05:32.739 W/View    ( 2059): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cfdb60 I.ED.... ......I. 0,618-1196,720} during layout: running second layout pass
+01-01 00:05:32.739 W/View    ( 2059): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cfdb60 I.ED.... ......I. 0,618-1196,720} during second layout pass: posting in next frame
+01-01 00:05:32.819 D/dalvikvm(  541): JIT_INFO: Loop trace @ offset 001f not a loop: only one predecessor
+01-01 00:05:32.829 D/dalvikvm(  541): JIT_INFO: Loop trace @ offset 0006 not a loop: only one predecessor
+01-01 00:05:32.969 I/WindowManager(  541): Screenshot Window{21f9f7b8 u0 com.android.gallery3d/com.android.gallery3d.app.MovieActivity} was monochrome(ff000000)! mSurfaceLayer=21015 minLayer=21015 maxLayer=21015
+01-01 00:05:32.979 I/WAKELOCK_ACQUIRE(  541): TIMESTAMP=326646420958, TAG=ActivityManager-Launch, TYPE=PARTIAL_WAKE_LOCK             , COUNT=0, PID=541, UID=1000, FLAGS=
+01-01 00:05:33.039 D/dalvikvm(  541): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:05:33.049 D/dalvikvm( 2059): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
+01-01 00:05:33.049 D/dalvikvm(  541): JIT_INFO: Loop trace @ offset 0017 not a loop: first BB hidden
+01-01 00:05:33.049 D/dalvikvm(  624): JIT_INFO: Loop trace @ offset 0021 not a loop: only one predecessor
+01-01 00:05:33.059 W/View    ( 2059): requestLayout() improperly called by com.android.gallery3d.app.TimeBar{21cfdb60 V.ED.... ......ID 0,618-1196,720} during layout: running second layout pass
+01-01 00:05:33.059 D/dalvikvm( 2059): JIT_INFO: Loop trace @ offset 0006 not a loop: only one predecessor
+01-01 00:05:33.069 W/hwcomposer(  171): virtual bool android::intel::TngOverlayPlane::rotatedBufferReady(android::intel::BufferMapper&): client is not ready
+01-01 00:05:33.069 W/hwcomposer(  171): virtual bool android::intel::OverlayPlaneBase::setDataBuffer(android::intel::BufferMapper&): rotated buffer is not ready
+01-01 00:05:33.069 W/hwcomposer(  171): bool android::intel::HwcLayer::update(hwc_layer_1_t*): failed to set data buffer, handle = 0x42cc8450
+01-01 00:05:33.069 W/hwcomposer(  171): virtual bool android::intel::HwcLayerList::update(hwc_display_contents_1_t*): failed to update layer 0, count 2, type 2
+01-01 00:05:33.079 D/dalvikvm(  541): JIT_INFO: Loop trace @ offset 0000 not a loop: only one predecessor
