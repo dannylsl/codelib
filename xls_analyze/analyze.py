@@ -15,11 +15,12 @@ class myConfigParser(ConfigParser) :
         return optionstr
 
 def Usage() :
-    print "Usage: %s [platform = MRFLD | BYT] [csv_file1] [csv_file2] ..."%sys.argv[0]
-    print "Example - 1: %s MRFLD idle1.csv idle2.csv "%sys.argv[0]
-    print "Example - 2: python analyze.py BYT idle1.csv idle2.csv idle3.csv"
+    print "Usage: %s [platform = MRFLD | BYT] [raw_folder]"%sys.argv[0]
+    print "Example - 1: %s MRFLD raw_folder "%sys.argv[0]
+    print "Example - 2: python analyze.py BYT raw_folder"
 
 platform = sys.argv[1]
+
 if (platform != 'MRFLD' and platform != 'BYT') :
     print "Error : Please set the platform"
     Usage()
@@ -28,6 +29,10 @@ if (platform != 'MRFLD' and platform != 'BYT') :
 if len(sys.argv) != 3 :
     Usage()
     sys.exit(0)
+
+### MYSQL-DB
+conn = MySQLdb.connect(host='vpnp-workstation1', user='root', passwd='123456', db='socwatch',charset='utf8', port=3306)
+cur = conn.cursor()
 
 platform = sys.argv[1]
 csv_file_base_dir = '%s/'%sys.argv[2]
@@ -99,7 +104,7 @@ for csv_filename in file_list :
     freq_num = len(csvr.pstate)/corenum
 #   print 'freq_num = %s'%freq_num
     ps_row = int(config.get('pstate', platform)) -1
-    row_offset = 0 
+    row_offset = 0
     core_offset = 0
     for ps_item in csvr.pstate :
 #   cell_value = table.cell(ps_row + row_offset, case_offset + core_offset).value
@@ -119,7 +124,7 @@ for csv_filename in file_list :
     table.put_cell(wakeup_row, case_offset, 1, str(csvr.wakeups), 0)
 
 ### nc-state
-    ncs_list = config.options('%s-ncstate'%platform) #lower case
+    ncs_list = config.options('%s-ncstate'%platform) 
 #   print ncs_list
     for ncs_item in ncs_list :
         row = int(config.get('%s-ncstate'%platform, ncs_item))-1

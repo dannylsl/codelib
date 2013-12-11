@@ -37,6 +37,15 @@ class csvReader() :
 
     def allprint(self) :
         print self.reader
+        print "**" * 10
+#        print self.csv_list
+#        print "**" * 10
+        print self.cstate
+        print "**" * 10
+        print self.pstate
+        print "**" * 10
+        print self.ncstate
+        print "**" * 10
         sys.exit(0)
         for item in self.reader :
             item = item.strip(' ')
@@ -168,7 +177,7 @@ class csvReader() :
             return  'NOT FOUND'
 
 
-#csvr = csvReader('stream_chrome.csv')
+#csvr = csvReader('csv_folder/idle.csv')
 #csvr = csvReader('play1.csv')
 #csvr.init_csv_list()
 #csvr.csv_list_print()
@@ -177,5 +186,5 @@ class csvReader() :
 #csvr.get_pstate()
 #csvr.get_ncstate()
 #csvr.get_ncstate_value('D0i3','Video Decoder')
-#csvr.allprint()
 #csvr.get_value('CC0')
+#csvr.allprint()
