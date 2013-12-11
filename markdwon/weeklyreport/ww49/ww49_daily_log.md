@@ -12,6 +12,11 @@
         2. README.md modified
         3. Upload to Gerrit Server
 
+    > [DATA COMPARISON] 	
+        1. Save data from xls to MySQL database
+        _[STATE - DONE]_
+        2. Display comparison data on web page
+
 ### MISC
     1. Help haiyang check the systrace analyze result of noaudio.wmv
        >  adb root
