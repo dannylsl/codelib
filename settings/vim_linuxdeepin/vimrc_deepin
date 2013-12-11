@@ -150,7 +150,9 @@ set softtabstop=4
 set shiftwidth=4 
 
 " 不要用空格代替制表符 
-set noexpandtab 
+"set noexpandtab 
+" 用空格代替制表符 
+set expandtab 
 
 " 不要换行 
 set nowrap 
@@ -198,9 +200,9 @@ let g:SuperTabDefaultCompletionType="<C-X><C-P>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " For Latex 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set shellslash
-set grepprg=grep\-nH\$*
-let g:tex_flavor = "latex"
+"set shellslash
+"set grepprg=grep\-nH\$*
+"let g:tex_flavor = "latex"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
@@ -275,3 +277,10 @@ nnoremap <leader>md :%! /usr/local/bin/Markdown.pl --html4tags md_name > html_na
 
 " Enable TxtBrowser
 au BufEnter *.txt setlocal ft=txt
+
+"cursorline
+set cursorline
+
+" show the tab 
+set list
+set listchars=tab:>.,trail:.,extends:#,
