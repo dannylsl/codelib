@@ -18,7 +18,7 @@ hi Constant     term=underline  ctermfg=white       guifg=Magenta
 " \"\" \'\'
 hi Special      term=bold       ctermfg=DarkMagenta guifg=Red
 hi Identifier   term=underline  cterm=bold          ctermfg=Yellow guifg=#40ffff
-"var 
+"var
 hi Statement    term=bold       ctermfg=Yellow      gui=bold    guifg=#aa4444
 "return
 hi PreProc      term=underline  ctermfg=LightBlue   guifg=#ff80ff
@@ -28,7 +28,7 @@ hi Function     term=bold       ctermfg=Blue        guifg=White
 "function {}
 hi Repeat       term=underline  ctermfg=Cyan        guifg=white
 " for  if-esle
-hi Operator     ctermfg=Red     guifg=Red   
+hi Operator     ctermfg=Red     guifg=Red
 "new
 hi Ignore       ctermfg=black   guifg=bg
 hi Error        term=reverse    ctermbg=Red     ctermfg=White guibg=Red     guifg=White

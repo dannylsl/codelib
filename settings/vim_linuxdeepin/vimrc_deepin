@@ -113,7 +113,7 @@ set hlsearch
 set incsearch 
 
 " 输入:set list命令是应该显示些啥？ 
-set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$ 
+"set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$ 
 
 " 光标移动到buffer的顶部和底部时保持3行距离 
 set scrolloff=3 
