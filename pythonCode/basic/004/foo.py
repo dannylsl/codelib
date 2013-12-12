@@ -3,11 +3,13 @@ import os
 
 class Foo(object):
 #    file = ""
+
+###   RETURN NONE when Failed to create class Instance
     def __new__(cls, file = "/dev/ttyUSB0") :
         print "__new__ called file=\'%s\'"%file
-#        cls.file = file
+
         if os.path.exists(file) == False :
-            cls.file = file
+#            cls.file = file
             print "File not exist"
             return None
         else :
@@ -25,11 +27,22 @@ class Foo(object):
         print ">>>>>>>>>> __del__ called"
 
 
+class Foo2(object) :
+### raise Exception while failed to initialize instance
+    def __init__(self, file) :
+        if os.path.exists(file) == False :
+            raise RuntimeError
+        # TO BE DONE
+
+
+
+
 def print_obj(obj) :
     if obj == None :
         print "foo = None"
     else :
         print obj
+        #print repr(obj)
 
 if __name__ == '__main__' :
 
@@ -37,5 +50,5 @@ if __name__ == '__main__' :
     print_obj(foo)
 
     print "==" * 10
-    foo1 = Foo("/dev/ttyACM0")
+    foo1 = Foo("example")
     print_obj(foo1)
