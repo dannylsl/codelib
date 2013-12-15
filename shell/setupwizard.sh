@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 adb root
 sleep 2
 adb remount
