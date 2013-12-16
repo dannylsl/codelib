@@ -1,4 +1,4 @@
-#!/bin/bash
+#s!/bin/python
 
 import MySQLdb
 import csver
@@ -14,10 +14,13 @@ class myConfigParser(ConfigParser) :
         return optionstr
 
 
+device_list = ['FFRD','FFRD8','VVBOARD']
+
 def Usage() :
-    print "Usage: %s [platform = MRFLD | BYT] [WEEK ID] [raw_folder]"%sys.argv[0]
-    print "Example - 1: %s MRFLD ww49 raw_folder "%sys.argv[0]
-    print "Example - 2: python raw2db.py BYT ww49 raw_folder"
+    print "Usage: %s [platform = MRFLD | BYT] [DEVICE] [WEEK ID] [raw_folder]"%sys.argv[0]
+    print "Example - 1: %s MRFLD FFRD ww49 raw_folder "%sys.argv[0]
+    print "Example - 2: python raw2db.py BYT FFRD8 ww49 raw_folder"
+    print "device value", device_list
 
 
 def isDescriptInTable(cursor, decription, table) :
@@ -29,16 +32,25 @@ def isDescriptInTable(cursor, decription, table) :
         return True
 
 
-platform = 'MRFLD'
+platform = sys.argv[1]
+
+device = sys.argv[2]
+
+if len(sys.argv) != 5 :
+    print "Error : ERROR parameters number"
+    Usage()
+    sys.exit(0)
 
 if (platform != 'MRFLD' and platform != 'BYT') :
     print "Error : Please set the platform"
     Usage()
     sys.exit(0)
 
-if len(sys.argv) != 4 :
+if (device not in device_list) :
+    print "Error : ERROR DEVICE"
     Usage()
     sys.exit(0)
+
 
 ### MYSQL-DB CONNECTION
 try :
@@ -51,8 +63,8 @@ except Exception,e:
 
 table = "soc_data"
 
-raw_file_base_dir = '%s/'%sys.argv[3]
-week = sys.argv[2]
+raw_file_base_dir = '%s/'%sys.argv[4]
+week = sys.argv[3]
 week = week.upper()
 
 config = myConfigParser()
@@ -107,7 +119,7 @@ for csv_filename in file_list :
             ### record not exist, insert
                 init_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 updatetime = init_time
-                sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+                sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, device, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
                 print "insert:%s"%sql
                 cur.execute(sql)
 
@@ -135,7 +147,8 @@ for csv_filename in file_list :
         ### record not exist, insert
             init_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             updatetime = init_time
-            sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+#            sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+            sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, device, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
             print "insert:%s"%sql
             cur.execute(sql)
 
@@ -164,7 +177,8 @@ for csv_filename in file_list :
     ### record not exist, insert
         init_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         updatetime = init_time
-        sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+#        sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+        sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, device, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
         print "insert:%s"%sql
         cur.execute(sql)
 
@@ -195,7 +209,8 @@ for csv_filename in file_list :
         ### record not exist, insert
             init_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             updatetime = init_time
-            sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+#            sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+            sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, device, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
             print "insert:%s"%sql
             cur.execute(sql)
 
@@ -230,7 +245,8 @@ for csv_filename in file_list :
     ### record not exist, insert
         init_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         updatetime = init_time
-        sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+#        sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+        sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, device, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
         print "insert:%s"%sql
         cur.execute(sql)
 
