@@ -1,4 +1,4 @@
-#s!/bin/python
+#!/usr/bin/python
 
 import MySQLdb
 import csver
@@ -32,14 +32,14 @@ def isDescriptInTable(cursor, decription, table) :
         return True
 
 
-platform = sys.argv[1]
-
-device = sys.argv[2]
 
 if len(sys.argv) != 5 :
     print "Error : ERROR parameters number"
     Usage()
     sys.exit(0)
+
+platform = sys.argv[1]
+device = sys.argv[2]
 
 if (platform != 'MRFLD' and platform != 'BYT') :
     print "Error : Please set the platform"
@@ -103,7 +103,7 @@ for csv_filename in file_list :
         for cs_value in cs_item[1:]:
             core_num = "core %s"%core_id
             core_id = core_id + 1
-            description = "%s#%s#%s#%s#%s#%s"%(week, platform, category, item_name, case_name, core_num)
+            description = "%s#%s#%s#%s#%s#%s#%s"%(week, platform, device, category, item_name, case_name, core_num)
             value = cs_value
             print description
             if isDescriptInTable(cur, description, table) :
@@ -135,7 +135,7 @@ for csv_filename in file_list :
         item_name = ps_item[1]
         core_num = "core %s"%core_id
         value = ps_item[2]
-        description = "%s#%s#%s#%s#%s#%s"%(week, platform, category, item_name, case_name, core_num)
+        description = "%s#%s#%s#%s#%s#%s#%s"%(week, platform, device, category, item_name, case_name, core_num)
 
         if isDescriptInTable(cur, description, table) :
         ### record exist already, need update
@@ -164,7 +164,7 @@ for csv_filename in file_list :
     category = "wakeups"
     item_name ='WU/sec/core'
     core_num = "core ALL"
-    description = "%s#%s#%s#%s#%s#%s"%(week, platform, category, item_name, case_name, core_num)
+    description = "%s#%s#%s#%s#%s#%s#%s"%(week, platform, device, category, item_name, case_name, core_num)
     value = csvr.wakeups
 
     if isDescriptInTable(cur, description, table) :
@@ -197,7 +197,7 @@ for csv_filename in file_list :
         value = csvr.get_ncstate_value('D0i3', ncs_item, platform)
         item_name = ncs_item
         core_num = "core ALL"
-        description = "%s#%s#%s#%s#%s#%s"%(week, platform, category, item_name, case_name, core_num)
+        description = "%s#%s#%s#%s#%s#%s#%s"%(week, platform, device, category, item_name, case_name, core_num)
 
         if isDescriptInTable(cur, description, table) :
         ### record exist already, need update
@@ -222,7 +222,7 @@ for csv_filename in file_list :
     category = "fps"
     item_name ='fps'
     core_num = "core ALL"
-    description = "%s#%s#%s#%s#%s#%s"%(week, platform, category, item_name, case_name, core_num)
+    description = "%s#%s#%s#%s#%s#%s#%s"%(week, platform, device, category, item_name, case_name, core_num)
 
     fps_prefix = config.get("fpsfile","prefix")
     fps_suffix = config.get("fpsfile","suffix")

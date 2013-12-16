@@ -39,13 +39,13 @@ Example - 2:
 > python analyze.py BYT ww44
 
 ### raw2db.py
-**Syntax** : python raw2db.py [platform = MRFLD | BYT] [WEEK] [csv_folder]
+**Syntax** : python raw2db.py [platform = MRFLD | BYT] [DEIVCE] [WEEK] [csv_folder]
 
 Example - 1:
-> ./raw2db.py MRFLD ww49 csv_folder
+> ./raw2db.py MRFLD FFRD ww49 csv_folder
 
 Example - 2:
-> python raw2db.py BYT ww48 csv_folder
+> python raw2db.py BYT FFRD8 ww48 csv_folder
 
 ### analyze4cmp.py
 **Syntax** : ./analyze4cmp.py [platform = MRFLD | BYT] [csv_file1] [csv_file2] ...
