@@ -1,4 +1,4 @@
-### Weekly work
+## Weekly work
     Measure the ww50 build power consumption on VV Board and FFRD-PR2
     1. FRC failed on Both VVBoard and FFRD with 29fps measured since the Merrifield MR1 upgrade
         Solution: http://android.intel.com:8080/#/c/151141/3
@@ -12,3 +12,10 @@
     1. help haiyang check the BUG#157594. Power Comparison of 30fps and 60fps video playback between bypass build
         and non-bypass build
         More information refers to http://umgbugzilla.sh.intel.com:41006/show_bug.cgi?id=157594
+
+AUTO VPNP TOOL
+xls_analyze/mediainfo
+socwatch -f intr
+socwatch/data_process
+
+SENSOR
