@@ -59,6 +59,7 @@ Example - 2:
 
 ### Change log
 -------------
+* 2013-12-17 **[NEW FUNCITON]** add mediafps.py catch record Frame rate
 * 2013-12-11 **[NEW FUNCTION]** add raw2db.py save summary csv data and fps data into MySQL database
 * 2013-12-10 **[NEW FEATURE]** capture fps from fps_log_file
 * 2013-12-04 **[NEW FUNCTION]** add analyze4cmp.py for two or more summary csv files's comparison

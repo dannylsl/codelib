@@ -1,0 +1,68 @@
+General
+Complete name                            : data/Batch_1_20131217_17_18_R1/VID_0003.mp4
+Format                                   : MPEG-4
+Format profile                           : Base Media
+Codec ID                                 : isom
+File size                                : 197 MiB
+Duration                                 : 1mn 46s
+Overall bit rate mode                    : Variable
+Overall bit rate                         : 15.6 Mbps
+Encoded date                             : UTC 2000-01-01 00:03:52
+Tagged date                              : UTC 2000-01-01 00:03:52
+
+Video
+ID                                       : 1
+Format                                   : AVC
+Format/Info                              : Advanced Video Codec
+Format profile                           : High@L4.0
+Format settings, CABAC                   : No
+Format settings, ReFrames                : 1 frame
+Format settings, GOP                     : M=1, N=30
+Codec ID                                 : avc1
+Codec ID/Info                            : Advanced Video Coding
+Duration                                 : 1mn 45s
+Bit rate mode                            : Variable
+Bit rate                                 : 15.4 Mbps
+Maximum bit rate                         : 15.0 Mbps
+Width                                    : 1 920 pixels
+Height                                   : 1 080 pixels
+Display aspect ratio                     : 16:9
+Frame rate mode                          : Variable
+Frame rate                               : 30.824 fps
+Original frame rate                      : 30.000 fps
+Minimum frame rate                       : 28.499 fps
+Maximum frame rate                       : 33.949 fps
+Color space                              : YUV
+Chroma subsampling                       : 4:2:0
+Bit depth                                : 8 bits
+Scan type                                : Progressive
+Bits/(Pixel*Frame)                       : 0.241
+Stream size                              : 195 MiB (99%)
+Title                                    : VideoHandle
+Language                                 : English
+Encoded date                             : UTC 2000-01-01 00:03:52
+Tagged date                              : UTC 2000-01-01 00:03:52
+
+Audio
+ID                                       : 2
+Format                                   : AAC
+Format/Info                              : Advanced Audio Codec
+Format profile                           : LC
+Codec ID                                 : 40
+Duration                                 : 1mn 46s
+Bit rate mode                            : Constant
+Bit rate                                 : 192 Kbps
+Nominal bit rate                         : 96.0 Kbps
+Channel(s)                               : 2 channels
+Channel positions                        : Front: L R
+Sampling rate                            : 48.0 KHz
+Compression mode                         : Lossy
+Stream size                              : 2.43 MiB (1%)
+Title                                    : SoundHandle
+Language                                 : English
+Encoded date                             : UTC 2000-01-01 00:03:52
+Tagged date                              : UTC 2000-01-01 00:03:52
+Material_Duration                        : 106201
+Material_StreamSize                      : 2548737
+
+

@@ -2,6 +2,8 @@
 
 import csver
 import fpser
+import mediafps
+
 import xlrd
 import xlwt
 from xlutils.copy import copy
@@ -29,10 +31,6 @@ if (platform != 'MRFLD' and platform != 'BYT') :
 if len(sys.argv) != 3 :
     Usage()
     sys.exit(0)
-
-### MYSQL-DB
-conn = MySQLdb.connect(host='vpnp-workstation1', user='root', passwd='123456', db='socwatch',charset='utf8', port=3306)
-cur = conn.cursor()
 
 platform = sys.argv[1]
 csv_file_base_dir = '%s/'%sys.argv[2]
@@ -124,7 +122,7 @@ for csv_filename in file_list :
     table.put_cell(wakeup_row, case_offset, 1, str(csvr.wakeups), 0)
 
 ### nc-state
-    ncs_list = config.options('%s-ncstate'%platform) 
+    ncs_list = config.options('%s-ncstate'%platform)
 #   print ncs_list
     for ncs_item in ncs_list :
         row = int(config.get('%s-ncstate'%platform, ncs_item))-1
@@ -155,6 +153,21 @@ for case in cases :
         case_offset = int(cases.index(case) * corenum + 1)
         print fps.fps
         table.put_cell(fps_row, case_offset, 1, str(fps.fps) , 0)
+
+
+########################
+# GET mediafps
+########################
+case="record_social_1080p"
+print ">>>>>>>>>>>>>>>>>  MEDIAFPS RETRIEVE <<<<<<<<<<<<<<<<"
+mediafps_filename = "%s/mediainfo_mp4_record"%csv_file_base_dir
+mfps = mediafps.mediaFPS(mediafps_filename)
+frate_row = int(config.get('fps', platform)) - 1
+case_offset = int(cases.index(case) * corenum + 1)
+print "RECORD FRATE:%s"%mfps.get_frate()
+table.put_cell(fps_row, case_offset, 1, str(mfps.get_frate()) , 0)
+
+
 
 #sys.exit(0)
 
