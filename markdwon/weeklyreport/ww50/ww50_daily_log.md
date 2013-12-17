@@ -9,13 +9,26 @@
         Try to find a new way to skip SetupWizard
 
 ### MISC
-    1. help haiyang check the BUG#157594. Power Comparison of 30fps and 60fps video playback between bypass build
-        and non-bypass build
+    1. help haiyang check the BUG#157594. Power Comparison of 30fps and 60fps video playback between
+    bypass build and non-bypass build
         More information refers to http://umgbugzilla.sh.intel.com:41006/show_bug.cgi?id=157594
+    2. Retrieve Interrupt information with socwatch tools
+       Command : ./socwatch -f intr -t 10   Version:1.2.1
+    3. Read parts of Sensor code in Android Framework
 
-AUTO VPNP TOOL
-xls_analyze/mediainfo
-socwatch -f intr
-socwatch/data_process
+### AUTO VPNP TOOL
+   * DATA PROCESS
+        1. Add new class mediafps to get frame rate from mediainfo log
 
-SENSOR
+   * CLIENT
+        socwatch/data_process.sh: get record media information as file named "mediainfo_mp4_record"
+        with mediainfo command
+
+### 2013-12-18
+    > camera heartbeat
+
+### 2013-12-19
+    > PHP analysis report display
+
+### 2013-12-20
+    > Android Framework
