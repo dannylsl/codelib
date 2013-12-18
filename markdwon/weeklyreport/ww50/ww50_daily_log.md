@@ -25,7 +25,17 @@
         with mediainfo command
 
 ### 2013-12-18
-    > camera heartbeat
+    > camera heartbeat [STATE NOT START]
+    > Gerrit upload xls_analyze and auto_vpnp client part to Gerrit Server
+        waiting for haiyang's code review
+    > Help Wang kun check VPP optimazation on build 20131217_2078
+    > Help Haiyang retrieve ww50 FRC && ww50 stream_chrome && ww49 stream_chrome powerbreakdown data
+    > Thanks Jena, Preeti RanjanX for sharing "SPMaccelerometerControl.apk" to rotate chrome
+        Usage:
+            1. adb root
+            2. adb shell
+            3. am start 0a android.intent.action.MAIN -n com.intel.spm.accelerometercontrol/.SPMaccelerometerControl
+                --es accelerometer 0 --es user_rotation 1
 
 ### 2013-12-19
     > PHP analysis report display
