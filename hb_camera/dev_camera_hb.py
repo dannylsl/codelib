@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/usr/bin/python
 
 import pygame
 import pygame.camera
@@ -7,12 +7,6 @@ from pygame.locals import *
 import os
 
 class cameraHB() :
-    mutex = None
-    cam = None
-    size_width = 0
-    size_height = 0
-    device = ""
-
 
     def __init__(self, dev = "/dev/video0", size_w = 640, size_h = 480) :
         self.size_width = size_w
