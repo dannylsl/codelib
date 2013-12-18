@@ -186,7 +186,7 @@ for csv_filename in file_list :
 ### nc-state
 ################
     category = "ncstate"
-    ncs_list = config.options('%s-ncstate'%platform) 
+    ncs_list = config.options('%s-ncstate'%platform)
 #    print ncs_list
     for ncs_item in ncs_list :
         row = int(config.get('%s-ncstate'%platform, ncs_item))-1
