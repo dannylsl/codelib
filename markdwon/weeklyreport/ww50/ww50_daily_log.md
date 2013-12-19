@@ -27,7 +27,7 @@
 ### 2013-12-18
     > camera heartbeat [STATE NOT START]
     > Gerrit upload xls_analyze and auto_vpnp client part to Gerrit Server
-        waiting for haiyang's code review
+        Thanks for haiyang's code review
     > Help Wang kun check VPP optimazation on build 20131217_2078
     > Help Haiyang retrieve ww50 FRC && ww50 stream_chrome && ww49 stream_chrome powerbreakdown data
     > Thanks Jena, Preeti RanjanX for sharing "SPMaccelerometerControl.apk" to rotate chrome
