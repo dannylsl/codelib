@@ -14,8 +14,8 @@ pygame.image.save(image,'%s.png'%sys.argv[1])
 cam.stop()
 
 #while True:
-#	image = cam.get_image()
-#	pygame.image.save(image,'abc.jpg')
-#	window.blit(image,(0,0))
-#	pygame.display.flip()
+#   image = cam.get_image()
+#   pygame.image.save(image,'abc.jpg')
+#   window.blit(image,(0,0))
+#   pygame.display.flip()
 #cam.stop()
