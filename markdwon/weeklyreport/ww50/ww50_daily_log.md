@@ -25,7 +25,6 @@
         with mediainfo command
 
 ### 2013-12-18
-    > camera heartbeat [STATE NOT START]
     > Gerrit upload xls_analyze and auto_vpnp client part to Gerrit Server
         Thanks for haiyang's code review
     > Help Wang kun check VPP optimazation on build 20131217_2078
@@ -36,9 +35,16 @@
             2. adb shell
             3. am start 0a android.intent.action.MAIN -n com.intel.spm.accelerometercontrol/.SPMaccelerometerControl
                 --es accelerometer 0 --es user_rotation 1
+        It helps the stream cases on VVBOARD
 
 ### 2013-12-19
+    > camera heartbeat
+        [STATE ON GOING] A problem while get_single_image() in check_alive()
+            we need run three times get_single_image() to flush the camera buffer. Ask for reason on stackoverflow
+    > Take part in the preparation conference for REPORT conference on 2013-12-20
+    > Help haiyang check Bug#159025 Power consumption in all video streaming cases has regressed on ww50
     > PHP analysis report display
+        [STATE NOT START]
 
 ### 2013-12-20
     > Android Framework
