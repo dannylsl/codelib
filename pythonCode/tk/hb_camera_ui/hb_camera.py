@@ -18,6 +18,7 @@ def get_image_cam() :
     global cam,cam_flag,cam_image, cam_imageTk, canvas_img
     print '[THREAD CREATE]get image camera'
 #   print cam_flag
+#    print " 000 cam_imageTk id= %s"%id(cam_imageTk)
     while cam_flag :
         image = cam.get_image()
         pygame.image.save(image,'capture.bmp')
@@ -26,7 +27,12 @@ def get_image_cam() :
         canvas_img.create_image(0, 0, anchor = NW ,image = cam_imageTk)
         ## It seem the statement as below could solve the Blink problem
         ## As for the reason, not catch now
+#        print "PRE cam_imageTk id= %s"%id(cam_imageTk)
+#        time.sleep(3)
         obr = cam_imageTk
+#        print cam_imageTk.__dict__
+#        print "AFT cam_imageTk id= %s"%id(cam_imageTk)
+#        print "obr id=%s"%id(obr)
 
     print '[THREAD EXIT] get image camera'
     thread.exit_thread()
