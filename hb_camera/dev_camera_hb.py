@@ -20,6 +20,7 @@ class cameraHB() :
         self.size_width = size_w
         self.size_height= size_h
         self.dev        = dev
+        self.ui_state  = True
 
         pygame.init()
         pygame.camera.init()
@@ -35,7 +36,14 @@ class cameraHB() :
 
     def get_single_image(self, img_name) :
         print "Get a single image:", img_name, "\n"
-#if self.cam.query_image() :
+        image = self.cam.get_image()
+        pygame.image.save(image,img_name)
+        print "image saved"
+
+    def get_single_image_flush_buffer(self, img_name) :
+        print "Get a single image flush buffer:", img_name, "\n"
+        image = self.cam.get_image()
+        image = self.cam.get_image()
         image = self.cam.get_image()
         pygame.image.save(image,img_name)
         print "image saved"
@@ -43,6 +51,11 @@ class cameraHB() :
 
     # sudo pip install numpy
     def numpy_image_similarity(self, filepath1, filepath2):
+        # TO DO NEED IMPROVEMENT
+        #   1. DEAL WITH BLACKGROUND
+        #   2. COMPARE PART OF IMAGES
+
+        print "image similarity comparison"
         images = [filepath1, filepath2]
         vectors = []
         norms = []
@@ -69,32 +82,37 @@ class cameraHB() :
 
     def check_alive(self) :
         print "cameraHB check alive"
-        img_home = "home.jpg"
-        img_menu = "menu.jpg"
+        img_home = "/tmp/home.jpg"
+        img_menu = "/tmp/menu.jpg"
 
         self.adb_home()
         self.get_single_image(img_home)
-        time.sleep(2)
         self.adb_tap_to_menu()
         time.sleep(2)
+        self.get_single_image_flush_buffer(img_menu)
 
-        self.get_single_image(img_menu)
-        self.get_single_image(img_menu)
-        self.get_single_image(img_menu)
         similarity = self.numpy_image_similarity(img_home, img_menu)
         print "similarity = %s"%similarity
-        if similarity < 0.98 :
-            print "alive"
+        if similarity < 0.95 :
+            self.ui_state = True
+            print "+----------------------+"
+            print "+      DEV_ALIVING     +"
+            print "+----------------------+"
         else :
-            print "crashed"
-
+            self.ui_state = False
+            print "+----------------------+"
+            print "+      DEV_CRASHED     +"
+            print "+----------------------+"
         self.adb_home()
+
+    def get_ui_state(self) :
+        return self.ui_state
 
 if __name__ == '__main__' :
     print "main"
     camhb = cameraHB("/dev/video0", 640, 480)
     camhb.check_alive()
-
+    print "ui_state = %s"%camhb.ui_state
 #   camhb.get_single_image("a.jpg")
 #   camhb.adb_tap_to_menu()
 #   camhb.get_single_image("b.jpg")
