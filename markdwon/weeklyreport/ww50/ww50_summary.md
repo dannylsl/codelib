@@ -1,7 +1,7 @@
 ##WW50 SUMMARY
 #####DATE:2013-12-23    AUTHOR: Shaoling
 
-## Weekly work
+### Weekly work
     Measure the ww50 build power consumption on VV Board and FFRD-PR2
     1. FRC failed on Both VVBoard and FFRD with 29fps measured since the Merrifield MR1 upgrade
         Solution: http://android.intel.com:8080/#/c/151141/3
@@ -13,16 +13,16 @@
     3. [WW51 SOURCE CODE DOWNLOAD] set the auto-download and auto-build program prepared to work at weekends
 
 ### AUTO VPNP TOOL
-   DATA PROCESS
-        1. Add new class mediafps to get frame rate from mediainfo log
+    [DATA PROCESS]
+    1. Add new class mediafps to get frame rate from mediainfo log
 
-   CLIENT
-        1. socwatch/data_process.sh: get record media information as file named "mediainfo_mp4_record"
-            with mediainfo command
-        2. basic camera heartbeat was added and tested
-        [STATE ON GOING] A problem while get_single_image() in check_alive()
-            we have to run three times get_single_image() to flush the camera buffer.
-            The question was post to stackoverflow and waiting for answer
+    [CLIENT]
+    1. socwatch/data_process.sh: get record media information as file named "mediainfo_mp4_record"
+        with mediainfo command
+    2. basic camera heartbeat was added and tested
+    [STATE ON GOING] A problem while get_single_image() in check_alive()
+        we have to run three times get_single_image() to flush the camera buffer.
+        The question was post to stackoverflow and waiting for answer
 
 ### Gerrit
     Gerrit upload xls_analyze and auto_vpnp client part to Gerrit Server
