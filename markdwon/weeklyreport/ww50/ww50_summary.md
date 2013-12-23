@@ -1,6 +1,5 @@
 ##WW50 SUMMARY
 #####DATE:2013-12-23    AUTHOR: Shaoling
-=======================
 
 ## Weekly work
     Measure the ww50 build power consumption on VV Board and FFRD-PR2
@@ -14,11 +13,10 @@
     3. [WW51 SOURCE CODE DOWNLOAD] set the auto-download and auto-build program prepared to work at weekends
 
 ### AUTO VPNP TOOL
-
-   > DATA PROCESS
+   DATA PROCESS
         1. Add new class mediafps to get frame rate from mediainfo log
 
-   > CLIENT
+   CLIENT
         1. socwatch/data_process.sh: get record media information as file named "mediainfo_mp4_record"
             with mediainfo command
         2. basic camera heartbeat was added and tested
