@@ -7,6 +7,7 @@
         Thanks for Wang Kun K and Haiyang's help
     2. [BUG FIXED] post flash remove the SetupWizard which leads to a series crash
         Try to find a new way to skip SetupWizard
+    3. [WW51 SOURCE CODE DOWNLOAD] set the auto-download and auto-build program prepared to work at weekends
 
 ### MISC
     1. help haiyang check the BUG#157594. Power Comparison of 30fps and 60fps video playback between
@@ -33,8 +34,7 @@
         Usage:
             1. adb root
             2. adb shell
-            3. am start 0a android.intent.action.MAIN -n com.intel.spm.accelerometercontrol/.SPMaccelerometerControl
-                --es accelerometer 0 --es user_rotation 1
+            3. am start -a android.intent.action.MAIN -n com.intel.spm.accelerometercontrol/.SPMaccelerometerControl --es accelerometer 0 --es user_rotation 1
         It helps the stream cases on VVBOARD
 
 ### 2013-12-19
