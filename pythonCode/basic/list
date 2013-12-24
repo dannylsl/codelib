@@ -8,3 +8,4 @@ FILENAME    DATE        DESCRIPTION
 004         2013-12-12  Error check while class creation
                         http://stackoverflow.com/questions/10866738/python-checking-init-parameter
 005         2013-12-12  Privatization in class
+006         2013-12-24  Python traversal directory
