@@ -40,6 +40,8 @@ def get_image_cam() :
 def get_single_image() :
     global cam
     image = cam.get_image()
+    image = cam.get_image()
+    image = cam.get_image()
     image_name = "%s.jpg"%time.time()
     pygame.image.save(image,image_name)
     print "IMAGE SAVED: %s"%image_name
@@ -74,49 +76,84 @@ def cam_toggle() :
         cam_stop()
         var_btn_camera.set('CAMERA START')
 
-pygame.init()
-pygame.camera.init()
-cam = pygame.camera.Camera("/dev/video0", (640,480))
+def find_device() :
+    print 'find_device called'
+    rootDir = '/dev/'
+    dev_list = []
+    for file in os.listdir(rootDir) :
+        if 'video' in file :
+            print file
+            path = os.path.join(rootDir, file)
+            dev_list.append(path)
+    return dev_list
 
-root = Tk()
-root.title('Camera Heartbeat')
+def deivce_changed(*args) :
+    global cam
+    print 'device_changed'
+    print video_dev.get(), "selected"
+    cam = pygame.camera.Camera(video_dev.get(), (640,480))
 
-frame = ttk.Frame(root)
-frame['padding'] = (10, 10, 10, 10)
-frame['borderwidth'] = 5
-frame['relief'] = 'solid'
 
-frame.grid(column = 0, row = 0)
+if __name__ == '__main__' :
 
-#image_png = PhotoImage(file = 'png_test.png')
-#label_img = ttk.Label(frame, borderwidth=10).grid(column = 1, row = 1, columnspan = 4)
-canvas_img = Canvas(frame,bg='black', width = 640, height = 480)
-canvas_img.pack(side = TOP,expand = YES, fill = BOTH)
-if os.path.exists('capture.bmp') == True :
-    cam_image = Image.open('capture.bmp') 
-    cam_imageTk = ImageTk.PhotoImage(cam_image)
-    canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
-else :
-    pass
+    pygame.init()
+    pygame.camera.init()
 
-canvas_img.grid(column = 0, row = 1, columnspan = 4)
+    devices = find_device()
 
-var_btn_camera = StringVar()
-btn_camera = ttk.Button(frame,textvariable = var_btn_camera, command = cam_toggle).grid(column = 0, row = 2)
-var_btn_camera.set('CAMERA START')
+    root = Tk()
+    root.title('Camera Heartbeat')
 
-btn_snip = ttk.Button(frame, text='select area').grid(column = 1, row = 2)
+    frame = ttk.Frame(root)
+    frame['padding'] = (10, 10, 10, 10)
+    frame['borderwidth'] = 5
+    frame['relief'] = 'solid'
 
-btn_save_config = ttk.Button(frame, text = 'Save config').grid(column = 0, row = 3)
-btn_load_config = ttk.Button(frame, text = 'Load config').grid(column = 1, row = 3)
+    canvas_img = Canvas(frame,bg='black', width = 640, height = 480)
+    canvas_img.pack(side = TOP,expand = YES, fill = BOTH)
+    if os.path.exists('capture.bmp') == True :
+        cam_image = Image.open('capture.bmp')
+        cam_imageTk = ImageTk.PhotoImage(cam_image)
+        canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
+    else :
+        pass
 
-chkbtn_grid = ttk.Checkbutton(frame, text = 'Grid', onvalue = 'GRID_ON', offvalue = 'GRID_OFF').grid(column = 2, row = 2)
-spin_row = StringVar()
-spinbox_row = Spinbox(frame, from_ = 3.0, to = 100.0, textvariable = spin_row).grid(column = 3, row = 2)
-spin_col = StringVar()
-spinbox_col = Spinbox(frame, from_ = 3.0, to = 100.0, textvariable = spin_col).grid(column = 3, row = 3)
+    video_dev = StringVar()
+    combox = ttk.Combobox(frame, textvariable = video_dev)
+    combox['values'] = devices
+    combox.bind('<<ComboboxSelected>>',deivce_changed)
 
-btn_get_image = ttk.Button(frame, text = "Get Image", state = 'disabled' ,command = get_single_image)
-btn_get_image.grid(column = 2, row = 3)
+    var_btn_camera = StringVar()
+    btn_camera = ttk.Button(frame,textvariable = var_btn_camera, command = cam_toggle)
+    var_btn_camera.set('CAMERA START')
 
-root.mainloop()
+
+    btn_snip = ttk.Button(frame, text='select area')
+
+    btn_save_config = ttk.Button(frame, text = 'Save config')
+    btn_load_config = ttk.Button(frame, text = 'Load config')
+
+    chkbtn_grid = ttk.Checkbutton(frame, text = 'Grid', onvalue = 'GRID_ON', offvalue = 'GRID_OFF')
+
+    spin_row = StringVar()
+    spinbox_row = Spinbox(frame, from_ = 3.0, to = 100.0, textvariable = spin_row)
+    spin_col = StringVar()
+    spinbox_col = Spinbox(frame, from_ = 3.0, to = 100.0, textvariable = spin_col)
+
+    btn_get_image = ttk.Button(frame, text = "Get Image", state = 'disabled' ,command = get_single_image)
+
+### GRID POSITION
+    frame.grid(column = 0, row = 0)
+    canvas_img.grid(column = 0, row = 1, columnspan = 5)
+
+    combox.grid(column = 0 , row = 2)
+    btn_camera.grid(column = 1, row = 2)
+    btn_snip.grid(column = 2, row = 2)
+    btn_save_config.grid(column = 1, row = 3)
+    btn_load_config.grid(column = 2, row = 3)
+    chkbtn_grid.grid(column = 3, row = 2)
+    spinbox_row.grid(column = 4, row = 2)
+    spinbox_col.grid(column = 4, row = 3)
+    btn_get_image.grid(column = 2, row = 3)
+
+    root.mainloop()
