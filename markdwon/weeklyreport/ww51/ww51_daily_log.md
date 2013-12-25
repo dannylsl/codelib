@@ -1,7 +1,10 @@
 ### Weekly work
     Measure the ww51 build power consumption on VV Board and FFRD-PR2
     1. stream chrome crashed in build ww51
-    2. VVBOARD need rework or upgrade. The CPU base does not work well. Waiting for Yinpu's support
+    2. VVBOARD need rework or upgrade. The CPU base does not work well. Waiting for Yingpu's support
+        YingPu give us a new VV board which flash successfully but still have problem while boot
+        It shows 'waiting for audio ...' in adb logcat and get stucked
+        This problem start on build ww49
 
 ### AUTO VPNP TOOL
     __[ POST FLASH]__
