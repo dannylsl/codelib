@@ -3,21 +3,21 @@ from Tkinter import *
 import ttk
 
 def btn_click() :
-	string = resultsContents.get()
-	print string
+    string = resultsContents.get()
+    print string
 
 ## b2['state'] == 'disabled'  # REGARD AS FALSE
 def toggle_b2_state() :
-	global b2
-	print "b2['state']={%s}"%b2['state']
-	print 'Compara: disabled'
-	print b2['state'] == 'disabled'
-	if b2['state'] == 'disabled' :
-		print 'disabled'
+    global b2
+    print "b2['state']={%s}"%b2['state']
+    print 'Compara: disabled'
+    print b2['state'] == 'disabled'
+    if b2['state'] == 'disabled' :
+        print 'disabled'
 
-	elif b2['state'] == 'enabled' :
-		print 'ENABLED'
-#		b2['state'] = 'disabled'
+    elif b2['state'] == 'enabled' :
+        print 'ENABLED'
+#       b2['state'] = 'disabled'
 
 
 root = Tk()
