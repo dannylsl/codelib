@@ -5,6 +5,7 @@
         YingPu give us a new VV board which flash successfully but still have problem while boot
         It shows 'waiting for audio ...' in adb logcat and get stucked
         This problem start on build ww49
+        2013-12-26 the problem located on Audio hardware or related software not exactly
 
 ### AUTO VPNP TOOL
     __[ POST FLASH]__
@@ -18,3 +19,12 @@
 
 ### MISC
     1. help Richard change the position of NI machine
+
+
+### TO DO
+    1. do analyze report
+    2. camera heartbeat
+    3. config class | client | camera HB etc
+    4. Gerrit : reposition the comments
+    5. download ww52 code
+
