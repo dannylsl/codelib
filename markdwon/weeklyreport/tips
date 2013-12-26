@@ -1,0 +1,5 @@
+Rotate the screen
+===================
+    adb shell am start -a android.intent.action.MAIN -n com.intel.spm.accelerometercontrol/.SPMrotationActivity --es accelerometer 0 --es user_rotation 1
+    1 for landscape
+    0 for portrait
