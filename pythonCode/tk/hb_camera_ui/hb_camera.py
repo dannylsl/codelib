@@ -2,6 +2,7 @@
 
 from Tkinter import *
 import ttk
+import tkMessageBox
 
 import pygame
 import pygame.camera
@@ -46,6 +47,7 @@ def get_single_image() :
     pygame.image.save(image,image_name)
     print "IMAGE SAVED: %s"%image_name
 
+
 def cam_start() :
     global cam,cam_flag
     print 'camera start '
@@ -54,6 +56,7 @@ def cam_start() :
 #   print cam_flag
     btn_get_image['state'] = 'enabled'
     return
+
 
 def cam_stop() :
     global cam,cam_flag
@@ -64,17 +67,25 @@ def cam_stop() :
     btn_get_image['state'] = 'disabled'
     return
 
+
 def cam_toggle() :
     print 'cam_toggle called'
     str_btn_camera = var_btn_camera.get()
-    if str_btn_camera == 'CAMERA START' :
-        cam_start()
-        thread.start_new_thread(get_image_cam, ())
-        var_btn_camera.set('CAMERA STOP')
 
-    elif str_btn_camera == 'CAMERA STOP' :
-        cam_stop()
-        var_btn_camera.set('CAMERA START')
+    if video_dev.get() != "" :
+        if str_btn_camera == 'CAMERA START' :
+            cam_start()
+            thread.start_new_thread(get_image_cam, ())
+            var_btn_camera.set('CAMERA STOP')
+
+        elif str_btn_camera == 'CAMERA STOP' :
+            cam_stop()
+            var_btn_camera.set('CAMERA START')
+    else :
+#        messagebox.showinfo(message="select camera device")
+        tkMessageBox.showinfo("Attention","Select camera device")
+#        pass
+
 
 def find_device() :
     print 'find_device called'
@@ -87,6 +98,7 @@ def find_device() :
             dev_list.append(path)
     return dev_list
 
+
 def deivce_changed(*args) :
     global cam
     print 'device_changed'
@@ -94,7 +106,39 @@ def deivce_changed(*args) :
     cam = pygame.camera.Camera(video_dev.get(), (640,480))
 
 
+def canvas_lmouse_click(event) :
+    global start_x, start_y
+    print "canvas_lmouse_click called"
+    print "CLICK x=%s\ty=%s"%(event.x, event.y)
+    start_x = event.x
+    start_y = event.y
+
+
+def draw_rect(event) :
+    global start_x, start_y
+    global canvas_img
+    print "draw event called"
+    print "x=%s\ty=%s"%(event.x, event.y)
+    # set the background
+    canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
+    canvas_img.create_rectangle((start_x, start_y, event.x, event.y), outline="white", width=2)
+
+
+def canvas_lmouse_release(event) :
+    global start_x, start_y
+    global end_x, end_y
+    global canvas_img
+    print "canvas_lmouse_release called"
+    print "RELEASE x=%s\ty=%s"%(event.x, event.y)
+    end_x = event.x
+    end_y = event.y
+
 if __name__ == '__main__' :
+
+    start_x = 0
+    start_y = 0
+    end_x = 0
+    end_y = 0
 
     pygame.init()
     pygame.camera.init()
@@ -111,6 +155,11 @@ if __name__ == '__main__' :
 
     canvas_img = Canvas(frame,bg='black', width = 640, height = 480)
     canvas_img.pack(side = TOP,expand = YES, fill = BOTH)
+
+    canvas_img.bind('<ButtonPress-1>', canvas_lmouse_click)
+    canvas_img.bind('<B1-Motion>', draw_rect)
+    canvas_img.bind('<ButtonRelease-1>', canvas_lmouse_release)
+
     if os.path.exists('capture.bmp') == True :
         cam_image = Image.open('capture.bmp')
         cam_imageTk = ImageTk.PhotoImage(cam_image)
@@ -154,6 +203,6 @@ if __name__ == '__main__' :
     chkbtn_grid.grid(column = 3, row = 2)
     spinbox_row.grid(column = 4, row = 2)
     spinbox_col.grid(column = 4, row = 3)
-    btn_get_image.grid(column = 2, row = 3)
+    btn_get_image.grid(column = 3, row = 3)
 
     root.mainloop()
