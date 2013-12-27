@@ -18,22 +18,20 @@ cam_flag = False
 def get_image_cam() :
     global cam,cam_flag,cam_image, cam_imageTk, canvas_img
     print '[THREAD CREATE]get image camera'
-#   print cam_flag
-#    print " 000 cam_imageTk id= %s"%id(cam_imageTk)
+    # print cam_flag
+    # print " 000 cam_imageTk id= %s"%id(cam_imageTk)
     while cam_flag :
         image = cam.get_image()
         pygame.image.save(image,'capture.bmp')
         cam_image = Image.open('capture.bmp')
         cam_imageTk = ImageTk.PhotoImage(cam_image)
         canvas_img.create_image(0, 0, anchor = NW ,image = cam_imageTk)
+        time.sleep(0.3)
         ## It seem the statement as below could solve the Blink problem
         ## As for the reason, not catch now
-#        print "PRE cam_imageTk id= %s"%id(cam_imageTk)
-#        time.sleep(3)
+        # print "PRE cam_imageTk id= %s"%id(cam_imageTk)
+        # time.sleep(3)
         obr = cam_imageTk
-#        print cam_imageTk.__dict__
-#        print "AFT cam_imageTk id= %s"%id(cam_imageTk)
-#        print "obr id=%s"%id(obr)
 
     print '[THREAD EXIT] get image camera'
     thread.exit_thread()
@@ -53,7 +51,7 @@ def cam_start() :
     print 'camera start '
     cam.start()
     cam_flag = True
-#   print cam_flag
+    # print cam_flag
     btn_get_image['state'] = 'enabled'
     return
 
@@ -63,7 +61,7 @@ def cam_stop() :
     print 'camera stop '
     cam.stop()
     cam_flag = False
-#   print cam_flag
+    # print cam_flag
     btn_get_image['state'] = 'disabled'
     return
 
@@ -82,9 +80,7 @@ def cam_toggle() :
             cam_stop()
             var_btn_camera.set('CAMERA START')
     else :
-#        messagebox.showinfo(message="select camera device")
         tkMessageBox.showinfo("Attention","Select camera device")
-#        pass
 
 
 def find_device() :
@@ -108,8 +104,8 @@ def deivce_changed(*args) :
 
 def canvas_lmouse_click(event) :
     global start_x, start_y
-    print "canvas_lmouse_click called"
-    print "CLICK x=%s\ty=%s"%(event.x, event.y)
+    # print "canvas_lmouse_click called"
+    # print "CLICK x=%s\ty=%s"%(event.x, event.y)
     start_x = event.x
     start_y = event.y
 
@@ -117,8 +113,8 @@ def canvas_lmouse_click(event) :
 def draw_rect(event) :
     global start_x, start_y
     global canvas_img
-    print "draw event called"
-    print "x=%s\ty=%s"%(event.x, event.y)
+    # print "draw event called"
+    # print "x=%s\ty=%s"%(event.x, event.y)
     # set the background
     canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
     canvas_img.create_rectangle((start_x, start_y, event.x, event.y), outline="white", width=2)
@@ -128,10 +124,11 @@ def canvas_lmouse_release(event) :
     global start_x, start_y
     global end_x, end_y
     global canvas_img
-    print "canvas_lmouse_release called"
-    print "RELEASE x=%s\ty=%s"%(event.x, event.y)
+    # print "canvas_lmouse_release called"
+    # print "RELEASE x=%s\ty=%s"%(event.x, event.y)
     end_x = event.x
     end_y = event.y
+
 
 if __name__ == '__main__' :
 
@@ -191,7 +188,8 @@ if __name__ == '__main__' :
 
     btn_get_image = ttk.Button(frame, text = "Get Image", state = 'disabled' ,command = get_single_image)
 
-### GRID POSITION
+    ### GRID POSITION  ###
+    #--------------------#
     frame.grid(column = 0, row = 0)
     canvas_img.grid(column = 0, row = 1, columnspan = 5)
 
