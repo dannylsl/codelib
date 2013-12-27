@@ -24,4 +24,6 @@ Preparation software
 
     `sudo apt-get install python-iamging-tk`
 
-
+config.ini
+==============
+area_name = startX,startY | endX, endY
