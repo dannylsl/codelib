@@ -26,7 +26,6 @@ def get_image_cam() :
         cam_image = Image.open('capture.bmp')
         cam_imageTk = ImageTk.PhotoImage(cam_image)
         canvas_img.create_image(0, 0, anchor = NW ,image = cam_imageTk)
-        time.sleep(0.3)
         ## It seem the statement as below could solve the Blink problem
         ## As for the reason, not catch now
         # print "PRE cam_imageTk id= %s"%id(cam_imageTk)
@@ -139,6 +138,7 @@ if __name__ == '__main__' :
 
     pygame.init()
     pygame.camera.init()
+#    cam = pygame.camera.Camera('/dev/video2', (640,480))
 
     devices = find_device()
 
