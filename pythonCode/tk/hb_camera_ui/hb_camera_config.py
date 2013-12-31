@@ -41,8 +41,20 @@ class camHBconfig() :
 
 
     def get_areas(self) :
-        print self.areas
-        return self.areas
+        ret_list = list()
+        for area in self.areas :
+            area_name = area[0]
+            pos_arr = area[1].split('|')
+            pos_start = pos_arr[0].split(',')
+            pos_end = pos_arr[1].split(',')
+            start_x = pos_start[0]
+            start_y = pos_start[1]
+            end_x = pos_end[0]
+            end_y = pos_end[1]
+            ret_list.append((area_name, start_x, start_y, end_x, end_y))
+#        print ret_list
+#        return self.areas
+        return ret_list
 
     def areas_update_for_remove(self,area_name) :
         print "remove area_name = %s"%area_name
@@ -105,12 +117,12 @@ class camHBconfig() :
         print "camHBconfig __del__ called"
 
 
-if __name__ == '__main__' :
+#if __name__ == '__main__' :
 
-    camhbConf = camHBconfig('config.ini')
-    camhbConf.get_area_count()
-    camhbConf.get_areas()
-    camhbConf.add_area('area2a','10,10|20,20')
-    camhbConf.remove_area('area1')
-    camhbConf.get_areas()
-    camhbConf.get_area_count()
+#    camhbConf = camHBconfig('config.ini')
+#    camhbConf.get_area_count()
+#    camhbConf.get_areas()
+#    camhbConf.add_area('area2a','10,10|20,20')
+#    camhbConf.remove_area('area1')
+#    camhbConf.get_areas()
+#    camhbConf.get_area_count()

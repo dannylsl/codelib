@@ -13,6 +13,8 @@ import time
 import os
 from PIL import Image, ImageTk
 
+import hb_camera_config
+
 cam_flag = False
 
 def get_image_cam() :
@@ -116,6 +118,10 @@ def draw_rect(event) :
     # print "x=%s\ty=%s"%(event.x, event.y)
     # set the background
     canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
+    areas = camhbConf.get_areas()
+    for area in areas :
+        canvas_img.create_rectangle((area[1], area[2], area[3], area[4]), outline="yellow", width=2)
+
     canvas_img.create_rectangle((start_x, start_y, event.x, event.y), outline="white", width=2)
 
 
@@ -127,7 +133,9 @@ def canvas_lmouse_release(event) :
     # print "RELEASE x=%s\ty=%s"%(event.x, event.y)
     end_x = event.x
     end_y = event.y
-
+    content = "%s,%s | %s,%s"%(start_x, start_y, end_x, end_y)
+    if tkMessageBox.askokcancel("Save areas", "Save selected area ?") :
+        camhbConf.add_area('area%s'%camhbConf.area_count, content)
 
 if __name__ == '__main__' :
 
@@ -135,6 +143,8 @@ if __name__ == '__main__' :
     start_y = 0
     end_x = 0
     end_y = 0
+
+    camhbConf = hb_camera_config.camHBconfig('config.ini')
 
     pygame.init()
     pygame.camera.init()
@@ -163,6 +173,12 @@ if __name__ == '__main__' :
         canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
     else :
         pass
+
+# TODO
+    areas = camhbConf.get_areas()
+    for area in areas :
+        print area[0]
+        canvas_img.create_rectangle((area[1], area[2], area[3], area[4]), outline="yellow", width=2)
 
     video_dev = StringVar()
     combox = ttk.Combobox(frame, textvariable = video_dev)
