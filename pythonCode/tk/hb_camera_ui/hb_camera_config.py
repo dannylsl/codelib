@@ -8,6 +8,8 @@ class camHBconfig() :
 
     def __init__(self, filename) :
         print "camHBconfig __init__ called"
+        self.selected = None
+
         if os.path.exists(filename) == False :
             raise ValueError('Failed to create camHBconfig Instance: File %s not exist'%filename)
         else :
@@ -47,10 +49,10 @@ class camHBconfig() :
             pos_arr = area[1].split('|')
             pos_start = pos_arr[0].split(',')
             pos_end = pos_arr[1].split(',')
-            start_x = pos_start[0]
-            start_y = pos_start[1]
-            end_x = pos_end[0]
-            end_y = pos_end[1]
+            start_x = int(pos_start[0])
+            start_y = int(pos_start[1])
+            end_x = int(pos_end[0])
+            end_y = int(pos_end[1])
             ret_list.append((area_name, start_x, start_y, end_x, end_y))
 #        print ret_list
 #        return self.areas
@@ -111,6 +113,24 @@ class camHBconfig() :
 
         with open(self.filename, 'wb') as configfile :
             self.config.write(configfile)
+
+
+    def is_point_in_areas(self, px, py) :
+        areas = self.get_areas()
+#        print areas
+        for area in areas :
+            if px > area[1] and px < area[3] and py > area[2] and py < area[4] :
+#                print "(%s, %s)"%(px, py)
+#                print "(%s, %s) (%s, %s)"%(area[1], area[2], area[3], area[4])
+                self.selected = area #(area[0], area[1], area[2], area[3], area[4])
+                break
+            else :
+                self.selected = None
+        return self.selected
+
+
+    def get_selected_area(self) :
+        return self.selected
 
 
     def __del__(self) :

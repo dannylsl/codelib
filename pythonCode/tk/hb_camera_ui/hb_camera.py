@@ -109,33 +109,60 @@ def canvas_lmouse_click(event) :
     # print "CLICK x=%s\ty=%s"%(event.x, event.y)
     start_x = event.x
     start_y = event.y
+    print camhbConf.is_point_in_areas(start_x, start_y)
 
 
 def draw_rect(event) :
     global start_x, start_y
     global canvas_img
-    # print "draw event called"
-    # print "x=%s\ty=%s"%(event.x, event.y)
-    # set the background
-    canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
-    areas = camhbConf.get_areas()
-    for area in areas :
-        canvas_img.create_rectangle((area[1], area[2], area[3], area[4]), outline="yellow", width=2)
-
+    draw_areas()
     canvas_img.create_rectangle((start_x, start_y, event.x, event.y), outline="white", width=2)
 
-
 def canvas_lmouse_release(event) :
-    global start_x, start_y
-    global end_x, end_y
+    global start_x, start_y, end_x, end_y
     global canvas_img
+    global cam_flag
+
+    if cam_flag == True :
+        if tkMessageBox.askokcancel("Camera Heartbeat", "Stop camera before drawing areas ?") :
+            return
+
     # print "canvas_lmouse_release called"
     # print "RELEASE x=%s\ty=%s"%(event.x, event.y)
     end_x = event.x
     end_y = event.y
     content = "%s,%s | %s,%s"%(start_x, start_y, end_x, end_y)
-    if tkMessageBox.askokcancel("Save areas", "Save selected area ?") :
-        camhbConf.add_area('area%s'%camhbConf.area_count, content)
+    if abs(end_x - start_x) > 5 and abs(end_y - start_y) > 5 :
+        if tkMessageBox.askokcancel("Save areas", "Save selected area ?") :
+            camhbConf.add_area('area%s'%camhbConf.area_count, content)
+    draw_areas()
+
+
+def del_area(event=None) :
+    print "del_area called"
+    selected_area = camhbConf.get_selected_area()
+    if selected_area != None :
+        area_name = selected_area[0]
+        if tkMessageBox.askokcancel("Delete area", "Remove the selected area in Red ?") :
+            camhbConf.remove_area(area_name)
+            camhbConf.selected = None
+    draw_areas()
+
+
+def draw_areas() :
+    global canvas_img
+    # SET THE BACKGROUND
+    canvas_img.create_image(0, 0, anchor=NW, image = cam_imageTk)
+
+    areas = camhbConf.get_areas()
+    for area in areas :
+        canvas_img.create_rectangle((area[1], area[2], area[3], area[4]), outline="yellow", width=2)
+
+    selected_area = camhbConf.get_selected_area()
+    if selected_area != None :
+        canvas_img.create_rectangle((selected_area[1], selected_area[2], selected_area[3], selected_area[4]), outline="red", width=2)
+
+
 
 if __name__ == '__main__' :
 
@@ -155,10 +182,13 @@ if __name__ == '__main__' :
     root = Tk()
     root.title('Camera Heartbeat')
 
+    root.bind('<Delete>', del_area)
+
     frame = ttk.Frame(root)
     frame['padding'] = (10, 10, 10, 10)
     frame['borderwidth'] = 5
     frame['relief'] = 'solid'
+
 
     canvas_img = Canvas(frame,bg='black', width = 640, height = 480)
     canvas_img.pack(side = TOP,expand = YES, fill = BOTH)
