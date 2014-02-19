@@ -5,7 +5,6 @@ typedef const int* IteratorType;
 
 //prototype of the algorithm
 //IteratorType find(IteratorType begin, IteratorType end, const int& value) ;
-
 template<class IteratorType, class T>
 IteratorType find(IteratorType begin, IteratorType end, const T& value){
 	cout << "IteratorType template called" <<endl;

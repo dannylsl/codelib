@@ -1,9 +1,9 @@
 " local syntax file - set colors on a per-machine basis:
 " vim: tw=0 ts=4 sw=4
 " Vim color file
-" Maintainer:   Ron Aaron <ron@ronware.org>
+" Maintainer :   Ron Aaron <ron@ronware.org>
 " Modified by danny Lee
-" Last Change:  2003 May 02
+" Last Change :  2003 May 02
 
 set background=dark
 hi clear
@@ -11,26 +11,26 @@ if exists("syntax_on")
   syntax reset
 endif
 let g:colors_name = "dannyOathy"
-hi Normal       cterm=bold      ctermfg=Green   guifg=cyan          guibg=black
-hi Comment      term=bold       cterm=bold          ctermfg=DarkGray    guifg=#80a0ff
-"//  /*
+hi Normal       ctermbg=DarkGrey cterm=bold      ctermfg=Green   guifg=cyan          guibg=black
+hi Comment      term=bold	cterm=reverse	ctermfg=white    guifg=#80a0ff
+" //  /*
 hi Constant     term=underline  ctermfg=white       guifg=Magenta
 " \"\" \'\'
-hi Special      term=bold       ctermfg=DarkMagenta guifg=Red
+hi Special      term=bold       ctermbg=DarkGrey ctermfg=DarkMagenta guifg=Red
 hi Identifier   term=underline  cterm=bold          ctermfg=Yellow guifg=#40ffff
-"var
+" var
 hi Statement    term=bold       ctermfg=Yellow      gui=bold    guifg=#aa4444
-"return
+" return
 hi PreProc      term=underline  ctermfg=LightBlue   guifg=#ff80ff
 hi Type         term=underline  ctermfg=Red guifg=#60ff60 gui=bold
-"Number()  Array()
+" Number()  Array()
 hi Function     term=bold       ctermfg=Blue        guifg=White
-"function {}
+" function {}
 hi Repeat       term=underline  ctermfg=Cyan        guifg=white
 " for  if-esle
 hi Operator     ctermfg=Red     guifg=Red
-"new
-hi Ignore       ctermfg=black   guifg=bg
+" new
+hi Ignore       ctermfg=black   
 hi Error        term=reverse    ctermbg=Red     ctermfg=White guibg=Red     guifg=White
 hi Number       ctermfg=Magenta
 hi Boolean      cterm=bold      ctermfg=Red
@@ -40,6 +40,10 @@ hi Todo         term=standout   ctermbg=Yellow  ctermfg=Black guifg=Blue    guib
 hi CursorColumn term=reverse ctermbg=Black guibg=grey40
 hi CursorLine term=underline cterm=underline guibg=grey40
 hi SpecialKey term=bold ctermfg=Red ctermbg=white guifg=Cyan
+
+"PopMenu
+highlight Pmenu cterm=bold ctermbg=White
+highlight PmenuSel cterm=bold ctermbg=Blue ctermfg=White
 
 " Common groups that link to default highlighting.
 " You can specify other highlighting easily.
