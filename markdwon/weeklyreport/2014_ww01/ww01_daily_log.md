@@ -16,3 +16,4 @@
             com.android.gallery3d/.app.MovieActivity --> com.android.gallery3d/com.android.gallery3d.app.MovieActivity
 
 
+    4. TO CHECK THE CAMERA HB
