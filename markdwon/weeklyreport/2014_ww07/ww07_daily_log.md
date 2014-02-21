@@ -10,3 +10,11 @@
     1. [BUG FIXED] program will crash if disable the camera heartbeat
         > since the object variable 'camhb' in vpnp.py will not be define while disable the camera heartbeat in client.conf
 
+
+### MISC
+    1. Help Ashisi take measure on FFRD for the regression in WIDI POWER
+    2. Do a platform for FFRD measurement
+
+### PROBLEM
+    1. FFRD can not be bootup for some reason unknown. Easily being crashed and have to reflash the system
+
