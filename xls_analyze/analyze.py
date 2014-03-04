@@ -17,9 +17,13 @@ class myConfigParser(ConfigParser) :
         return optionstr
 
 def Usage() :
-    print "Usage: %s [platform = MRFLD | BYT] [raw_folder]"%sys.argv[0]
+    print "Usage: %s [platform = MRFLD | BYT | MOOREFLD] [raw_folder]"%sys.argv[0]
     print "Example - 1: %s MRFLD raw_folder "%sys.argv[0]
     print "Example - 2: python analyze.py BYT raw_folder"
+
+if len(sys.argv) != 3 :
+    Usage()
+    sys.exit(0)
 
 platform = sys.argv[1]
 
@@ -28,11 +32,6 @@ if (platform != 'MRFLD' and platform != 'BYT') :
     Usage()
     sys.exit(0)
 
-if len(sys.argv) != 3 :
-    Usage()
-    sys.exit(0)
-
-platform = sys.argv[1]
 csv_file_base_dir = '%s/'%sys.argv[2]
 
 config = myConfigParser()
@@ -48,6 +47,8 @@ if platform == 'MRFLD':
     xls_tmp  = "MRFLD_SOCWATCH_ANALYSIS_PR2_TEMPLATE.xls"
 elif platform == 'BYT' :
     xls_tmp = "BYT_SOCWATCH_ANALYSIS_TEMPLATE.xls"
+elif platform == 'MOOREFLD' :
+    xls_tmp  = "MOOREFLD_SOCWATCH_ANALYSIS_PRH_TEMPLATE.xls"
 
 xls_out = xls_tmp.replace('.xls', '_%s.xls'%sys.argv[2])
 
