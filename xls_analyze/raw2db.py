@@ -8,16 +8,18 @@ import sys
 import os
 import datetime
 
+import mediafps
+
 
 class myConfigParser(ConfigParser) :
     def optionxform(self, optionstr):
         return optionstr
 
 
-device_list = ['FFRD','FFRD8','VVBOARD']
+device_list = ['FFRD','FFRD8','VVBOARD', 'PRH']
 
 def Usage() :
-    print "Usage: %s [platform = MRFLD | BYT] [DEVICE] [WEEK ID] [raw_folder]"%sys.argv[0]
+    print "Usage: %s [platform = MOOREFLD | MRFLD | BYT] [DEVICE] [WEEK ID] [raw_folder]"%sys.argv[0]
     print "Example - 1: %s MRFLD FFRD ww49 raw_folder "%sys.argv[0]
     print "Example - 2: python raw2db.py BYT FFRD8 ww49 raw_folder"
     print "device value", device_list
@@ -41,7 +43,7 @@ if len(sys.argv) != 5 :
 platform = sys.argv[1]
 device = sys.argv[2]
 
-if (platform != 'MRFLD' and platform != 'BYT') :
+if (platform != 'MRFLD' and platform != 'BYT' and platform != 'MOOREFLD') :
     print "Error : Please set the platform"
     Usage()
     sys.exit(0)
@@ -133,7 +135,8 @@ for csv_filename in file_list :
     item_count = 0
     for ps_item in csvr.pstate :
         item_name = ps_item[1]
-        core_num = "core %s"%core_id
+#        core_num = "core %s"%core_id
+        core_num = ps_item[3]
         value = ps_item[2]
         description = "%s#%s#%s#%s#%s#%s#%s"%(week, platform, device, category, item_name, case_name, core_num)
 
@@ -198,6 +201,7 @@ for csv_filename in file_list :
         item_name = ncs_item
         core_num = "core ALL"
         description = "%s#%s#%s#%s#%s#%s#%s"%(week, platform, device, category, item_name, case_name, core_num)
+        print description#
 
         if isDescriptInTable(cur, description, table) :
         ### record exist already, need update
@@ -245,13 +249,49 @@ for csv_filename in file_list :
     ### record not exist, insert
         init_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         updatetime = init_time
-#        sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
         sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, device, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
         print "insert:%s"%sql
         cur.execute(sql)
 
+
     conn.commit() ### COMMIT OPERATION  [MUST]
     del csvr
+
+
+########################
+# GET mediafps
+########################
+print ">>>>>>>>>>>>>>>>>  MEDIAFPS RETRIEVE <<<<<<<<<<<<<<<<"
+mediafps_filename = "%s/mediainfo_mp4_record"%raw_file_base_dir
+
+if os.path.exists(fps_filename) == False:
+    value='NONE'
+else :
+    mfps = mediafps.mediaFPS(mediafps_filename)
+    value = mfps.get_frate()
+
+case_name="record_social_1080p"
+category = "fps"
+item_name ='fps'
+core_num = "core ALL"
+description = "%s#%s#%s#%s#%s#%s#%s"%(week, platform, device, category, item_name, case_name, core_num)
+
+if isDescriptInTable(cur, description, table) :
+    updatetime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    sql="UPDATE %s SET `value`='%s',`updatetime`='%s' WHERE `description`='%s'"%(table, value, updatetime, description)
+    print "update:%s"%sql
+    cur.execute(sql)
+else :
+### record not exist, insert
+    init_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    updatetime = init_time
+    sql="INSERT INTO %s VALUES(null, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(table, platform, device, category, item_name, case_name, core_num, value, week, init_time, updatetime, description)
+    print "insert:%s"%sql
+    cur.execute(sql)
+
+conn.commit() ### COMMIT OPERATION  [MUST]
+
+
 
 cur.close()
 conn.close()

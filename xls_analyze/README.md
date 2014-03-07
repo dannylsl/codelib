@@ -59,8 +59,16 @@ Example - 2:
 
 ### Change log
 -------------
-* 2013-12-17 **[NEW FUNCITON]** add mediafps.py catch record Frame rate
+* 2014-03-07 **[NEW FEATURE]** retrieve fps from media_record_fps and store into database
+* 2014-03-04 **[NEW FEATURE]** add support for MOOREFLD
+* 2014-03-03 [csvr.py]change the way retrieve pstate for ANN-based socwatch analysis upgrade
 * 2013-12-11 **[NEW FUNCTION]** add raw2db.py save summary csv data and fps data into MySQL database
 * 2013-12-10 **[NEW FEATURE]** capture fps from fps_log_file
 * 2013-12-04 **[NEW FUNCTION]** add analyze4cmp.py for two or more summary csv files's comparison
 * 2013-12-03 Introduction file (README.md) added
+
+### Related change
+* 2014-03-03 **[SOCWATCH ANALYZER]** SOCWATCH V1.3 for ANN-based has no-aligning result in pstate
+* 2014-02-19 **[SOCWATCH ANALYZER]** SOCWATCH V1.3 changed NC-State title.
+    -> 'North Complex   ,Residency' to 'North Complex   ,Residency During S0i0'
+        which lead to failure of creating csvReader Object
