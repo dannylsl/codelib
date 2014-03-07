@@ -27,7 +27,7 @@ if len(sys.argv) != 3 :
 
 platform = sys.argv[1]
 
-if (platform != 'MRFLD' and platform != 'BYT') :
+if (platform != 'MRFLD' and platform != 'BYT' and platform != 'MOOREFLD') :
     print "Error : Please set the platform"
     Usage()
     sys.exit(0)
