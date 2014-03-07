@@ -6,6 +6,7 @@ class mediaFPS() :
 
     def __init__(self, filename) :
         print "mediafps __init__ called"
+        self.frate = 0
         self.filename = filename
         self.regex = "Frame rate.*:.*fps"
         self.get_mp4_fps()
@@ -28,8 +29,8 @@ class mediaFPS() :
             self.filehandle.close()
 
         except Exception:
-            exstr = traceback.format_exc()
-            print "Error: %s"%exstr
+#            exstr = traceback.format_exc()
+#            print "Error: %s"%exstr
             print "Failed to init the FPS Object"
             self.frate = 0
 

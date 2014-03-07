@@ -21,7 +21,7 @@ class csvReader() :
             self.get_wakeup_sec_core()
             self.get_pstate()
             self.get_ncstate()
-            self.csv_list_print()
+#            self.csv_list_print()
         except :
             print "Fail to init the csvReader Object"
 #       print "__init__ call end"
@@ -53,8 +53,8 @@ class csvReader() :
 
 
     def csv_list_print(self) :
-#       for line in self.csv_list :
-#           print line
+        for line in self.csv_list :
+            print line
         print "csv_list length=%d"%len(self.csv_list)
 
 
@@ -121,28 +121,43 @@ class csvReader() :
 
     def get_pstate(self) :
         pstate_index = self.csv_list.index(['P State Residency'])
-        offset = 2
+        offset = 1
         core_num = self.core_num
-        while core_num > 0 :
+        while core_num >= 0 :
             if len(self.csv_list[pstate_index + offset]) == 3 :
-                self.pstate.append(self.csv_list[pstate_index + offset])
-            else :
+                pstate_item = self.csv_list[pstate_index + offset] + pstate_core
+                self.pstate.append(pstate_item)
+#                print pstate_item
+#    print self.csv_list[pstate_index + offset]
+            elif len(self.csv_list[pstate_index + offset]) == 1 :
+            #Core 1 | Core 2 | ...
                 core_num = core_num - 1
+                pstate_core = self.csv_list[pstate_index + offset]
+                pstate_core[0] = pstate_core[0].lower()
+#                print '**' * 20
+#                print pstate_core," core_num=",core_num
+#                print '**' * 20
             offset = offset + 1
-#       print self.pstate
+#        print self.pstate
 
 
     def get_ncstate(self) :
-        ncstate_index = self.csv_list.index(['North Complex', 'Residency'])
+        print "GET NCSTATE"
+#        print "==="*10
+#        print self.csv_list
+#        print "==="*10
+        ncstate_index = self.csv_list.index(['North Complex', 'Residency During S0i0'])
+#        print ncstate_index
         offset = 2
         while True :
 #if len(self.csv_list[ncstate_index + offset] != 6 :
             if self.csv_list[ncstate_index + offset][0].find('NC-') != -1 :
+#                print self.csv_list[ncstate_index + offset]
                 self.ncstate.append(self.csv_list[ncstate_index + offset])
                 offset = offset + 1
             else :
                 break
-#       print self.ncstate
+#print self.ncstate
 
 # D0state :
 #   0 -> D0i0
@@ -165,6 +180,8 @@ class csvReader() :
             feat  = ['GFXSLC', 'GSDKCK', 'GRSCD', 'Video Decoder', 'Video Encoder', 'Display Island A', 'Display Island B', 'Display Island C', 'VSP', 'ISP', 'MIO', 'HDMIO', 'GFXSLCLDO']
         elif platform == 'BYT' :
             feat = ['RENder', 'Media', 'Display DPIO', 'CMNLM', 'TX0', 'TX1', 'TX2','TX3', 'RX0', 'RX1', 'Video Decoder', 'ISP']
+        elif platform == 'MOOREFLD' :
+            feat  = ['GFXSLC', 'GSDKCK', 'GRSCD', 'Video Decoder', 'Video Encoder', 'Display Island A', 'Display Island B', 'Display Island C', 'VSP', 'ISP', 'MIO', 'HDMIO', 'GFXSLCLDO']
 
         state_index = state.index(D0state)
         if (D0state in state) and (feature in feat) :
@@ -177,7 +194,8 @@ class csvReader() :
             return  'NOT FOUND'
 
 
-#csvr = csvReader('csv_folder/idle.csv')
+csvr = csvReader('MOORE_WW08/video_playback_1080p.csv')
+#csvr = csvReader('MOORE_WW08/idle.csv')
 #csvr = csvReader('play1.csv')
 #csvr.init_csv_list()
 #csvr.csv_list_print()
