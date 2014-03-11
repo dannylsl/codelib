@@ -14,6 +14,3 @@
 
     > [NEW FUNCTION] JQchart TO DISPLAY THE HISTORY CHART
 
-
-
-
