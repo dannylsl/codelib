@@ -11,4 +11,15 @@
 
 ![Alt text](power_cmp.png)
 
+3. [NEW FUNCTION] DATA TREND IMAGE
 
+![Alt text](idle.png)
+
+4. [COMPATIBILITY] Fixed the IE8 and IE8- compatibility of HTML Canvas with excanvas.js
+
+
+### MISC
+
+1. [UCAD] have a basic knowledge of MOF UCAD
+2. Take participate in Google Boot Camp Media Day Presentation
+3. Take participate in OptoFidelity Solution for User Experience Measurement
