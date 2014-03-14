@@ -8,15 +8,18 @@
     well while using Chrome & Firefox
 
 2. [NEW FUNCTION] DATA COMPARSION IN WEB
-
-![Alt text](power_cmp.png)
+> ![Alt text](power_cmp.png)
 
 3. [NEW FUNCTION] DATA TREND IMAGE
-
-![Alt text](idle.png)
+> ![Alt text](idle.png)
 
 4. [COMPATIBILITY] Fixed the IE8 and IE8- compatibility of HTML Canvas with excanvas.js
 
+5. [NEW FUNCTION] TARGETS SETTING
+    > Set power target for different platforms and different devices
+
+6. [NEW FEATURE] TARGET PERCENT & TARGET GAP IN POWER TABLE
+> ![Alt: power target](target.png)
 
 ### MISC
 
