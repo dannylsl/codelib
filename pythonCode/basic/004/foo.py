@@ -9,7 +9,6 @@ import os
 import time
 
 class Foo(object):
-#    file = ""
 
 ###   RETURN NONE when Failed to create class Instance
     def __new__(cls, file = "/dev/ttyUSB0") :
