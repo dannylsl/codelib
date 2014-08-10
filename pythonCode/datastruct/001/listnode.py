@@ -6,3 +6,13 @@ class ListNode() :
         self.x = x
         self.next = None
 
+
+if __name__ == "__main__" :
+	a = ListNode(1)
+	b = ListNode(2)
+	a.next = b
+
+	print a.x
+	print b.x
+	print a.next.x
+
