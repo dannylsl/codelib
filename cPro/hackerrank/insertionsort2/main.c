@@ -17,6 +17,7 @@ void print_ar(int ar_size, int *ar) {
 
 void insertionSort(int ar_size, int *  ar) {
     int i,j, available;
+    int count = 0;
     for(i = 0; i < ar_size; i++) {
         int value = ar[i];
         available = i;
@@ -24,13 +25,14 @@ void insertionSort(int ar_size, int *  ar) {
             if(value < ar[j]) {
                 ar[available] = ar[j];
                 available = j;
+                count++;
             }else{
                 break;
             }
         }
         ar[available] = value;
-        print_ar(ar_size, ar);
     }
+    printf("%d",count);
 }
 
 int main(void) {
