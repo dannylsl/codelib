@@ -10,6 +10,9 @@ main:main.c
 main2:main2.c
 	${CC} $^ ${CFLAGS} $@
 
+main2:main2.c	
+	${CC} $^ ${CFLAGS} $@
+
 .PHONY:clean
 clean:
 	rm main

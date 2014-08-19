@@ -14,6 +14,7 @@ void print_arr(int ar_size, short int ar[]) {
     return;
 }
 
+
 void print_countSorted_data(int ar_size, short int ar[]) {
     int i, j;
     for(i = 0; i < ar_size; i++) {
@@ -35,7 +36,7 @@ int main(int argc, char *argv[]) {
         scanf("%d",&tmp);
         count[tmp]++;
     }
-//  print_arr(100, count);
+
     print_countSorted_data(100, count);
 
     return 0;

@@ -14,6 +14,7 @@ void print_ar(int ar_size, int *ar) {
     printf("\n");
 }
 
+
 void insertionSort(int ar_size, int *  ar) {
     int i,j, available;
     for(i = 0; i < ar_size; i++) {
