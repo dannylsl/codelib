@@ -10,6 +10,7 @@ void print_ar(int ar_size, int * ar) {
         printf("%d ", ar[i]);
     }
 }
+
 void partition(int ar_size, int *  ar) {
     int l_ar[ar_size], r_ar[ar_size];
     int l_ar_len = 0, r_ar_len = 0;
@@ -36,6 +37,7 @@ void partition(int ar_size, int *  ar) {
     }
     print_ar(ar_size, ar);
 }
+
 
 int main(void) {
 
