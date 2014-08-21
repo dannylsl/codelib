@@ -8,6 +8,51 @@ void quickSort(int ar_size, int *  ar) {
 
 }
 
+void print_ar(int ar_size, int * ar) {
+    int i;
+    for(i = 0; i < ar_size; i++) {
+        printf("%d ", ar[i]);
+    }
+    printf("\n");
+}
+
+void partition(int ar_size, int *  ar) {
+    int l_ar[ar_size], r_ar[ar_size];
+    int l_ar_len = 0, r_ar_len = 0;
+    int value = ar[0];
+    int i;
+    for(i = 1; i < ar_size; i++) {
+        if( ar[i] <= value ) {
+            l_ar[l_ar_len] = ar[i];
+            l_ar_len++;
+        }else if(ar[i] > value) {
+            r_ar[r_ar_len] = ar[i];
+            r_ar_len++;
+        }
+    }
+
+    if(l_ar_len > 1) {
+        partition(l_ar_len, l_ar);
+    }
+    if(r_ar_len > 1) {
+        partition(r_ar_len, r_ar);
+    }
+
+    // Combine Array
+    for(i = 0; i < ar_size; i++) {
+        if( i < l_ar_len) {
+            ar[i] = l_ar[i];
+        }else if(i == l_ar_len) {
+            ar[i] = value;
+        }else {
+            ar[i] = r_ar[i - l_ar_len - 1];
+        }
+    }
+    print_ar(ar_size, ar);
+}
+
+
+
 int main(void) {
 
     int _ar_size;
@@ -17,8 +62,8 @@ int main(void) {
         scanf("%d", &_ar[_ar_i]);
     }
 
-    quickSort(_ar_size, _ar);
-
+//    quickSort(_ar_size, _ar);
+    partition(_ar_size, _ar);
     return 0;
 }
 
