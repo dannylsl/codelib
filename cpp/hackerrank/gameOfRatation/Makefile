@@ -1,10 +1,10 @@
-CC=gcc
+CC=g++
 CFLAGS=-g -Wall -o
 TARGETS=gameofrotate
 
 all:${TARGETS}
 
-gameofrotate:gameofrotate.c
+gameofrotate:gameofrotate.cpp
 	${CC} $^ ${CFLAGS} $@
 
 .PHONY:clean
