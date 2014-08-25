@@ -3,51 +3,49 @@
 #include <string.h>
 
 typedef struct Node {
-    int ele_pos;
+    char str[10];
     struct Node *next;
 }Node;
 
 int main(int argc, char *argv[]) {
     int n;
     scanf("%d", &n);
-    int i,j;
-    int num[n];
-    char str[n][10];
+    int i,j, num, max;
+    char str[10];
 
-    Node *ndlist[101];
-    Node *ndlist_foot[101];
-    int nd_len[101] = {0};
+    Node *ndlist[100];
+    Node *ndlist_foot[100];
+    int nd_len[100] = {0};
     Node *node;
 
-    printf("Start");
-
+    max = 0;
     for(i = 0; i < n ; i++) {
-        scanf("%d %s", &num[i], str[i]);
+        scanf("%d %s", &num, str);
+        if(max < num)
+            max = num;
         if(i < n/2) {
-            memset(str[i], '\0', 10);
-            str[i][0] = '-';
+            memset(str, '\0', 10);
+            str[0] = '-';
         }
-    }
 
-    for(i = 0; i < n; i++) {
         node = (Node*)malloc(sizeof(Node));
-        node->ele_pos = i;
+        strcpy(node->str, str);
 
-        if(nd_len[num[i]] == 0) {
-            ndlist[num[i]] = node;
-            ndlist_foot[num[i]] = node;
+        if(nd_len[num] == 0) {
+            ndlist[num] = node;
+            ndlist_foot[num] = node;
         }else {
-            ndlist_foot[num[i]]->next = node;
-            ndlist_foot[num[i]] = node;
+            ndlist_foot[num]->next = node;
+            ndlist_foot[num] = node;
         }
 
-        nd_len[num[i]]++;
+        nd_len[num]++;
     }
 
-    for(i = 0; i < 101; i++) {
+    for(i = 0; i <= max; i++) {
         node = ndlist[i];
         for(j = 0; j < nd_len[i]; j++) {
-            printf("%s ",str[node->ele_pos]);
+            printf("%s ",node->str);
             node = node->next;
         }
     }
