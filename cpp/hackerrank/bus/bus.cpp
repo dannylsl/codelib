@@ -7,9 +7,11 @@ struct Node {
     struct Node *next;
 };
 
-int is_x_work(int x, int ar_size, int *ar) {
+int is_x_work(int x, int ar_size, int *ar, int sum) {
     int i ;
     int volumn = x;
+    if(sum % x != 0)
+        return 0;
     for(i = 0; i < ar_size; i++) {
         volumn = volumn - ar[i];
         if(volumn > 0) {
@@ -42,7 +44,7 @@ int main(int argc, char *argv[]) {
 
     for(i = 0,k = 0; i < n; i++) {
         k += A[i];
-        if( is_x_work(k, n, A) != 0 ) {
+        if( is_x_work(k, n, A, sum) != 0 ) {
             nd = (struct Node*)malloc(sizeof(struct Node));
             nd->value = k;
             if(node_len == 0) {
