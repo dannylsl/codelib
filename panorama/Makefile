@@ -1,4 +1,4 @@
-CC = arm-linux-g++
+CC =g++
 CFLAGS = -g -Wall 
 TARGETS = matrix.o matrixCatOnArm
 

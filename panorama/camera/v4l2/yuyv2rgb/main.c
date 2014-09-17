@@ -5,7 +5,7 @@
 #include "yuyv2rgb.h"
 
 #define YUYVFILE	"yuyv.bmp"
-#define RGBFILE		"rgb_pakage.bmp"
+#define RGBFILE		"rgb_pakage2.bmp"
 #define HEADER_LEN 54
 
 #define HEIGHT	240
