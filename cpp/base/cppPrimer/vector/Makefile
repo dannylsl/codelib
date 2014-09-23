@@ -1,10 +1,12 @@
 CC=g++
 CFLAGS=-g -Wall -o
-TARGETS= evector
+TARGETS= 1evector  2vector_iterator
 
 all:${TARGETS}
 
-evector:vector.cpp
+1evector:vector.cpp
+	${CC} $^ ${CFLAGS} $@
+2vector_iterator:vector_iterator.cpp
 	${CC} $^ ${CFLAGS} $@
 
 .PHNOY:clean
