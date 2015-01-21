@@ -8,7 +8,7 @@ FILENAME    DATE        DESCRIPTION
                         WINDOW: Ctrl+Z      Unix | Mac OS: Ctrl+d
                         TIP:
                         * when using cin. use cin.eof() to check whether input is EOF
-                        * when using getchar(). The ch TYPE must using [signed char or int]     
+                        * when using getchar(). The ch TYPE must using [signed char or int]
 
 003         2013-12-01  Type size check
-
+004         2015-01-21  Get Two Max value from data
