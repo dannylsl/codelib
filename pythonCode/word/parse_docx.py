@@ -1,9 +1,8 @@
 import os
 import sys
 import win32com
-from win32com.client import Dispatch, constants
+#from win32com.client import Dispatch, constants
 from docx.api import Document
-#import docx 
 
 
 if __name__ == "__main__" :
@@ -17,11 +16,14 @@ if __name__ == "__main__" :
 
     #docx = w.Documents.Open( FileName = f )
     d = Document(filepath)
-    t = d.tables[0]
-    name = t.cell(0,1).text
-    situation = t.cell(0,8).text
-    people = t.cell(1,2).text
-    title = t.cell(1,8).text
-    print name, situation, people,title
+    print "TABLE COUNTS:",len(d.tables)
+    for i in range(0, len(d.tables)) :
+        r_len = len(d.tables[i].rows)
+        c_len = len(d.tables[i].columns)
+        print "rows=%s  columns=%s"%(r_len, c_len)
+        for r in range(0, r_len) :
+            for c in range(0, c_len) :
+                print "[%s, %s]%s"%(r,c, d.tables[i].cell(r,c).text)
+
 
     sys.exit()
