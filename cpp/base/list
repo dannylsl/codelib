@@ -11,5 +11,7 @@ FILENAME    DATE        DESCRIPTION
                         * when using getchar(). The ch TYPE must using [signed char or int]
 
 003         2013-12-01  Type size check
-004         2015-01-21  Get Two Max value from data
-005         2015-03-11  Class Static Member varible
+004         2014-08-10  implement strStr() Question from Leetcode
+                        This code was not Judged as the correct answer, while it runs well on local
+                        machine.
+005         2014-08-12  Remove Element

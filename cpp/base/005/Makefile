@@ -1,15 +1,12 @@
 CC=g++
 CFLAGS=-g -Wall
-TARGETS=main Object.o
+TARGET=rmElem
 
-all: $(TARGETS)
+all:$(TARGET)
 
-Object.o:Object.cpp Object.h
-	$(CC) $(CFLAGS) -c $^
-
-main:Object.o main.cpp
-	$(CC) $(CFLAGS) -o $@ $^
+rmElem: removeElement.cpp
+	$(CC) $(CFLAGS) $^ -o $@
 
 .PHONY:clean
 clean:
-	rm main *.o *.gch
+	rm $(TARGET)

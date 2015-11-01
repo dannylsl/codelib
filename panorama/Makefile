@@ -1,4 +1,4 @@
-CC = arm-linux-g++
+CC =g++
 CFLAGS = -g -Wall 
 TARGETS = matrix.o matrixCatOnArm
 
@@ -11,6 +11,6 @@ matrixCatOnArm: matrixCat.cpp matrix.o
 matrix.o: matrix.cpp matrix.h
 	$(CC) $(CFLAGS) -c $^ 
 
-tPHONY:clean
+.PHONY:clean
 clean:
 	rm $(TARGETS)

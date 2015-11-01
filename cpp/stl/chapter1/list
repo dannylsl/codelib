@@ -1,8 +1,8 @@
 BOOK: Designing Components with the C++ STL
-FILENAME 	DATE		DESCRIPTION
+FILENAME    DATE        DESCRIPTION
 =================================================
-001 		2013-11-10	1.3.4 Interplay  
-						Containers | Iterators | Algorithms
+001         2013-11-10  1.3.4 Interplay  
+                        Containers | Iterators | Algorithms
 
 
  

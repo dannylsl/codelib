@@ -100,7 +100,7 @@ int v4l2_set_capture_fmt(v4l2_device*vd){
 	vd->fmt.fmt.pix.height		= 240;
 	vd->fmt.fmt.pix.width		= 320;
 	vd->fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
-	vd->fmt.fmt.pix.field		= V4L2_FIELD_INTERLACED;	
+	vd->fmt.fmt.pix.field		= V4L2_FIELD_INTERLACED;
 	if(ioctl(vd->fd,VIDIOC_S_FMT, &vd->fmt)<0){
 		perror("VIDIOC_S_FMT ERROR");
 		return -1;
