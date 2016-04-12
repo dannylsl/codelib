@@ -39,10 +39,10 @@ if __name__ == "__main__" :
         print "Failed to Initialize"
         sys.exit()
 
-    print dg.datagramIn.regions[0][1]
-    print dg.datagramOut.regions[0][1]
-    print dg.datagramIn.length
-    print dg.datagramOut.length
+#    print dg.datagramIn.regions[0][1]
+#    print dg.datagramOut.regions[0][1]
+#    print dg.datagramIn.length
+#    print dg.datagramOut.length
 
     msg = "01934023      7054CT1234564000010000004942360010001676   0        A2T00000000000000201404176666666666666666    0               20                                                                    "
 
@@ -50,6 +50,5 @@ if __name__ == "__main__" :
 
     dg.datagramIn.parser(msg)
     dg.datagramIn.printMsg()
-    print 
     dg.datagramOut.parser(ret)
     dg.datagramOut.printMsg()

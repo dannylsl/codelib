@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import re
 
 # list 索引位置
 ID      = 0
@@ -15,9 +16,10 @@ VALUE   = 6
 class Datagram:
 
     def __init__(self, items) :
-        self.length = 0
-        self.regions = []
-        self.regions_cnt = 0
+        self.length = 0         # 报文长度
+        self.regions = []       # 结构化报文
+        self.regions_cnt = 0    # 报文域数目
+        self.msg = ""           # 存储字符串格式报文
 
         region = list()
         for item in items :
@@ -52,9 +54,10 @@ class Datagram:
     # 对报文进行解析，对应到region结构,并格式化
     def parser(self, msg) :
         global LENGTH
+
         #报文前四个字符表示报文长度
-        if int(msg[0:4]) != self.length :
-            print "Message length[%d] invalid"%int(msg[0:4])
+        if int(msg[0:4]) != self.length or int(msg[0:4]) != len(msg) - 4 :
+            print "Message length[%d] invalid"%len(msg)
             sys.exit()
 
         start_index = 0
@@ -66,11 +69,14 @@ class Datagram:
             else :
                 start_index = end_index
             end_index = start_index + int(self.regions[i][LENGTH])
+
             #print start_index,end_index
             self.regions[i].append(msg[start_index:end_index])
 
         self.msg = msg
 
+
+    # 格式化打印报文
     def printMsg(self) :
         for region in self.regions :
             print "[%3s] %-s %s"%(region[ID], region[ENGLISH].ljust(10), region[VALUE])
